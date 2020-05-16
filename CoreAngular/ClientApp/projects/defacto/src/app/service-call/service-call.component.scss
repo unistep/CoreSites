@@ -1,0 +1,61 @@
+
+
+
+.eid_call_wraper {
+  /*border: solid 1px black;*/
+  border-radius: 4px;
+  margin: 2px;
+  padding: 4px;
+  color: black;
+  vertical-align: middle;
+  height: 59vh;
+  overflow: auto;
+}
+
+#eid_call_table {
+  font-size: 14px;
+  padding: 5px;
+  color: black;
+  /*border: solid 1px gray;
+  border-radius: 6px;
+  text-align: right;*/
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+
+#eid_call_table thead tr th {
+  padding-top: 10px;
+  /*border: solid 1px gray;
+  text-align: center;*/
+  vertical-align: middle;
+  color: red;
+}
+
+#eid_call_table > tbody > tr > td > label{
+  color: red;
+  border: solid 1px black;
+}
+
+#eid_call_table > tbody > tr > td {
+  color: red;
+  border: solid 1px black;
+}
+
+#eid_call_table > tbody > tr {
+  color: red;
+  border: solid 1px black;
+}
+
+bluerow {
+  background-color: cornflowerblue;
+}
+
+whiterow {
+  background-color: white;
+}
+
+.lbhover:hover {
+  background-color: cornflowerblue;
+}

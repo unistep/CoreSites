@@ -1,0 +1,158 @@
+<div id="to_color" class="main_frame" style="overflow:auto !important;" (keydown.enter)="OnSave();">
+  <div class="df_first_panel form-horizontal">
+    <div class="col-12 row">
+      <div class="col-1" style="text-align:center !important">
+        <img src="/assets/img/customer.png" />
+      </div>
+      <div class="col-3 align-natural">
+        <label id="eid_form_label"
+               style="color:black; font-weight:bold; padding-top:1vh; white-space:nowrap">
+          {{'New_Customer' | translate}}
+        </label>
+      </div>
+      <div class="col-5">
+      </div>
+    </div>
+  </div>
+
+  <div id="eid_desktop">
+    <div class="df_second_panel" style="padding-right:2vw;padding-left:2vw;white-space: nowrap;">
+      <div class="row form-group col-12" style="padding-top:3vh;">
+        <div class="input-group">
+          <label class="col-3 label-align-opposite" style="color:white;">{{'First_Name' | translate}}</label>
+          <input class="col-3 df_input" id="eid_first_name" type="text" style="height:7vh; width:14vw;" />
+          <label class="col-3 label-align-opposite" style="color:white;">{{'Last_Name' | translate}}</label>
+          <input class="col-3 df_input" id="eid_last_name" type="text" style="height:7vh; width:14vw;" />
+        </div>
+      </div>
+      <div class="row form-group col-12" style="padding-top: 3vh;">
+        <div class="input-group">
+          <label class="col-3 label-align-opposite" style="color:white;">{{'Cellular' | translate}}</label>
+          <input class="col-3 df_input" id="eid_cellular" type="text" style="height:7vh; width:14vw;"
+                 value="{{this.ugs.queryParam('phoneNumber')}}" />
+          <label class="col-3 label-align-opposite" style="color:white;">{{'Date_Of_Birth' | translate}}</label>
+          <div class="col-3" style="white-space:nowrap !important;">
+            <div class="col-12 " style="margin-right:-2vw;margin-left:0; white-space:nowrap !important;">
+              <input id="eid_birth_year" type="number" min="1900" max="2020" placeholder="{{'Year' | translate}}"
+                     class="col-5 df_input" style="margin:0;height:7vh;" />
+              <input id="eid_birth_month" type="number" min="1" max="12" placeholder="{{'Month' | translate}}"
+                     class="col-3 df_input" style="margin-right:2.5vw; height:7vh;" />
+              <input id="eid_birth_day" type="number" min="1" max="31" placeholder="{{'Day' | translate}}"
+                     class="col-3 df_input" style="margin-right:2.5vw; height:7vh;" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-group col-12" style="padding-top: 3vh;">
+        <div class="input-group">
+          <label class="col-3 label-align-opposite" style="color:white;">{{'Email' | translate}}</label>
+          <input class="col-9 df_input" id="eid_email" type="text" style="height:7vh; width:14vw;" />
+        </div>
+      </div>
+      <div class="row form-group col-12" style="padding-top: 3vh;">
+        <div class="input-group">
+          <label class="col-3 label-align-opposite" style="color:white;">{{'TZ' | translate}}</label>
+          <input class="col-3 df_input" id="eid_tz" type="text" style="height:7vh; width:14vw;" />
+          <label class="col-3 label-align-opposite" style="color:white;">{{'Card' | translate}}</label>
+          <input class="col-3 df_input" id="eid_card" type="text" style="height:7vh; width:14vw;" />
+        </div>
+      </div>
+    </div>
+    <div id="to_color" class="row form-group col-12 form-horizontal" style="position:absolute;bottom:3.5vh;">
+      <div class="col-2">
+        <button class="btn df_button_green" (click)="OnSave()">
+          {{'Save' | translate}}
+        </button>
+      </div>
+      <div class="col-8">
+      </div>
+      <div class="col-2">
+        <button class="btn df_button_gray" (click)="OnExit()">
+          {{'Exit' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="eid_mobile">
+    <div class="df_second_panel form-group"
+         style="padding-right:2vw; padding-left:2vw; padding-top:2vh; padding-bottom:2vh;white-space:nowrap;">
+      <div class="row input-group col-12" style="padding-top:1vh;">
+        <label class="col-4 label-align-opposite" style="padding-top:2vh;color:white;">
+          {{'First_Name' | translate}}
+        </label>
+        <input class="col-8 df_input" id="eid_first_name" type="text" style="height:6vh; width:28vw;" />
+      </div>
+      <div class="row input-group col-12" style="padding-top:1vh;">
+        <label class="col-4 label-align-opposite" style="padding-top:2vh;color:white;">
+          {{'Last_Name' | translate}}
+        </label>
+        <input class="col-8 df_input" id="eid_last_name" type="text" style="height:6vh; width:28vw;" />
+      </div>
+      <div class="row input-group col-12" style="padding-top:1vh;">
+        <label class="col-4 label-align-opposite" style="padding-top:2vh;color:white;">
+          {{'Cellular' | translate}}
+        </label>
+        <input class="col-8 df_input" id="eid_cellular" type="text" style="height:6vh; width:28vw;"
+               value="{{this.ugs.queryParam('phoneNumber')}}" />
+      </div>
+      <div class="row input-group col-12" style="padding-top:1vh;">
+        <label class="col-4 label-align-opposite" style="padding-top:2vh;color:white;">
+          {{'Email' | translate}}
+        </label>
+        <input class="col-8 df_input" id="eid_email" type="text" style="height:6vh; width:28vw;" />
+      </div>
+      <div class="row input-group col-12" style="padding-top:1vh;">
+        <label class="col-4 label-align-opposite" style="padding-top:2vh;color:white;">
+          {{'Date_Of_Birth' | translate}}
+        </label>
+        <div class="col-8">
+          <div class="input-group" style="margin:0; -webkit-align-content:start !important;">
+            <div class="col-12" style="margin:0;">
+              <input id="eid_birth_year" type="number" min="1900" max="2020" placeholder="{{'Year' | translate}}"
+                     class="col-6 df_input" style="width:20vw !important; height:6vh;" />
+              <input id="eid_birth_month" type="number" min="1" max="12" placeholder="{{'Month' | translate}}"
+                     class="col-3 df_input" style="-webkit-margin-start:2.5vw; width:20vw; height:6vh;" />
+              <input id="eid_birth_day" type="number" min="1" max="31" placeholder="{{'Day' | translate}}"
+                     class="col-3 df_input" style="-webkit-margin-start:2.5vw; width:20vw; height:6vh;" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row input-group col-12" style="padding-top:1vh;">
+        <label class="col-4 label-align-opposite" style="padding-top:2vh;color:white;">
+          {{'Email' | translate}}
+        </label>
+        <input class="col-8 df_input" id="eid_email" type="text" style="height:6vh; width:28vw;" />
+      </div>
+      <div class="row input-group col-12" style="padding-top:1vh;">
+        <label class="col-4 label-align-opposite" style="padding-top:2vh;color:white;">
+          {{'TZ' | translate}}
+        </label>
+        <input class="col-8 df_input" id="eid_tz" type="text" style="height:6vh; width:28vw;" />
+      </div>
+      <div class="row input-group col-12" style="padding-top:1vh;" hidden>
+        <label class="col-4 label-align-opposite" style="padding-top:2vh;color:white;">
+          {{'Card' | translate}}
+        </label>
+        <input class="col-8 df_input" id="eid_card" type="text" style="height:6vh; width:28vw;" />
+      </div>
+    </div>
+
+    <div id="to_color" class="row form-group col-12 form-horizontal" style="position:absolute;bottom:3.5vh;">
+      <div class="col-4">
+        <button class="btn df_button_green" style="width: 30vw;" (click)="OnSave()">
+          {{'Save' | translate}}
+        </button>
+      </div>
+      <div class="col-4">
+      </div>
+      <div class="col-4">
+        <button class="btn df_button_gray" style="width: 30vw;" (click)="OnExit()">
+          {{'Exit' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

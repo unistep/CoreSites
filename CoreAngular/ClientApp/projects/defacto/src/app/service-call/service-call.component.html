@@ -1,0 +1,421 @@
+<div id="eid_desktop" class="main_frame" (keydown.enter)="DoFilter();">
+  <div class="df_lframe">
+    <div class="df_first_panel">
+      <div class="row form-group col-12" style="padding-top:.5vh;">
+        <div class="col-2 input-group">
+          <button id="eid_service_call" class="btn df_button_blue"
+                  (click)="ChangeTicketType('0')">
+            {{'Service_Call' | translate}}
+          </button>
+        </div>
+        <div class="col-2 input-group">
+          <button id="eid_orders" class="btn df_button_trans"
+                  (click)="ChangeTicketType('2')">
+            {{'Orders' | translate}}
+          </button>
+        </div>
+        <div class="col-4" style="white-space: nowrap;">
+          <div class="eid_new_call" (click)="DoNewTicket('ServiceCalls')" style="white-space: nowrap;padding-top:.5vh;">
+            <label style="color:white;font-weight:bold; font-size:large; padding-top:.5vh; padding-left:2vw;padding-right:2vw;">
+              {{'Open_New_Call' | translate}}
+            </label>
+            <img src="/assets/img/lc_control_point_24px.png" />
+          </div>
+        </div>
+        <div class="col-4" style="white-space: nowrap;">
+          <div class="eid_new_order" (click)="DoNewTicket('Orders')" style="white-space: nowrap;padding-top:.5vh;">
+            <label style="color:white;font-weight:bold; font-size:large; padding-top:.5vh; padding-left:2vw;padding-right:2vw;">
+              {{'New_Order' | translate}}
+            </label>
+            <img src="/assets/img/lc_control_point_24px.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="df_second_panel">
+      <div class="row form-group col-12" style="padding-top:1.5vh;white-space:nowrap;">
+        <div class="col-2 input-group">
+          <label class="label-align-natural" style="color:white;">{{'Customer' | translate}}</label>
+        </div>
+        <div class="col-2 input-group">
+          <label class="label-align-natural" style="color:white;">{{'Service_Call_ID' | translate}}</label>
+        </div>
+        <div class="col-2 input-group">
+          <label class="label-align-natural" style="color:white;">{{'Status' | translate}}</label>
+        </div>
+        <div class="col-2 input-group">
+          <label id="eid_vendor_label" class="label-align-natural" style="color:white;">{{'Vendor_Name' | translate}}</label>
+        </div>
+        <div class="col-2 input-group">
+          <label id="eid_filter_label" class="label-align-natural" style="color:white;">{{'Category' | translate}}</label>
+        </div>
+        <div class="col-2 input-group" style="margin-top:1vh;white-space:nowrap;">
+        </div>
+      </div>
+
+      <div class="row form-group col-12" style="margin-top:-1.5vh;">
+        <div class="col-2 input-group">
+          <input type="tel" id="eid_customer_phone"
+                 class="cl_customer df_input" maxlength="10" 
+                 style="height:7vh;width:14vw;" autocomplete="off"
+                 placeholder="{{'Customer_Phone' | translate}}">
+
+          <ng-select id="eid_customers" class="cl_vendor df_input"
+                     [items]="customers"
+                     [clearable]="false"
+                     bindLabel="Description"
+                     [(ngModel)]="selectedCustomer"
+                     (change)="onChange($event)">
+          </ng-select>
+        </div>
+        <div class="col-2 input-group">
+          <input id="eid_call_number" class="df_input" style="height:7vh;width:14vw;" placeholder="{{'Service_Call_ID' | translate}}">
+        </div>
+        <div class="col-2 input-group">
+          <ng-select id="eid_service_call_status" class="df_input"
+                     [items]="status"
+                     [clearable]="false"
+                     bindLabel="name"
+                     [(ngModel)]="selectedStatus"
+                     (change)="onChange($event)"
+                     [searchable]="false">
+          </ng-select>
+        </div>
+        <div class="col-2 input-group">
+          <ng-select id="eid_vendors" class="df_input"
+                     [items]="vendors"
+                     [clearable]="false"
+                     bindLabel="Description"
+                     [(ngModel)]="selectedVendor"
+                     (change)="onChange($event)">
+          </ng-select>
+        </div>
+        <div class="col-2 input-group">
+          <ng-select id="eid_categories" class="df_input"
+                     [items]="categories"
+                     [clearable]="false"
+                     bindLabel="Description"
+                     [(ngModel)]="selectedCategory"
+                     (change)="onChange($event)"
+                     [searchable]="false">
+          </ng-select>
+        </div>
+        <div class="col-1 input-group">
+          <button class="btn df_button_green" style="width:10vw; height:7vh" (click)="DoFilter();">
+            {{'Filter' | translate}}
+          </button>
+        </div>
+        <div class="col-1 input-group">
+          <button id="eid_pdf" class="btn df_button_green" style="width:10vw; height:7vh" (click)="DoPDF();">
+            PDF
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="to_color" class="eid_call_wraper form-horizontal">
+      <table id="eid_call_table" class="service_call_grid" data-bind="Tickets">
+        <thead>
+          <tr>
+            <th style="width: 10%" data-bind="TicketSysId" class="thtd-align-natural" (click)="sortTable(0, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Service_Call_ID' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="MemberName" class="thtd-align-natural" (click)="sortTable(1, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Customer_Name' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="OwnerName" class="thtd-align-natural" (click)="sortTable(2, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Vendor_Name' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="ItemDescription" class="thtd-align-natural" (click)="sortTable(3, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Item_Type' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="TicketTypeDescription" class="thtd-align-natural" (click)="sortTable(4, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Service_Call_Type' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="CreatedDate" class="thtd-align-natural" (click)="sortTable(5, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Service_Call_Time_Created' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="TicketStatus" class="thtd-align-natural" (click)="sortTable(6, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Status' | translate}}</label>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="eid_mobile" class="main_frame" (keydown.enter)="DoFilter();">
+  <div class="df_lframe">
+    <div class="df_first_panel">
+      <div class="row form-group col-12" style="padding-top:.5vh;">
+        <div class="col-3 input-group">
+          <button id="eid_service_call" class="btn df_button_blue" style="width:20vw;"
+                  (click)="ChangeTicketType('0')">
+            {{'Service_Call' | translate}}
+          </button>
+        </div>
+        <div class="col-3 input-group">
+          <button id="eid_orders" class="btn df_button_trans" style="width:20vw;"
+                  (click)="ChangeTicketType('2')">
+            {{'Orders' | translate}}
+          </button>
+        </div>
+        <div class="col-3" style="margin:0; white-space: nowrap;">
+          <div class="eid_new_call input-group" (click)="DoNewTicket('ServiceCalls')" style="text-align:start; padding-top:.5vh;">
+            <img src="/assets/img/lc_control_point_24px.png" height="24" width="24"/>
+            <span style="color:white;">{{'Open_New_Call' | translate}}</span>
+          </div>
+        </div>
+        <div class="col-3" style="margin:0; white-space: nowrap;">
+          <div class="eid_new_order input-group" (click)="DoNewTicket('Orders')" style="text-align:end; padding-top:.5vh;">
+            <img src="/assets/img/lc_control_point_24px.png" height="24" width="24"/>
+            <label style="color:white;">{{'New_Order' | translate}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="df_second_panel">
+      <div class="row form-group col-12" style="margin-top:1.5vh;">
+        <div class="col-3 input-group">
+          <button id="eid_advanced_search" class="btn df_button_blue" style="width:20vw;"
+                  (click)="DoAdvancedSearch()">
+            {{'Advanced_Search' | translate}}
+          </button>
+        </div>
+        <div class="col-5 input-group">
+          <input type="number" id="eid_call_number" class="df_input" style="height:7vh;width:28vw;" placeholder="{{'Service_Call_ID' | translate}}">
+        </div>
+        <div class="col-2 input-group">
+          <button class="btn df_button_green" style="width:10vw;" (click)="DoFilter();">
+            {{'Filter' | translate}}
+          </button>
+        </div>
+
+        <div class="col-2 input-group">
+          <button id="eid_pdf" class="btn df_button_green" style="width:10vw; height:7vh" (click)="DoPDF();">
+            PDF
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="to_color" class="eid_call_wraper form-horizontal">
+      <table id="eid_call_table" class="service_call_grid" data-bind="Tickets">
+        <thead>
+          <tr>
+            <th style="width: 10%" data-bind="TicketSysId" class="thtd-align-natural" (click)="sortTable(0, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Service_Call_ID' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="MemberName" class="thtd-align-natural" (click)="sortTable(1, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Customer_Name' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="OwnerName" class="thtd-align-natural" (click)="sortTable(2, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Vendor_Name' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="ItemDescription" class="thtd-align-natural" (click)="sortTable(3, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Item_Type' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="TicketTypeDescription" class="thtd-align-natural" (click)="sortTable(4, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Service_Call_Type' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="CreatedDate" class="thtd-align-natural" (click)="sortTable(5, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Service_Call_Time_Created' | translate}}</label>
+            </th>
+            <th style="width: 15%" data-bind="TicketStatus" class="thtd-align-natural" (click)="sortTable(6, 'eid_call_table')">
+              <label class="thtd-align-natural">{{'Status' | translate}}</label>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal" id="advanced-search-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content df_lframe">
+        <div class="modal-header" style="height:70px !important">
+          <div class="row form-group col-12">
+            <div class="col-11 input-group" style="text-align:center;">
+              <label style="color: black; font-size: x-large;
+                      font-weight: bold;">{{'Advanced_Search' | translate}}</label>
+            </div>
+            <div class="col-1" style="text-align:left;">
+              <button id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row input-group col-12" style="padding-top: 20px;">
+            <label class="col-4 label-align-opposite" style="padding-top:2vh;color:black; font-weight:bolder;">
+              {{'Call_Number' | translate}}
+            </label>
+            <input type="number" id="eid_call_number_m" class="col-8 df_input" style="height:7vh;width:28vw;" placeholder="{{'Call_Number' | translate}}">
+          </div>
+          <div class="row input-group col-12" style="padding-top: 20px;">
+            <label class="col-4 label-align-opposite" style="padding-top:2vh; color:black; font-weight:bolder;">
+              {{'Customer' | translate}}
+            </label>
+            <input type="tel" id="eid_customer_phone"
+                   class="cl_customer col-8 df_input" maxlength="10" 
+                   style="height:7vh; width:28vw;" autocomplete="off"
+                   placeholder="{{'Customer_Phone' | translate}}">
+
+            <ng-select id="eid_customers" class="cl_vendor col-8 df_input"
+                       [items]="customers"
+                       [clearable]="false"
+                       bindLabel="Description"
+                       [(ngModel)]="selectedCustomer"
+                       (change)="onChange($event)">
+            </ng-select>
+          </div>
+          <div class="row input-group col-12" style="padding-top: 20px;">
+            <label class="col-4 label-align-opposite" style="padding-top:2vh;color:black; font-weight:bolder;">
+              {{'Status' | translate}}
+            </label>
+            <ng-select id="eid_service_call_status" class="col-8 df_input"
+                       [items]="status"
+                       [clearable]="false"
+                       bindLabel="name"
+                       [(ngModel)]="selectedStatus"
+                       (change)="onChange($event)"
+                       [searchable]="false">
+            </ng-select>
+          </div>
+          <div class="row input-group col-12" style="padding-top: 20px;">
+            <label class="col-4 label-align-opposite" style="padding-top:2vh;color:black; font-weight:bolder;">
+              {{'Vendor_Name' | translate}}
+            </label>
+            <ng-select id="eid_vendors" class="col-8 df_input"
+                       [items]="vendors"
+                       [clearable]="false"
+                       bindLabel="Description"
+                       [(ngModel)]="selectedVendor"
+                       (change)="onChange($event)">
+            </ng-select>
+          </div>
+
+          <div class="row input-group col-12" style="padding-top: 20px;">
+            <label class="col-4 label-align-opposite" style="padding-top:2vh;color:black; font-weight:bolder;">
+              {{'Category' | translate}}
+            </label>
+            <ng-select id="eid_categories" class="col-8 df_input"
+                       [items]="categories"
+                       [clearable]="false"
+                       bindLabel="Description"
+                       [(ngModel)]="selectedCategory"
+                       (change)="onChange($event)"
+                       [searchable]="false">
+            </ng-select>
+          </div>
+
+          <div class="row form-group col-12" style="padding-top: 20px;">
+            <div class="col-6 input-group">
+              <button class="btn df_button_green" style="width:30vw;" (click)="AdvancedSearchDone(true)">
+                {{'Filter' | translate}}
+              </button>
+            </div>
+            <div class="col-6 input-group">
+              <button class="btn df_button_gray" style="width:30vw;" (click)="AdvancedSearchDone(false)">
+                {{'Cancel' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="send-sms-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content df_lframe">
+      <div class="modal-header" style="height:70px !important">
+        <div class="row form-group col-12">
+          <div class="col-11 input-group" style="text-align:center;">
+            <label style="    color: black;
+    font-size: x-large;
+    font-weight: bold;">{{'Send_Sms' | translate}}</label>
+          </div>
+          <div class="col-1" style="text-align:left;">
+            <button id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row form-group col-12" style="padding-top: 20px;">
+          <p>
+            <textarea id="eid_send_sms_message" type="text" class="df_input"
+                      style="background:#C5C5C5; width:300px; height:120px;"></textarea>
+          </p>
+        </div>
+        <div class="row form-group col-12" style="padding-top: 20px;">
+          <div class="col-6 input-group">
+            <button class="btn df_button_green" style="width:30vw;" (click)="OnSendSmsDone(true)">
+              {{'Confirm' | translate}}
+            </button>
+          </div>
+          <div class="col-6 input-group">
+            <button class="btn df_button_gray" style="width:30vw;"  (click)="OnSendSmsDone(false)">
+              {{'Cancel' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="history-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content df_lframe">
+      <div class="modal-header" style="height:70px !important">
+        <div class="row form-group col-12">
+          <div class="col-11 input-group" style="text-align:center;">
+            <label style="color: black; font-size: x-large; font-weight: bold;">{{'History' | translate}}</label>
+          </div>
+          <div class="col-1" style="text-align:left;">
+            <button id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row form-group col-12">
+          <table id="eid_history_table" style="background: #C5C5C5;">
+            <thead>
+              <tr>
+                <th style="width: 280px" data-bind="CreatedDate" class="thtd-align-natural">
+                  <label class="thtd-align-natural">{{'Date' | translate}}</label>
+                </th>
+                <th style="width: 300px" data-bind="Description" class="thtd-align-natural">
+                  <label class="thtd-align-natural">{{'Description' | translate}}</label>
+                </th>
+                <th style="width: 100px" data-bind="UserName" class="thtd-align-natural">
+                  <label class="thtd-align-natural">{{'UserName' | translate}}</label>
+                </th>
+              </tr>
+            </thead>
+          </table>
+          <div class="row form-group col-12" style="padding-top: 20px;">
+            <div class="col-3 input-group">
+            </div>
+            <div class="col-6">
+              <button class="btn df_button_gray" style="width:10vw;"  (click)="OnHistoryDone()">
+                {{'Back' | translate}}
+              </button>
+            </div>
+            <div class="col-3 input-group">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,98 @@
+.login-container {
+  background: #111;
+  background-repeat: repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow:auto;
+}
+
+.login-blc {
+  background: #252525;
+  height: 100vh;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  overflow: auto !important;
+}
+
+.logo-blc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 75%;
+  }
+}
+
+.content-margin {
+  margin: 0 5px;
+
+  .input-blc-margin{
+      margin: 15px 0;
+  }
+}
+
+.login-input {
+  height: 30px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 8px 10px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.input-blc {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-direction {
+  flex-direction: column;
+}
+
+// TODO move to common css file
+.label-style {
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.display-flex {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  height: 60px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  background: #555555;
+  opacity: 0.9;
+  font-weight: bold;
+  font-size: 20px;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.blue-btn {
+  @extend .btn;
+  margin-top: 30px;
+  background: #0092D1;
+}

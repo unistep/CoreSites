@@ -1,0 +1,40 @@
+<pos-popup [title]="'צילום פריט' | translate"
+           iconUrl="cameraIcon"
+           [rightButton]="{class:'btn df_button_green save_button', text: 'Save' | translate}"
+           (rightClick)="closeModal()"
+           [leftButton]="{class:'btn df_button_gray', text: 'Exit' | translate}"
+           (leftClick)="close()">
+  <div class="camera-blc">
+    <webcam [trigger]="triggerObservable"
+            (imageCapture)="handleImage($event)"
+            (initError)="handleInitError($event)"
+            [height]="450" [width]="450">
+    </webcam>
+    <div class="col-12 input-group">
+      <div class="col-9"></div>
+
+      <div class="col-1" (click)="takePhoto()"
+           style="white-space: nowrap; ">
+        <img src="/assets/img/cameraIcon.png" height=38 width="38"/>
+      </div>
+      <div style="width:15px;"></div>
+      <div class="col-1" (click)="uploadPhoto()"
+           style="padding-top:6px;">
+        <img src="/assets/img/attachment_2.png" height=30 width="30"/>
+      </div>
+    </div>
+    <div class="photos-blc">
+      <div class="img-blc"
+           *ngFor="let image of images; let i = index;"
+           (mouseenter)="checkDisplay(i)"
+           (mouseleave)="checkDisplay(i)">
+        <div class="delete-img-blc" *ngIf="image.MouseOver" (click)="deletePhoto(i)">
+          <img src="/assets/img/deleteItem.png"/>
+        </div>
+        <img class="photo-img"
+             src="{{image.Data}}" />
+      </div>
+    </div>
+  </div>
+  <input type="file" id="filetag" (change)="changeImage($event)" hidden>
+</pos-popup>

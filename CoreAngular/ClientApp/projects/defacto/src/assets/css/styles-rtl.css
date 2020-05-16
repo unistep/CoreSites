@@ -1,0 +1,195 @@
+.stick-end {
+  padding-right: 0;
+  padding-left: 25vw;
+}
+
+.label-align-natural {
+  text-align: right;
+}
+
+.label-align-opposite {
+  text-align: left;
+}
+
+.navbar_opposite {
+  margin-left: 0;
+  margin-right: 60vw;
+}
+
+.align-opposite {
+  text-align: left;
+}
+
+.align-natural {
+  text-align: right;
+}
+
+.float-opposite {
+  float: left;
+}
+
+.icon-align-natural {
+  text-align: right;
+  padding-left: initial;
+  padding-right: 20px;
+}
+
+/*.icon-align-opposite {
+  right: unset;
+  left: 50px;
+  color: red;
+}*/
+
+p, h2, h4, h5, address {
+  text-align: right;
+}
+
+#eid_two_factor_authentication {
+  text-align: right;
+}
+
+#eid_enable_authenticator p {
+  text-align: right;
+  margin-left: 0px;
+  margin-right: 5px;
+}
+
+#eid_enable_authenticator ol li p {
+  text-align: right;
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+#eid_manage_nav li a {
+  padding-right: 0px;
+  padding-left: 20px;
+}
+
+#eid_manage_nav li {
+  text-align: right;
+}
+
+.text-danger {
+  text-align: right !important;
+}
+
+.navbar-nav .nav-link, .dropdown-menu .nav-link {
+  text-align: right;
+}
+
+.icon-align-opposite {
+  position: absolute;
+  left: 5px;
+  right: initial;
+}
+
+.second-icon-align-opposite {
+  position: absolute;
+  left: 20px;
+  right: initial;
+}
+
+.brand-header {
+  text-align: right;
+  background: url('/./Images/brand_logo.png'); /* careful its relative */
+  background-repeat: no-repeat;
+  background-size: 80px 40px !important;
+  background-position: left center;
+}
+
+ng-select-results {
+  text-align: right;
+}
+
+ng-select {
+  text-align: right;
+}
+
+ng-select-container ng-select-selection--single {
+  text-align: right;
+}
+
+ng-select-search--dropdown ng-select-search__field {
+  text-align: right;
+}
+
+.eid_ok:before {
+  float: left;
+  margin-left: 10px;
+}
+
+
+.eid_next:before {
+  float: left;
+  margin-left: 10px;
+  font-family: "FontAwesome";
+  content: " \f0a5";
+}
+
+
+.eid_prev:before {
+  float: right;
+  margin-right: 10px;
+  font-family: "FontAwesome";
+  content: "\f0a4";
+}
+
+
+.radio-inline label {
+  padding-left: 20px;
+  padding-right: 0px;
+}
+
+
+.nav-tabs {
+  width: 200%;
+}
+
+
+.nav-tabs > li {
+  border-right: 0;
+  border-left: 2px solid lightgray;
+}
+
+
+.nav_back {
+  position: absolute;
+  right: 5px;
+  left: initial;
+  top: 5px;
+  color: white;
+  font-size: 16px;
+  z-index: 99;
+}
+
+.nav_forw {
+  position: absolute;
+  left: 5px;
+  right: initial;
+  top: 5px;
+  color: white;
+  font-size: 16px;
+}
+
+.datepicker-dropdown {
+  right: 30vw !important;
+}
+
+.r_input {
+  padding-right: 10px;
+  padding-left: 25px;
+  text-align:right;
+}
+
+.date {
+  direction: ltr;
+}
+
+.cameraFrame {
+  padding: 5px 10px 0 0 !important;
+}
+
+.thtd-align-natural {
+  text-align: right;
+}
+

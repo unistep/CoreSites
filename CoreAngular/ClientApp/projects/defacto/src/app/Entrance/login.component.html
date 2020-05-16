@@ -1,0 +1,56 @@
+<div class="main_frame" style="
+            background-image: URL('/assets/img/login_1.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;"  >
+
+  <div style="margin-top:5vh;"
+       (keydown.enter)="onLogin();">
+    <div style="color:white; font-size:xx-large; text-align:center;">
+      {{'Customer_Service' | translate}}
+    </div>
+
+    <div class="row form-group col-12" style="padding-top:30px;">
+      <div class="col-4"></div>
+      <div class="col-4 align-natural">
+        <label style="color:white; white-space:nowrap;">
+          {{'UserName' | translate}}:
+        </label>
+      </div>
+      <div class="col-4"></div>
+    </div>
+    <div class="row col-12" style="margin-top:-15px;">
+      <div class="col-4"></div>
+      <div class="col-4 align-natural">
+        <input id="eid_name" class="login-input" style="width:200px;" />
+      </div>
+      <div class="col-4"></div>
+    </div>
+
+    <div class="row form-group col-12" style="padding-top:20px;">
+      <div class="col-4"></div>
+      <div class="col-4 align-natural">
+        <label style="color:white; white-space:nowrap;">
+          {{'Password' | translate}}:
+        </label>
+      </div>
+      <div class="col-4"></div>
+    </div>
+    <div class="row col-12" style="margin-top:-15px;">
+      <div class="col-4"></div>
+      <div class="col-4 align-natural">
+        <input class="login-input" id="eid_password" style="width:200px;" type="password" />
+      </div>
+      <div class="col-4"></div>
+    </div>
+    <div class="row form-group col-12" style="padding-top:10px;">
+      <div class="col-4"></div>
+      <div class="col-4 align-natural">
+        <button class="blue-btn" style="width:200px;"
+                (click)="onLogin();">
+          {{'Submit' | translate}}
+        </button>
+      </div>
+      <div class="col-4"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="row form-group col-12">
+  <div class="col-4">
+    <div class="input-group">
+      <input type="button" class="btn btn-primary btn-block r_input clicked" value="{{label | translate}}" />
+      <span class="input-group-addon">
+        <i class="{{icon}} icon-align-opposite" style="color: white" aria-hidden="true"></i>
+      </span>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="input-group">
+      <input id="{{elementID}}" type=text class="form-control r_input" [attr.data-bind]="boundColumn"
+             placeholder="{{label | translate}}" onfocus="blur()" dir=ltr />
+      <span class="input-group-addon"><i class="{{icon}} icon-align-opposite" aria-hidden="true"></i></span>
+    </div>
+  </div>
+</div>

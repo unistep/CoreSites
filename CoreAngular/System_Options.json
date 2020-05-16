@@ -1,0 +1,94 @@
+{
+	"OnErrorNotify": "+972544719550",
+	"ListenTo": 0,
+	"Refresh": 30,
+	"Repeat": 300,
+	"DefaultLanguage": "Hebrew",
+	"RegistrationPolicy": "Admin",
+	"AppFolder": "",
+	"ClearingVendor": "Tranzila",
+	"SmsVendor": "MicroPay",
+	"EmailVendor": "Gmail",
+	"FtpUserName": "unistep@unistep.co.il",
+	"FtpServerPassword": "Iec_110077",
+
+	"Databases": [
+		{
+			"DatabaseName": "UnistepFW_DB",
+			"ConnectionString": "Data Source=.\\SQLEXPRESS; Initial Catalog=UnistepFW_DB; User ID=sa; Password=Iec11077;"
+		}
+	],
+
+	"ProductKeys": [
+		{
+			"Name": "Infragistics",
+			"Key": "930912003565745603"
+		},
+		{
+			"Name": "GoogleTranslate",
+			"Key": "AIzaSyAazIw6Ot3KqDagi9tBwPCeTHqzaQcDc6I"
+		},
+		{
+			"Name": "GoogleMaps",
+			"Key": "AIzaSyCcFSmbfCJWDk3VDPu78X43YB8V8T7DvI8"
+		}
+	],
+	"ClearingServices": [
+		{
+			"ServiceName": "Tranzila",
+			"EndpointURL": "https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi",
+			"TerminalID": "testp54",
+			"Password": "NiQwWXe",
+			"Company": "Unistep",
+			"Currency": "1"
+		},
+		{
+			"ServiceName": "Pelecard",
+			"EndpointURL": "https//gateway20.pelecard.biz/services/",
+			"TerminalID": "0962210",
+			"Password": "Test1Test",
+			"Company": "shachartest",
+			"Currency": "1"
+		},
+		{
+			"ServiceName": "YaadPay",
+			"EndpointURL": "https//icom.yaad.net/cgi-bin/yaadpay/yaadpay3new.pl/",
+			"TerminalID": "0010055816",
+			"Password": "d3c126io",
+			"Company": "UuZro",
+			"Currency": "1"
+		}
+	],
+	"SmsServices": [
+		{
+			"ServiceName": "MicroPay",
+			"ServiceKeys": "Unistep, 2842",
+			"CallerNumber": "0541234567"
+		},
+		{
+			"ServiceName": "ClickAtell",
+			"ServiceKeys": "Unistep, DgWHbIRTJXdAKE, 3478460",
+			"CallerNumber": "0541234567"
+		},
+		{
+			"ServiceName": "InforUMobile",
+			"ServiceKeys": "shaharch, 3303940",
+			"CallerNumber": "0541234567"
+		}
+	],
+
+	"EmailServices": {
+		"Gmail": {
+			"PrimaryDomain": "smtp.gmail.com",
+			"PrimaryPort": "587",
+			"UsernameEmail": "unistepil@gmail.com",
+			"UsernamePassword": "Iec_110077",
+			"FromEmail": "Unistep Information Systems LTD."
+		},
+		"SendGrid": {
+			"SendGridUser": "unistep",
+			"SendGridKey": "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",
+			"SendGridSender": "unistep@unistep.co.il"
+		}
+	}
+}

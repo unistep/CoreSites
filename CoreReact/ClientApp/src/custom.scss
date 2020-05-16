@@ -1,0 +1,323 @@
+/*@import "../node_modules/ngx-bdir/styles/bdir.mixins.scss";*/
+
+.stick-end {
+    padding-right: 25vw;
+    /*@include padding-start(20px);*/
+}
+
+* {
+    box-sizing: border-box;
+}
+.high-light {
+    background-color: lightblue !important;
+    color: white !important;
+}
+
+
+.label-align-natural {
+    text-align: left;
+    padding-top: 7px;
+    white-space: nowrap;
+    color: royalblue;
+}
+
+.label-align-center {
+    text-align: center;
+    white-space: nowrap;
+    font-family: "Trebuchet MS", Arial, Tahoma, sans-serif;
+    font-size: 1em;
+    font-weight: 100 !important;
+    line-height: 2em;
+    width: 100%;
+    padding-top: 7px;
+    color: royalblue;
+}
+
+.label-align-opposite {
+    text-align: right;
+    white-space: nowrap;
+    padding-top: 7px;
+    padding-right: unset;
+    color: royalblue;
+}
+
+.icon-align-natural {
+    text-align: left;
+    vertical-align: middle;
+    padding-left: 25px;
+    color: cornflowerblue;
+}
+
+.icon-align-opposite {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    pointer-events: none;
+    color: cornflowerblue;
+    font-size: 16px;
+}
+
+.second-icon-align-opposite {
+    position: absolute;
+    right: 25px;
+    top: 10px;
+    pointer-events: none;
+    color: cornflowerblue;
+    font-size: 16px;
+}
+
+.btn-primary {
+    border-radius: 6px !important;
+}
+
+#eid_pb_frame {
+    background-color: lightgray;
+    border-radius: 20px;
+    padding: 4px;
+}
+
+#eid_pb_bar {
+    background-color: #4681da;
+    width: 1%;
+    height: 16px;
+    border-radius: 10px;
+}
+
+.navbar-nav > li > a {
+    white-space: nowrap;
+}
+
+.navbar-nav .nav-link:hover, .navbar-brand:hover {
+    background-color: lightgray;
+}
+
+.ng-dropdown-panel {
+    padding: 5px;
+    border: 1px solid mediumblue;
+    border-radius: 6px;
+    z-index: 999;
+    min-width: 100%;
+    background-color: white;
+}
+
+body {
+    height: 99vh;
+    margin: 2px;
+    padding: 2px;
+    background: white;
+    border: 1px solid red;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.main_frame {
+    margin-top: -10px;
+    max-height: 88vh;
+    min-height: 88vh;
+    height: 88vh;
+    border: 2px solid royalblue;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.lframe {
+    min-height: 86vh;
+    max-height: 86vh;
+    height: 86vh;
+    margin: 2px;
+    padding: 4px;
+    border: 1px solid green;
+    border-radius: 6px;
+    overflow: auto;
+}
+
+.rframe {
+    min-height: 86vh;
+    max-height: 86vh;
+    height: 86vh;
+    margin: 2px;
+    padding: 4px;
+    border: 1px solid green;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.tframe {
+    min-height: 70vh;
+    max-height: 70vh;
+    height: 70vh;
+    margin: 5px;
+    padding-top: 10px;
+    border: 1px solid blue;
+    border-radius: 6px;
+    overflow: auto;
+}
+
+h3 {
+    margin-top: 10px;
+    text-decoration: underline;
+    text-align: center;
+}
+
+input[type=checkbox], input[type=radio] {
+    vertical-align: middle;
+    position: relative;
+}
+
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: none;
+    z-index: 9999;
+    display: block;
+}
+
+
+#eid_status_line {
+    position: absolute;
+    bottom: 1vh;
+    left: 1vw;
+}
+
+#eid_site_address {
+    font-size: 12px;
+    text-decoration: underline;
+    color: blue;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+#eid_status_message {
+    font-size: 12px;
+    text-decoration: none;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.tabs-container {
+    border-bottom: 1px solid lightgray !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+}
+
+.nav-tabs {
+    display: -webkit-box;
+    display: -moz-box;
+    border-bottom: none;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 5px;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    width: 200%;
+}
+
+.nav-tabs > li {
+    border-top: 2px solid lightgray;
+    border-right: 2px solid lightgray;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+
+.nav-tabs > li > a {
+    color: blue;
+    font-size: 15px;
+    line-height: 30px;
+    padding: 0px 9px 0px 9px;
+    -webkit-transition: color .15s;
+    -moz-transition: color .15s;
+    -o-transition: color .15s;
+    transition: color .15s;
+    white-space: nowrap;
+}
+
+
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:active,
+.nav-tabs > li > a:focus {
+    color: black;
+}
+
+
+.nav_back {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    color: white;
+    font-size: 16px;
+    z-index: 99;
+}
+
+.nav_forw {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: white;
+    font-size: 16px;
+}
+
+.r_input {
+    padding-right: 25px;
+    text-align: left;
+}
+
+.main_grid_wraper {
+    width: 700px;
+    border-radius: 6px;
+    margin: 2px;
+    padding: 4px;
+    background: cornflowerblue;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+.main_grid {
+    font-size: 12px;
+    padding: 5px;
+    color: white;
+    border: solid 1px gray;
+    border-radius: 6px;
+    text-align: right;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.main_grid > tbody > tr > td {
+    margin: 0 !important;
+    padding-right: 3px;
+    padding-left: 3px;
+    border: solid 1px gray;
+    vertical-align: middle;
+    background-color: white;
+    color: black;
+}
+
+.main_grid > thead > tr > th {
+    padding-top: 10px;
+    border: solid 1px gray;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+}
+
+//
+
+
+.select-items .select-selected {
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: blue;
+    cursor: pointer;
+    user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+     background-color: whitesmoke;
+
+}
+

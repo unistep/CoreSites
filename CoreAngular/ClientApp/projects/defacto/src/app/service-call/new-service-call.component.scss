@@ -1,0 +1,125 @@
+
+.full-size {
+  height: 100px;
+  width: 100px;
+}
+
+
+.cameraFrame {
+  display: inline-block;
+  margin: 1em 1em;
+  padding: 5px 0 0 10px;
+  border: 2px solid blue;
+  border-radius: 2px;
+  text-align: center;
+  vertical-align: middle;
+  width: 20%;
+  min-height: 100px;
+  max-height: 100px;
+  min-width: 20%;
+}
+
+.cameraFrame:active {
+  border: 1px dashed blue;
+}
+
+.cameraFrame input {
+  display: none;
+}
+
+.cameraPhoto {
+  display: none;
+  background-size: cover;
+  background-position: center;
+  width: 95%;
+  min-height: 85px;
+  max-height: 95px;
+  min-width: 95%;
+}
+
+.cameraFrame i.fa {
+  color: cornflowerblue;
+  font-size: 50px;
+  margin-top: 17px;
+}
+
+
+.eid_call_wraper {
+  border: solid 1px black;
+  border-radius: 6px;
+  margin: 2px;
+  padding: 4px;
+  color: black;
+  vertical-align: middle;
+  height: 59vh;
+  overflow: hidden;
+}
+
+#eid_call_table {
+  font-size: 12px;
+  padding: 5px;
+  color: black;
+  /*border: solid 1px gray;
+  border-radius: 6px;
+  text-align: right;*/
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+/*#eid_call_table > tbody > tr {
+  margin-top: 10px;
+  padding-right: 3px;
+  padding-left: 3px;
+  border: solid 1px white;
+  vertical-align: middle;
+  background-color: white;
+  color: black;
+}*/
+
+
+/*#eid_call_table > tbody > tr > td {
+  margin: 0 !important;
+  padding-right: 3px;
+  padding-left: 3px;
+
+  vertical-align: middle;
+  background-color: white;
+  color: black;
+}*/
+
+#eid_call_table > thead > tr > th {
+  padding-top: 10px;
+  /*border: solid 1px gray;
+  text-align: center;*/
+  vertical-align: middle;
+  color: black;
+}
+
+
+.first_panel {
+  border: solid 1px gray;
+  border-radius: 6px;
+  border-color: black;
+}
+
+.second_panel {
+  margin-top: 5px;
+  margin-bottom: -10px;
+  background: black;
+  border: solid 1px gray;
+  border-radius: 6px;
+  border-color: black;
+  color: white;
+}
+
+.third_panel {
+  margin-top: 200px;
+  margin-bottom: -10px;
+  background: #0076a3;
+  border: solid 1px gray;
+  border-radius: 6px;
+  border-color: black;
+  color: white;
+}

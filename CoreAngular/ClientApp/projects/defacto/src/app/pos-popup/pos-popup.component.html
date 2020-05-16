@@ -1,0 +1,46 @@
+<div bdir="start" (keydown)="onKeyDown($event)">
+  <div class="popup-wrapper">
+    <div *ngIf="rightContentTemplate">
+      <ng-template [ngTemplateOutlet]="rightContentTemplate"></ng-template>
+    </div>
+    <div class="left-side-blc">
+      <div class="header-container">
+        <div class="title-block">
+          <img src="/assets/img/{{iconUrl}}.png" />
+          <div class="title">{{title}}</div>
+        </div>
+        <div>
+          <button class="exit-button"
+                      background="exit"
+                      (click)="close()"></button>
+        </div>
+      </div>
+      <ng-content></ng-content>
+
+      <div class="buttons-container"
+           *ngIf="leftButton || rightButton">
+        <button *ngIf="leftButton"
+                class="left-btn"
+                [ngClass]="leftButton.class"
+                (click)="onLeftClick()"
+                [disabled]="!leftButton.canExecute"
+                >{{leftButton.text | translate}}</button>
+        <div class="right-btns-blc">
+          <button class="additional-right-btn"
+                  *ngIf="additionalRightButton"
+                  [ngClass]="additionalRightButton.class"
+                  (click)="onAdditionalRightClick()"
+                  [disabled]="!additionalRightButton.canExecute"
+                  >{{additionalRightButton.text | translate}}</button>
+          <button *ngIf="rightButton"
+                  class="right-btn"
+                  [ngClass]="rightButton.class"
+                  (click)="onRightClick()"
+                  [disabled]="!rightButton.canExecute">
+            {{rightButton.text  | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

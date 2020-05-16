@@ -1,0 +1,104 @@
+
+<header style="margin:0;">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow">
+    <div class="container">
+      <a class="navbar-brand">
+        <img src="/assets/img/de-facto_logo.png" width="100" height="40">
+      </a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item user_name_label">
+            <a class="nav-link" style="white-space: nowrap;color:white;">{{'UserName' | translate}}: </a>
+          </li>
+          <li class="nav-item userName">
+            <label id="eid_user_name" class="nav-link" style="font-weight:bold; white-space:nowrap; color:goldenrod;">{{UserName}}</label>
+          </li>
+          <li class="nav-item logout">
+            <a class="nav-link" style="color: white;" (click)="onLogout()">{{'Logout' | translate}}</a>
+          </li>
+          <li class="nav-item about">
+            <a class="nav-link" style="color: white;" (click)="onAbout()">{{'About' | translate}}</a>
+          </li>
+          <li class="nav-item serviceCall" [routerLinkActive]='["link-active"]'>
+            <a class="nav-link" (click)="toggle()" [routerLink]='["/service-call"]'>{{'Service_Call' | translate}}</a>
+          </li>
+          <li class="nav-item language">
+            <select class="form-control"
+                    [(ngModel)]="this.ufw.ugs.selectedLanguage"
+                    (change)="onChange($event)">
+              <option *ngFor="let supportedLangs of this.ufw.ugs.knownLanguages">
+                {{supportedLangs}}
+              </option>
+            </select>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="modal fade" id="about-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content df_lframe">
+      <div class="modal-header" style="height:70px !important">
+        <div class="row form-group col-12">
+          <div class="col-11 input-group" style="text-align:center;">
+            <label style="color:black; font-size:x-large; font-weight:bold;">{{'About' | translate}}</label>
+          </div>
+          <div class="col-1" style="text-align:left;">
+            <button id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row form-group col-12" style="padding-top: 20px;">
+          <div class="input-group">
+            <label class="label-align-natural" style="color:black;">{{'Customer_Service' | translate}}</label>
+          </div>
+          <div class="row form-group col-12" style="padding-top: 20px;">
+            <div class="col-2 input-group">
+              <label class="label-align-natural" style="color:black;">{{'Version' | translate}}: </label>
+            </div>
+            <div class="col-2 input-group">
+              <label class="label-align-natural" style="color:black;">{{this.ufw.ugs.Version}}</label>
+            </div>
+          </div>
+          <div class="row form-group col-12" style="padding-top: 20px;">
+            <div class="col-4 input-group">
+              <label class="label-align-natural" style="color:black;">{{'User_Login' | translate}}: </label>
+            </div>
+            <div class="col-4 input-group">
+              <label id="eid_modal_user_name" class="label-align-natural" style="color:black;">{{UserName}}</label>
+            </div>
+          </div>
+          <div class="row form-group col-12" style="padding-top: 20px;">
+            <div class="col-4 input-group">
+              <label class="label-align-natural" style="color:black;">{{'User_ID' | translate}}: </label>
+            </div>
+            <div class="col-4 input-group">
+              <label id="eid_modal_user_id" class="label-align-natural" style="color:black;"></label>
+            </div>
+          </div>
+          <div class="row form-group col-12" style="padding-top: 20px;">
+            <div class="col-6 input-group">
+              <button class="btn df_button_blue" (click)="OnAboutDone()">
+                {{'Close' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

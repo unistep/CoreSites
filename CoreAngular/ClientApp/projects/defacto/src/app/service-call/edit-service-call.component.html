@@ -1,0 +1,733 @@
+<div id="eid_desktop" class="main_frame" style="overflow-y:auto !important; overflow-x:auto;">
+  <div class="df_first_panel form-horizontal">
+    <div class="col-12 row">
+      <div class="col-6">
+        <div class="col-12 row">
+          <div class="col-2">
+            <img src="/assets/img/customer.png" />
+          </div>
+          <div class="col-4 align-natural">
+            <label id="eid_form_label" style="color:black; font-weight:bold; padding-top:1vh;white-space:nowrap">
+              {{'Edit_Service_Call' | translate}}
+            </label>
+          </div>
+          <div class="col-6">
+          </div>
+        </div>
+      </div>
+      <div class="float-opposite">
+        <div class="col-12 row float-opposite">
+          <div class="col-4" style="white-space: nowrap;">
+            <div class="" (click)="OnConversationSummary()" style="white-space: nowrap;">
+              <label style=" font-weight:bold;color:white;padding-top:1vh;padding-left:1vw;padding-right:1vw;">
+                {{'Conversation_Summary' | translate}}
+              </label>
+              <img src="/assets/img/lc_control_point_24px.png" />
+            </div>
+          </div>
+          <div class="col-4" style="white-space: nowrap;">
+            <div class="" (click)="OnPhoto()" style="white-space: nowrap;">
+              <label style=" font-weight:bold;color:white;padding-top:1vh;padding-left:1vw;padding-right:1vw">
+                {{'Add_Photos' | translate}}
+              </label>
+              <img src="/assets/img/add-photo.png" />
+            </div>
+          </div>
+          <div class="col-4" style="white-space: nowrap;">
+            <div class="" (click)="OnHistory()" style="white-space: nowrap;">
+              <label style=" font-weight:bold;color:white;padding-top:1vh;padding-left:1vw;padding-right:1vw;">
+                {{'History' | translate}}
+              </label>
+              <img src="/assets/img/history_white.png" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="df_second_panel form-horizontal">
+    <div class="row">
+      <div style="width:22vw; padding-left:6vw !important; padding-right:6vw !important;">
+        <div class="row">
+          <div class="row input-group" style="white-space: nowrap !important;">
+            <label style="color: white; white-space: nowrap !important;">
+              {{'Customer' | translate}}:{{this.ugs.queryParam("customerName")}}
+            </label>
+          </div>
+          <div class="row input-group" style="white-space: nowrap !important;">
+            <label style="color: white; white-space: nowrap !important;">
+              {{'Call_Number' | translate}}:{{this.ugs.queryParam("callNumber")}}
+            </label>
+          </div>
+          <div class="row input-group" style="padding-top:2.5vh; white-space:nowrap !important;">
+            <div class="" style="width:5vw; height:5vh;">
+              <img src="/assets/img/phone_white.png" style='height: 100%; width: 100%; object-fit: contain' (click)="onDial()" />
+            </div>
+            <div class="" style="width:5vw; height:5vh;">
+              <img src="/assets/img/sms_white.png" style='height: 100%; width: 100%; object-fit: contain' (click)="OnSendSms()" />
+            </div>
+          </div>
+          <div class="row" >
+            <label class="" style="color: white;">{{MemberPhone}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-opposite" style="width:72vw;">
+        <div>
+          <div class="col-12 row">
+            <div class="col-3 input-group">
+              <label class="" style="color: white;">{{'Item_Type' | translate}}</label>
+            </div>
+            <div class="col-3 input-group">
+              <label class="" style="color: white;">{{'Request_Reason' | translate}}</label>
+            </div>
+            <div class="col-3 input-group">
+              <label id="eid_vendor_label" style="color: white;">{{'Vendor' | translate}}</label>
+            </div>
+            <div class="col-3 input-group">
+              <label class="" style="color: white;">{{'Expected_Time' | translate}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="col-12 row">
+            <div class="col-3 input-group">
+              <label id="eid_ticket_type" style="color:gold; white-space:nowrap !important;"></label>
+            </div>
+            <div class="col-3 input-group">
+              <label id="eid_request_reason" style="color:gold; white-space:nowrap !important;"></label>
+            </div>
+            <div class="col-3 input-group">
+              <ng-select id="eid_vendors" class="df_input"
+                         [disabled]=!isAllowEdit
+                         [items]="vendors"
+                         [clearable]="false"
+                         bindLabel="Description"
+                         [(ngModel)]="selectedVendor">
+              </ng-select>
+            </div>
+            <div class="col-3 input-group">
+              <ng-select id="eid_expected_days" class="df_input"
+                         [disabled]=!isAllowEdit
+                         [items]="days"
+                         [clearable]="false"
+                         bindLabel="name"
+                         [(ngModel)]="selectedDay"
+                         [searchable]="false">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding-top:1vh;">
+          <div class="col-12 row">
+            <div class="col-3 input-group">
+              <button id="eid_Accepted" class="btn df_button_gray" (click)="setButtonsState(0)">
+                {{'Accepted' | translate}}
+              </button>
+            </div>
+            <div class="col-3 input-group">
+              <button id="eid_InProcess" class="btn df_button_gray" (click)="setButtonsState(1)">
+                {{'InProcess' | translate}}
+              </button>
+            </div>
+            <div class="col-3 input-group">
+              <button id="eid_WaitToCollect" class="btn df_button_gray" (click)="setButtonsState(2)">
+                {{'WaitingForCollect' | translate}}
+              </button>
+            </div>
+            <div class="col-3 input-group">
+              <button id="eid_Closed" class="btn  df_button_gray" (click)="setButtonsState(3)">
+                {{'Closed' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="to_color">
+    <div class="row form-group" style="width:99vw;padding-right:3vw;padding-left:3vw;">
+      <div style="width:42vw;">
+        <div>
+          <div class="row col-12">
+            <div class="col-2 input-group">
+              <label id="eid_label_prop_1" style="width:6vw; padding-left:1vw;padding-right:1vw;color: black;font-weight:bold;"></label>
+            </div>
+            <div class="col-2 input-group">
+              <label id="eid_label_prop_2" style="width:6vw; padding-left:1vw;padding-right:1vw;color: black;font-weight:bold;"></label>
+            </div>
+            <div class="col-2 input-group">
+              <label id="eid_label_prop_3" style="width:6vw; padding-left:1vw;padding-right:1vw;color: black;font-weight:bold;"></label>
+            </div>
+            <div class="col-2 input-group">
+              <label id="eid_label_prop_4" style="width:6vw; padding-left:1vw;padding-right:1vw;color: black;font-weight:bold;"></label>
+            </div>
+            <div class="col-2 input-group">
+              <label id="eid_label_prop_5" style="width:6vw; padding-left:1vw;padding-right:1vw;color: black;font-weight:bold;"></label>
+            </div>
+            <div class="col-2 input-group">
+              <label id="eid_label_prop_6" style="width:6vw; padding-left:1vw;padding-right:1vw;color: black;font-weight:bold;"></label>
+            </div>
+          </div>
+          <div class="row col-12 form-group">
+            <div class="col-2 input-group">
+              <input id="eid_prop_1" class="df_input" style="height: 5vh; width: 6vw;" />
+            </div>
+            <div class="col-2 input-group">
+              <input id="eid_prop_2" class="df_input" style="height: 5vh; width: 6vw;" />
+            </div>
+            <div class="col-2 input-group">
+              <input id="eid_prop_3" class="df_input" style="height: 5vh; width: 6vw;" />
+            </div>
+            <div class="col-2 input-group">
+              <input id="eid_prop_4" class="df_input" style="height: 5vh; width: 6vw;" />
+            </div>
+            <div class="col-2 input-group">
+              <input id="eid_prop_5" class="df_input" style="height: 5vh; width: 6vw;" />
+            </div>
+            <div class="col-2 input-group">
+              <input id="eid_prop_6" class="df_input" style="height: 5vh; width: 6vw;" />
+            </div>
+          </div>
+          <div class="row col-12 form-group">
+            <textarea id="eid_comment" type="text" class="df_input"
+                      style="background:#C5C5C5; height:15vh; width:100%; resize:none;">
+              </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:18vh; min-height:18vh; width:42vw; padding-top:6vh;">
+        <div>
+          <div class="row col-12">
+            <div>
+              <div class="input-group"
+                   style="height:18vh; padding-top:.2vh;margin:0">
+                <div class="col-3" style="margin:0;height:20vh;width:50vw;">
+                  <img class="pics" id="img_1" alt="Smiley face" style="height:100%; width:100%;
+                    padding-left:.2vw; padding-right:.2vw; display:none; object-fit: cover"
+                       (click)="swap($event)" />
+                </div>
+                <div class="col-3" style="margin:0;height:20vh;width:50vw;">
+                  <img class="pics" id="img_2" alt="Smiley face" style="height:100%; width:100%;
+                    padding-left:.2vw; padding-right:.2vw; display:none; object-fit: cover"
+                       (click)="swap($event)" />
+                </div>
+                <div class="col-3" style="margin:0;height:20vh;width:50vw;">
+                  <img class="pics" id="img_3" alt="Smiley face" style="height:100%; width:100%;
+                    padding-left:.2vw; padding-right:.2vw; display:none; object-fit: cover"
+                       (click)="swap($event)" />
+                </div>
+                <div class="col-3" style="margin:0;height:20vh;width:50vw;">
+                  <img class="pics" id="img_4" alt="Smiley face" style="height:100%; width:100%;
+                    padding-left:.2vw; padding-right:.2vw; display:none; object-fit: cover"
+                       (click)="swap($event)" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="df_blue_panel" style="color:white; height:14vh; margin-top:20px">
+    <div class="not_for_vendors">
+      <div class="row form-group col-9">
+        <div class="col-3 input-group">
+          <label class="" style="color: white;">{{'Price' | translate}}</label>
+        </div>
+        <div class="col-3 input-group">
+          <label class="" style="color: white;">{{'Down_Payment' | translate}}</label>
+        </div>
+        <div class="col-3 input-group">
+          <label class="" style="color: white;">{{'Balance' | translate}}</label>
+        </div>
+      </div>
+      <div class="row form-group col-9" style="margin-top:-2vh;">
+        <div class="col-3 input-group">
+          <input id="eid_price" type="number" class="df_input"
+                 style="height:6vh; width:10vw;" />
+        </div>
+        <div class="col-3 input-group">
+          <input id="eid_down_payment" type="number" class="df_input"
+                 style="height:6vh; width:10vw;" />
+        </div>
+        <div class="col-3 input-group">
+          <input readonly id="eid_balance" class="df_input"
+                 style="    height: 6vh;
+    width: 10vw;
+    background-color: antiquewhite !important;" />
+        </div>
+        <div class="col-3 input-group" style="margin-top:1vh;">
+          <input id="eid_paid" type="checkbox" style="margin-top:.5vh; height:3vh;width:3vw">
+          <label style="color:white;padding-right:.5vw;white-space:nowrap;">
+            {{'Paid' | translate}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="to_color" class="row form-group col-12 form-horizontal" style="padding-top:1vh;">
+    <div class="col-2 input-group">
+      <button class="btn df_button_green" (click)="OnSave()">
+        {{'Save' | translate}}
+      </button>
+    </div>
+    <div class="col-2">
+      <div class="input-group">
+        <button class="btn df_button_green" (click)="OnSavePrint()">
+          {{'Save_Print' | translate}}
+        </button>
+      </div>
+    </div>
+    <div class="col-6">
+    </div>
+    <div class="col-2">
+      <button class="btn df_button_gray" style="align-content:end;" (click)="OnExit()">
+        {{'Exit' | translate}}
+      </button>
+    </div>
+    <div id="eid_camera_frame" class="cameraFrame" hidden>
+      <i class="fa fa-camera"></i>
+      <div class="cameraPhoto"></div>
+      <input id="eid_camera_input" type="file" name="fileProfile2" accept="image/png,image/jpeg">
+      <!--<input id="eid_camera_input" type="file" accept="image/*" capture data-file="12345_1">-->
+    </div>
+  </div>
+</div>
+
+<div id="eid_mobile" class="main_frame" style="overflow-y:auto !important; overflow-x:auto;">
+  <div class="df_first_panel">
+    <div class="col-12 row" style="padding-top:.5vh;">
+      <div class="col-3" style="white-space: nowrap;">
+        <div class="input-group">
+          <img src="/assets/img/customer.png" height="24" width="24" />
+          <span style="-webkit-padding-start:1vw; color:black;">עדכון קריאה</span>
+        </div>
+      </div>
+
+      <div class="col-3" style="white-space: nowrap">
+        <div class="input-group" (click)="OnConversationSummary()">
+          <img src="/assets/img/lc_control_point_24px.png" height="24" width="24" />
+          <span style="color:white;">{{'Conversation_Summary' | translate}}</span>
+        </div>
+      </div>
+
+      <div class="col-3" style="white-space: nowrap">
+        <div class="input-group" (click)="OnPhoto()">
+          <img src="/assets/img/add-photo.png" height="24" width="24" />
+          <span style="color:white;">{{'Add_Photos' | translate}}</span>
+        </div>
+      </div>
+
+      <div class="col-3" style="white-space: nowrap">
+        <div class="input-group" (click)="OnHistory()">
+          <img src="/assets/img/add-photo.png" height="24" width="24" />
+          <span style="color:white;">{{'History' | translate}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="df_second_panel form-horizontal">
+    <div class="row input-group">
+      <div class="col-6" style="-webkit-padding-start:10vw;">
+        <div class="row input-group" style="white-space: nowrap !important;">
+          <label style="color: white; white-space: nowrap !important;">
+            {{'Customer' | translate}}:{{this.ugs.queryParam("customerName")}}
+          </label>
+        </div>
+        <div class="row input-group" style="white-space: nowrap !important;">
+          <label style="color: white; white-space: nowrap !important;">
+            {{'Call_Number' | translate}}:{{this.ugs.queryParam("callNumber")}}
+          </label>
+        </div>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-2 input-group">
+        <div style="width:7vw; height:7vh;">
+          <img src="/assets/img/phone_white.png" style='height: 100%; width: 100%; object-fit: contain' (click)="onDial()" />
+        </div>
+      </div>
+      <div class="col-2 input-group">
+        <div style="width:7vw; height:7vh;">
+          <img src="/assets/img/sms_white.png" style='height: 100%; width: 100%; object-fit: contain' (click)="OnSendSms()" />
+        </div>
+      </div>
+      <div class="col-1"></div>
+    </div>
+
+    <div class="form-group" style="padding-top: 1vh; -webkit-padding-start:10vw;">
+      <div class="row col-12 input-group">
+        <label class="col-4 label-align-opposite" style="color:white; padding-top:1vh;">
+          {{'Item_Type' | translate}}:
+        </label>
+        <label class="col-8 label-align-natural" id="eid_ticket_type" style="color:gold; font-size:large;"></label>
+      </div>
+
+      <div class="row input-group col-12" style="margin-top:-1vh;">
+        <label class="col-4 label-align-opposite" style="color:white; padding-top:1vh;">
+          {{'Request_Reason' | translate}}:
+        </label>
+        <label class="col-8 label-align-natural" id="eid_request_reason" style="color:gold; font-size:large;"></label>
+      </div>
+
+      <div class="row input-group col-12" style="padding-top:1vh;">
+        <label class="col-4 label-align-opposite" style="color:white; padding-top:2vh;">
+          {{'Vendor' | translate}}:
+        </label>
+        <ng-select id="eid_vendors" class="col-8 df_input" style="height:5vh;"
+                   [disabled]=!isAllowEdit
+                   [items]="vendors"
+                   [clearable]="false"
+                   bindLabel="Description"
+                   [(ngModel)]="selectedVendor">
+        </ng-select>
+      </div>
+
+      <div class="row input-group col-12" style="padding-top:1vh;">
+        <label class="col-4 label-align-opposite" style="color:white; padding-top:2vh;">
+          {{'Expected_Time' | translate}}:
+        </label>
+        <ng-select id="eid_expected_days" class="col-8 df_input" style="height:5vh;"
+                   [disabled]=!isAllowEdit
+                   [items]="days"
+                   [clearable]="false"
+                   bindLabel="name"
+                   [(ngModel)]="selectedDay"
+                   [searchable]="false">
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="form-group" style="padding-top:1vh;">
+      <div class="col-12 row">
+        <div class="col-6">
+          <button id="eid_Accepted" style="width:40vw;" class="btn df_button_gray" (click)="setButtonsState(0)">
+            {{'Accepted' | translate}}
+          </button>
+        </div>
+        <div class="col-6">
+          <button id="eid_InProcess" style="width:40vw;" class="btn df_button_gray" (click)="setButtonsState(1)">
+            {{'InProcess' | translate}}
+          </button>
+        </div>
+      </div>
+      <div class="col-12 row" style="padding-top:1vh;">
+        <div class="col-6">
+          <button id="eid_WaitToCollect" style="width:40vw;" class="btn df_button_gray" (click)="setButtonsState(2)">
+            {{'WaitingForCollect' | translate}}
+          </button>
+        </div>
+        <div class="col-6">
+          <button id="eid_Closed" style="width:40vw;" class="btn df_button_gray" (click)="setButtonsState(3)">
+            {{'Closed' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="to_color">
+    <div class="form-group" style="padding-top: 1vh;">
+      <div class="row col-12 input-group">
+        <label id="eid_label_prop_1" class="col-4 label-align-opposite" style="color:black; padding-top:2vh;"></label>
+        <input id="eid_prop_1" class="col-8 df_input" style="height: 5vh;" />
+      </div>
+      <div class="row col-12 input-group">
+        <label id="eid_label_prop_2" class="col-4 label-align-opposite" style="color:black; padding-top:2vh;"></label>
+        <input id="eid_prop_2" class="col-8 df_input" style="height: 5vh;" />
+      </div>
+      <div class="row col-12 input-group">
+        <label id="eid_label_prop_3" class="col-4 label-align-opposite" style="color:black; padding-top:2vh;"></label>
+        <input id="eid_prop_3" class="col-8 df_input" style="height:5vh;" />
+      </div>
+      <div class="row col-12 input-group">
+        <label id="eid_label_prop_4" class="col-4 label-align-opposite" style="color:black; padding-top:2vh;"></label>
+        <input id="eid_prop_4" class="col-8 df_input" style="height:5vh;" />
+      </div>
+      <div class="row col-12 input-group">
+        <label id="eid_label_prop_5" class="col-4 label-align-opposite" style="color:black; padding-top:2vh;"></label>
+        <input id="eid_prop_5" class="col-8 df_input" style="height:5vh;" />
+      </div>
+      <div class="row col-12 input-group">
+        <label id="eid_label_prop_6" class="col-4 label-align-opposite" style="color:black; padding-top:2vh;"></label>
+        <input id="eid_prop_6" class="col-8 df_input" style="height:5vh;" />
+      </div>
+    </div>
+    <div class="row col-12 form-group" style="margin-top:-1vh;">
+      <div class="col-1"></div>
+      <textarea id="eid_comment" type="text" class="col-11 df_input"
+                style="background:#C5C5C5; height:15vh; resize:none;">
+              </textarea>
+    </div>
+  </div>
+
+  <div class="row col-12 form-group" style="height:10vh; min-height:10vh;">
+    <div class="col-3" >
+      <img class="pics" id="img_1" alt="Smiley face" height="80" width="80" 
+           style="display:none; object-fit: fill"
+           (click)="swap($event)" />
+    </div>
+    <div class="col-3" >
+      <img class="pics" id="img_2" alt="Smiley face" height="80" width="80" 
+           style="display:none; object-fit: fill"
+           (click)="swap($event)" />
+    </div>
+    <div class="col-3" >
+      <img class="pics" id="img_3" alt="Smiley face" height="80" width="80" 
+           style="display:none; object-fit: fill"
+           (click)="swap($event)" />
+    </div>
+    <div class="col-3" >
+      <img class="pics" id="img_4" alt="Smiley face" height="80" width="80" 
+           style="display:none; object-fit: fill"
+           (click)="swap($event)" />
+    </div>
+  </div>
+
+  <div class="df_blue_panel" style="color:white; padding-bottom:1vh; margin-top:20px !important;">
+    <div class="not_for_vendors">
+      <div class="row form-group col-12">
+        <div class="col-3 input-group">
+          <label class="" style="color: white;">{{'Price' | translate}}</label>
+        </div>
+        <div class="col-3 input-group">
+          <label class="" style="color: white;">{{'Down_Payment' | translate}}</label>
+        </div>
+        <div class="col-3 input-group">
+          <label class="" style="color: white;">{{'Balance' | translate}}</label>
+        </div>
+      </div>
+      <div class="row form-group col-12" style="margin-top:-1vh !important;">
+        <div class="col-3 input-group">
+          <input id="eid_price" type="number" class="df_input"
+                 style="height:5vh; width:20vw;" />
+        </div>
+        <div class="col-3 input-group">
+          <input id="eid_down_payment" type="number" class="df_input"
+                 style="height:5vh; width:20vw;" />
+        </div>
+        <div class="col-3 input-group">
+          <input readonly id="eid_balance" class="df_input"
+                 style="height:5vh; width:20vw; background-color:antiquewhite !important;" />
+        </div>
+        <div class="col-3 input-group" style="margin-top:1vh;">
+          <input id="eid_paid" type="checkbox" style="margin-top:.5vh; height:4vh;width:4vw">
+          <label style="color:white; padding-right:.5vw; padding-top:1vh; white-space:nowrap;">
+            {{'Paid' | translate}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="to_color" class="row form-group col-12 form-horizontal" style="padding-top: 1vh;">
+    <div class="col-4">
+      <button class="btn df_button_green" style="width:25vw;" (click)="OnSave()">
+        {{'Save' | translate}}
+      </button>
+    </div>
+    <div class="col-4">
+        <button class="btn df_button_green" style="width:25vw;" (click)="OnSavePrint()">
+          {{'Save_Print' | translate}}
+        </button>
+    </div>
+    <div class="col-4">
+      <button class="btn df_button_gray" style="width:25vw;" (click)="OnExit()">
+        {{'Exit' | translate}}
+      </button>
+    </div>
+    <div id="eid_camera_frame" class="cameraFrame" hidden>
+      <i class="fa fa-camera"></i>
+      <div class="cameraPhoto"></div>
+      <input id="eid_camera_input" type="file" name="fileProfile2" accept="image/png,image/jpeg">
+      <!--<input id="eid_camera_input" type="file" accept="image/*" capture data-file="12345_1">-->
+    </div>
+  </div>
+</div>
+
+<div id="eid_modal_photo" class="modal modal-pic">
+  <span class="close" (click)="ClosePhoto()">×</span>
+  <img class="modal-content modal-content-pic" id="img_modal">
+</div>
+
+
+<div class="modal" id="exit-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content df_lframe">
+      <div class="modal-header" style="height:70px !important">
+        <div class="row form-group col-12">
+          <div class="col-11 input-group" style="text-align:center;">
+            <label style="color: black; font-size: x-large; font-weight: bold;">{{'Confirm_Exit' | translate}}</label>
+          </div>
+          <div class="col-1" style="    text-align: left;
+">
+            <button id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row form-group col-12" style="padding-top: 20px;">
+          <p>{{'Are_You_Sure' | translate}}</p>
+        </div>
+        <div class="row form-group col-12" style="padding-top: 20px;">
+          <div class="col-6 input-group">
+            <button class="btn df_button_green" style="width:30vw;" (click)="OnExitDone(true)">
+              {{'Confirm' | translate}}
+            </button>
+          </div>
+          <div class="col-6 input-group">
+            <button class="btn df_button_gray" style="width:30vw;" (click)="OnExitDone(false)">
+              {{'Cancel' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="conversation_summary-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content df_lframe">
+      <div class="modal-header" style="height:70px !important">
+        <div class="row form-group col-12">
+          <div class="col-11 input-group" style="text-align:center;">
+            <label style="color:black; font-size:x-large; font-weight:bold;">{{'Conversation_Summary' | translate}}</label>
+          </div>
+          <div class="col-1" style="text-align:left;">
+            <button id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row form-group col-12" style="padding-top: 20px;">
+          <div class="col-1"></div>
+          <p>
+            <textarea id="eid_conversation_message" type="text" class="df_input"
+                      style="background:#C5C5C5; width:300px; height:120px;"></textarea>
+          </p>
+          <div class="col-1"></div>
+        </div>
+        <div class="row form-group col-12" style="    padding-top: 20px;">
+          <div class="col-6 input-group">
+            <button class="btn df_button_green" style="width:30vw;" (click)="OnConversationSummaryDone(this, true)">
+              {{'Confirm' | translate}}
+            </button>
+          </div>
+          <div class="col-6 input-group">
+            <button class="btn df_button_gray" style="width:30vw;" (click)="OnConversationSummaryDone(this, false)">
+              {{'Cancel' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="send-sms-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content df_lframe">
+      <div class="modal-header" style="height:70px !important">
+        <div class="row form-group col-12">
+          <div class="col-11 input-group" style="text-align:center;">
+            <label style="    color: black;
+    font-size: x-large;
+    font-weight: bold;">{{'Send_Sms' | translate}}</label>
+          </div>
+          <div class="col-1" style="text-align:left;">
+            <button id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row form-group col-12" style="padding-top: 20px;">
+          <p>
+            <textarea id="eid_send_sms_message" type="text" class="df_input"
+                      style="background:#C5C5C5; width:300px; height:120px;"></textarea>
+          </p>
+        </div>
+        <div class="row form-group col-12" style="padding-top: 20px;">
+          <div class="col-6 input-group">
+            <button class="btn df_button_green" style="width:30vw;" (click)="OnSendSmsDone(true)">
+              {{'Confirm' | translate}}
+            </button>
+          </div>
+          <div class="col-6 input-group">
+            <button class="btn df_button_gray" style="width:30vw;" (click)="OnSendSmsDone(false)">
+              {{'Cancel' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="history-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content df_lframe">
+      <div class="modal-header" style="    height: 70px !important
+">
+        <div class="row form-group col-12">
+          <div class="col-11 input-group" style="text-align:center;">
+            <label style="color: black; font-size: x-large; font-weight: bold;">{{'History' | translate}}</label>
+          </div>
+          <div class="col-1" style="text-align: left;">
+            <button id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row form-group col-12">
+          <table id="eid_history_table" style="background: #C5C5C5;">
+            <thead>
+              <tr>
+                <th style="width: 280px" data-bind="CreatedDate" class="thtd-align-natural">
+                  <label class="thtd-align-natural">{{'Date' | translate}}</label>
+                </th>
+                <th style="width: 300px" data-bind="Description" class="thtd-align-natural">
+                  <label class="thtd-align-natural">{{'Description' | translate}}</label>
+                </th>
+                <th style="width: 100px" data-bind="UserName" class="thtd-align-natural">
+                  <label class="thtd-align-natural">{{'UserName' | translate}}</label>
+                </th>
+              </tr>
+            </thead>
+          </table>
+          <div class="row form-group col-12" style="padding-top: 20px;">
+            <div class="col-3 input-group">
+            </div>
+            <div class="col-6">
+              <button class="btn df_button_gray" style="width:10vw;" (click)="OnHistoryDone()">
+                {{'Back' | translate}}
+              </button>
+            </div>
+            <div class="col-3 input-group">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

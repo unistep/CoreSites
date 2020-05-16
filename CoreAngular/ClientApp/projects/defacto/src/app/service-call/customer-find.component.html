@@ -1,0 +1,107 @@
+<div id="to_color" class="main_frame" style="overflow:auto !important;" (keydown.enter)="DoCustomerFind();">
+  <div class="df_first_panel form-horizontal">
+    <div class="col-12 row">
+      <div class="col-1" style="text-align:center !important">
+        <img src="/assets/img/phone.png" />
+      </div>
+      <div class="col-3 align-natural">
+        <label id="eid_form_label"
+               style="color:black; font-weight:bold; padding-top:1vh; white-space:nowrap">
+          {{'Customer_Find' | translate}}
+        </label>
+      </div>
+      <div class="col-5">
+      </div>
+    </div>
+  </div>
+  <div id="eid_mobile">
+    <div class="df_second_panel">
+      <div class="row form-group col-12" style="padding-top: 1.5vh;">
+        <div class="col-3">
+          <div class="input-group">
+            <label class="label-align-natural"
+                   style="color: white;padding-left:1vw;padding-right:1vw ">
+              {{'Customer' | translate}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group col-12">
+        <div class="col-6">
+          <div>
+            <input type="tel" id="eid_phone_number" maxlength="10" class="cl_customer r_input df_input"
+                   style="width:30vw; height:7vh;" autocomplete="off"
+                   placeholder="{{'Customer_Phone' | translate}}">
+
+            <ng-select id="eid_customers" class="cl_vendor df_input" style="width:30vw; height:7vh;"
+                       [items]="customers"
+                       [clearable]="false"
+                       bindLabel="Description"
+                       [(ngModel)]="selectedCustomer"
+                       (change)="onChange($event)">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="to_color" class="row form-group col-12 form-horizontal" style="margin-top:40vh;">
+      <div class="col-4">
+        <button class="btn df_button_green" style="width: 30vw;" (click)="DoCustomerFind()">
+          {{'Search' | translate}}
+        </button>
+      </div>
+      <div class="col-4">
+      </div>
+      <div class="col-4">
+        <button class="btn df_button_gray" style="width:30vw;" (click)="onExit()">
+          {{'Exit' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="eid_desktop">
+    <div class="df_second_panel">
+      <div class="row form-group col-12" style="padding-top: 1.5vh;">
+        <div class="col-3">
+          <div class="input-group">
+            <label class="label-align-natural"
+                   style="color: white;padding-left:1vw;padding-right:1vw ">
+              {{'Customer' | translate}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group col-12">
+        <div class="col-3">
+          <div class="input-group">
+            <input type="tel" id="eid_phone_number" maxlength="10" class="cl_customer r_input df_input"
+                   style="height:7vh;" autocomplete="off"
+                   placeholder="{{'Customer_Phone' | translate}}">
+
+            <ng-select id="eid_customers" class="cl_vendor df_input" style="height:7vh;"
+                       [items]="customers"
+                       [clearable]="false"
+                       bindLabel="Description"
+                       [(ngModel)]="selectedCustomer"
+                       (change)="onChange($event)">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="to_color" class="row form-group col-12 form-horizontal" style="margin-top:52vh;">
+      <div class="col-2">
+        <button class="btn df_button_green" style="width: 12vw;" (click)="DoCustomerFind()">
+          {{'Search' | translate}}
+        </button>
+      </div>
+      <div class="col-8">
+      </div>
+      <div class="col-2">
+        <button class="btn df_button_gray" style="width:12vw;" (click)="onExit()">
+          {{'Exit' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

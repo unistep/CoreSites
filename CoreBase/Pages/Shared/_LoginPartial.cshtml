@@ -1,0 +1,95 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CoreBase.Models;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    string returnUrl = null;
+    var query = ViewContext.HttpContext.Request.Query;
+    if (query.ContainsKey("returnUrl"))
+    {
+        returnUrl = query["returnUrl"];
+    }
+}
+
+	<script>
+		var g_application_url = "";
+		$(document).ready(function () {
+			if (!window.location.origin) { // IE
+				window.location.origin = window.location.protocol + "//"
+					+ window.location.hostname
+					+ (window.location.port ? ':'
+					+ window.location.port : '');
+			}
+
+			var url = window.location.pathname.split("/").filter(Boolean);
+
+			if (window.location.origin.includes("localhost:")) {
+				g_application_url = window.location.origin;
+			}
+			else {
+				g_application_url = window.location.origin + "/" + url[0];
+			}
+		});
+
+		function CallChangeLanguage(val)
+		{
+			window.location.href = g_application_url + "/ChangeLanguage?language=" + val;
+		}
+
+		function SetNewLanguage()
+		{
+			window.location.href = g_application_url + "/SetNewLanguage";
+		}
+	</script>
+
+<ul class="navbar-nav">
+	@if (SignInManager.IsSignedIn(User))
+	{
+		@if (User.IsInRole("Admin"))
+		{
+			<li class="dropdown">
+				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Html.Localize("Admin") <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					@if (Html.isRegistraionPolicyAdmin())
+					{
+						<li>
+							<a class="nav-link" asp-area="Identity" asp-page="/Account/Register">@Html.Localize("_Register")</a>
+						</li>
+						<li class="divider" style="background-color: #000"></li>
+					}
+					<li>
+						<a class="nav-item" onclick="SetNewLanguage()" >@Html.Localize("SetNewLanguage")</a>
+					</li>
+				</ul>
+			</li>
+		}
+
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+		</li>
+		<li class="nav-item">
+			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+				<button type="submit" class="nav-link btn btn-link text-dark">@Html.Localize("Logout")</button>
+			</form>
+		</li>
+	}
+	else
+	{
+		@if (!Html.isRegistraionPolicyAdmin())
+		{
+			<li class="nav-item">
+				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">@Html.Localize("_Register")</a>
+			</li>
+		}
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">@Html.Localize("Login")</a>
+		</li>
+	}
+
+	<li class="nav-item" style="margin-top:7px;">
+		@Html.DropDownList("selectedLanguage",
+				 new SelectList(Html.GetSupportedLanguages()), Html.GetViewLanguage(),
+				 new { @onchange = "CallChangeLanguage(this.value)" })
+	</li>
+</ul>

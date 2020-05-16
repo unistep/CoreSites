@@ -1,0 +1,19 @@
+<div class="row form-group col-12">
+  <div class="col-4 label-align-opposite">
+    <label>{{label | translate}}</label>
+  </div>
+  <div class="col-8">
+    <div class="input-group">
+      <ng-select [items]="month"
+                  [clearable]="true"
+                  bindLabel="name"
+                  placeholder="{{label | translate}}"
+                  [(ngModel)]="selectedMonth"
+                  class="form-control r_input"
+                  [attr.data-bind]="boundColumn">
+        </ng-select>
+      <span class="input-group-addon"><i class="{{icon}} icon-align-opposite" aria-hidden="true"></i></span>
+    </div>
+  </div>
+</div>
+

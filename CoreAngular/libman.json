@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+	"libraries": [
+		{
+			"library": "font-awesome@5.13.0",
+			"destination": "wwwroot/lib/font-awesome/"
+		},
+		{
+			"library": "bootstrap-rtl@3.4.0",
+			"destination": "wwwroot/lib/bootstrap-rtl/"
+		},
+		{
+			"library": "bootstrap-datepicker@1.9.0",
+			"destination": "wwwroot/lib/bootstrap-datepicker/"
+		},
+		{
+			"library": "jquery@3.5.1",
+			"destination": "wwwroot/lib/jquery/"
+		},
+		{
+			"library": "moment.js@2.25.3",
+			"destination": "wwwroot/lib/moment.js/"
+		},
+		{
+		  "library": "select2@4.0.12",
+		  "destination": "wwwroot/lib/select2/"
+		}
+	]
+}

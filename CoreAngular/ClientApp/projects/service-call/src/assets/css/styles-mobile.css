@@ -1,0 +1,13 @@
+.mobile_resize {
+  width: 100% !important;
+  padding-top: 0px !important;
+}
+
+.df_blue_panel {
+  margin-top: 6vh !important;
+}
+
+* {
+  /*font-family: 'Open Sans Hebrew Condensed', sans-serif;*/
+  font-size:small;
+}

@@ -1,0 +1,7 @@
+\wwwroot\
+\packages\
+\bin\
+\obj\
+\node_modules\
+\dist\
+\*.log

@@ -1,0 +1,50 @@
+<div class="main_frame container" style="padding: 3px;">
+  <div class="rframe">
+    <h3 style="text-decoration:solid">{{'Time_Clock' | translate}}</h3>
+    <div class="tframe">
+      <div id="eid_cart_row" class="form-horizontal">
+        <div class="row form-group col-12">
+          <label class="col-12 label-align-center">{{'Last_Reported' | translate}}</label>
+        </div>
+        <div class="row form-group col-12">
+          <div class="col-4 label-align-opposite">
+            <label id="entrance_label_eid">{{labelLastReported | translate}}</label>
+          </div>
+          <div class="col-8">
+            <div class="input-group">
+              <input id="entrance_input_eid" type="text"
+                     class="form-control r_input" readonly data-bind="Time_Reported"
+                     placeholder='{{inputPlaceholder | translate}}' />
+              <span class="input-group-addon"><i class="fa fa-clock-o icon-align-opposite" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-group col-12"></div>
+        <div class="row form-group col-12"></div>
+        <div class="row form-group col-12">
+          <label class="col-12 label-align-center">{{'New_Report' | translate}}</label>
+        </div>
+        <div class="row form-group col-12">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <div class="input-group">
+              <input type="button" class="btn btn-primary btn-block r_input"
+                     value='{{exitButton | translate}}'
+                     id="eid_btn_exit" style="text-align:center"
+                     (click)="this.doEnterExit()" />
+              <span class="input-group-addon">
+                <i class="fa fa-sign-out icon-align-opposite" style="color: white" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="col-4"></div>
+          <div class="row form-group col-12">
+            <label id="current_location_eid" class="col-12 label-align-center"
+                   style="text-decoration:underline; font-weight: bold;">Here</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

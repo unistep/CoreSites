@@ -1,0 +1,123 @@
+
+$label-color: black;
+$icon-color: black;
+$border-radius: 4px;
+
+@import "../../../ustyles.scss";
+
+
+.df_lframe {
+  background: #EFEFEF 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+
+.df_first_panel {
+  background: #C5C5C5;
+  opacity: 1;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+
+.df_second_panel {
+  background: #444444;
+  opacity: 1;
+  white-space: nowrap;
+  padding: 1vh 3vw 1vh 3vw;
+}
+
+.df_blue_panel {
+  background: #00688F;
+  margin-top:-3vh;
+}
+
+
+.df_input {
+  vertical-align: central;
+  color: #222222;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 4px !important;
+  opacity: 1;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  border: none;
+}
+
+.df_input:focus {
+  border: none;
+}
+
+ng-select span.ng-arrow-wrapper:before {
+  content: "\f0d7"; /*caret down*/
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+}
+
+ng-select {
+  margin: 0;
+  padding-top: 2vh;
+  height: 7vh;
+  width: 15vw;
+}
+
+.df_button {
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0;
+  border-radius: 4px;
+  opacity: 1;
+  font-weight: bold;
+  width: 12vw;
+  height: 7vh;
+  white-space: normal;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.df_button_green {
+  @extend .df_button;
+  color: #FFFFFF;
+  background: #3CB878;
+
+  &:hover {
+    background: #4ec48b;
+  }
+
+  &:active {
+    background: #269e60;
+  }
+
+  &:disabled {
+    background: #2cb26d;
+  }
+}
+
+.df_button_gray {
+  @extend .df_button;
+  color: #FFFFFF;
+  background: #707070;
+}
+
+.df_button_blue {
+  @extend .df_button;
+  color: #FFFFFF;
+  background: #0076a3;
+}
+
+.df_button_trans {
+  @extend .df_button;
+  border: solid;
+  color: gray;
+  background: transparent;
+}
+
+
+.thtd-align-natural {
+  font-size: small;
+  text-align: left;
+  padding-top: 7px;
+  white-space: nowrap;
+  color: black;
+}

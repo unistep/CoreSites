@@ -1,0 +1,115 @@
+
+<div class="main_frame">
+  <as-split direction="horizontal" [dir]="splitDir">
+    <as-split-area size="40">
+      <div class="lframe">
+        <div class="main_grid_wraper form-horizontal">
+          <table id="eid_main_table" class="main_grid" data-bind="VU_Cart_Detail_Line_Extended">
+            <thead>
+              <tr>
+                <th style="width: 10%" data-bind="Product_Name">
+                  <label>{{'Product_Name' | translate}}</label>
+                </th>
+                <th style="width: 35%" data-bind="Product_Desc">
+                  <label>{{'Product_Desc' | translate}}</label>
+                </th>
+                <th style="width: 15%" data-bind="Product_Sale_Quantity">
+                  <label>{{'Product_Sale_Quantity' | translate}}</label>
+                </th>
+                <th style="width: 15%" data-bind="Product_Sale_Price">
+                  <label>{{'Product_Sale_Price' | translate}}</label>
+                </th>
+                <th style="width: 30%" data-bind="Cart_Row_Total_Price">
+                  <label>{{'Cart_Row_Total_Price' | translate}}</label>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </as-split-area>
+    <as-split-area size="60">
+      <div class="rframe">
+        <h3 style="text-decoration:solid">{{'ShoppingCart' | translate}}</h3>
+        <div class="tframe">
+          <div id="eid_cart_row" class="form-horizontal">
+            <div class="row form-group col-12">
+              <div class="col-4">
+                <div class="input-group">
+                  <input type="button" class="btn btn-primary btn-block r_input"
+                         value="{{'New' | translate}}"
+                         id="eid_btn_new" style="text-align:center"
+                         (click)="this.udb.genericActions('New')" />
+                  <span class="input-group-addon">
+                    <i class="fa fa-cart-plus icon-align-opposite" style="color: white" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="input-group">
+                  <input type="button" class="btn btn-primary btn-block r_input"
+                         value="{{'Delete' | translate}}"
+                         id="eid_btn_delete" style="text-align:center"
+                         (click)="this.udb.genericActions('Delete')" />
+                  <span class="input-group-addon">
+                    <i class="fa fa-cart-arrow-down icon-align-opposite" style="color: white" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="input-group">
+                  <input type="button" class="btn btn-primary btn-block r_input"
+                         value="{{'Exit' | translate}}"
+                         id="eid_btn_exit" style="text-align:center"
+                         (click)="this.udb.genericActions('Exit')" />
+                  <span class="input-group-addon">
+                    <i class="fa fa-sign-out icon-align-opposite" style="color: white" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group col-12">
+              <label class="col-4 col-form-label label-align-opposite">{{'Product_Family' | translate}}</label>
+              <div class="col-8">
+                <div class="input-group">
+                  <ng-select id="Product_Family_ID"
+                             [items]="productFamily"
+                             bindLabel="name"
+                             [clearable]="false"
+                             [(ngModel)]="selectedProductFamily"
+                             class="form-control r_input"
+                             data-dataset="Product_Family"
+                             (change)="productFamilyChanged($event)">
+                  </ng-select>
+                  <i class="fa fa-group icon-align-opposite" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="row form-group col-12">
+              <label class="col-4 col-form-label label-align-opposite">{{'Product' | translate}}</label>
+              <div class="col-8">
+                <div class="input-group">
+                  <ng-select id="Product_Desc"
+                             [items]="product"
+                             bindLabel="name"
+                             [clearable]="false"
+                             [(ngModel)]="selectedProduct"
+                             class="form-control r_input"
+                             (change)="productChanged($event)">
+                  </ng-select>
+                  <i class="fa fa-navicon icon-align-opposite" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <app-input-row label='Product_ID' elementID='Product_ID' icon='fa fa-cart-arrow-down'></app-input-row>
+            <app-input-row label='Product_Unit_Price' elementID='Product_Unit_Price' icon='fa fa-money'></app-input-row>
+            <app-input-row label='Product_Sale_Price' elementID='Product_Sale_Price' boundColumn='Product_Sale_Price' icon='fa fa-money'></app-input-row>
+            <app-input-row label='Product_Sale_Quantity' elementID='Product_Sale_Quantity' boundColumn='Product_Sale_Quantity' icon='fa fa-arrows-v'></app-input-row>
+            <app-input-row label='Cart_Row_Total_Price' elementID='Cart_Row_Total_Price' boundColumn='Cart_Row_Total_Price' icon='fa fa-ils'></app-input-row>
+          </div>
+        </div>
+      </div>
+    </as-split-area>
+  </as-split>
+</div>

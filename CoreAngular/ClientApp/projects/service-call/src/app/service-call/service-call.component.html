@@ -1,0 +1,257 @@
+
+<div class="main_frame">
+  <as-split direction="horizontal" [dir]="splitDir">
+    <as-split-area size="40">
+      <div class="lframe">
+        <div class="main_grid_wraper form-horizontal">
+          <table id="eid_main_table" class="main_grid" data-bind="Work_Orders">
+            <thead>
+              <tr>
+                <th style="width: 10%" data-bind="Work_Order_ID">
+                  <label>{{'Work_Order_ID' | translate}}</label>
+                </th>
+                <th style="width: 35%" data-bind="Work_Order_Time_Created">
+                  <label>{{'Work_Order_Time_Created' | translate}}</label>
+                </th>
+                <th style="width: 15%" data-bind="Technician_Name">
+                  <label>{{'Technician_Name' | translate}}</label>
+                </th>
+                <th style="width: 15%" data-bind="Contact_Name">
+                  <label>{{'Contact_Name' | translate}}</label>
+                </th>
+                <th style="width: 30%" data-bind="Source_Addr">
+                  <label>{{'Source_Addr' | translate}}</label>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </as-split-area>
+    <as-split-area size="60">
+      <div class="rframe">
+        <div class="tabs-container">
+          <ul id="main_nav_tabs" class="nav nav-tabs">
+            <li class="active">
+              <a href="#tab1" data-toggle="tab">
+                <span class="fa fa-info-circle"></span>  {{'Details' | translate}}
+              </a>
+            </li>
+            <li>
+              <a href="#tab2" data-toggle="tab">
+                <span class="fa fa-map-marker"></span>  {{'Location' | translate}}
+              </a>
+            </li>
+            <li>
+              <a href="#tab3" data-toggle="tab">
+                <span class="fa fa-clock-o"></span>  {{'Schedule' | translate}}
+              </a>
+            </li>
+            <li>
+              <a href="#tab4" data-toggle="tab">
+                <span class="fa fa-image"></span>  {{'Camera' | translate}}
+              </a>
+            </li>
+            <li>
+              <a href="#tab5" data-toggle="tab">
+                <span class="fa fa-cart-plus"></span>  {{'Products' | translate}}
+              </a>
+            </li>
+            <li>
+              <a href="#tab6" data-toggle="tab">
+                <span class="fa fa-credit-card"></span>  {{'Charge' | translate}}
+              </a>
+            </li>
+            <li>
+              <a href="#tab7" data-toggle="tab">
+                <span class="fa fa-map"></span>  {{'Map' | translate}}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div id="tab-content" class="tab-content">
+          <div class="active tab-pane tframe" id="tab1">
+            <div class="form-horizontal">
+              <!--<div class="map-canvas" id="mapcanvas"></div>-->
+              <app-input-row label='Contact_Name' elementID='Contact_Name' boundColumn='Contact_Name' icon='fa fa-user'></app-input-row>
+              <app-input-row label='Vehicle_Model' elementID='Model' boundColumn='Model' isReadOnly=false icon='fa fa-car'></app-input-row>
+              <app-input-row label='Vehicle_Type' elementID='Vehicle_Type' boundColumn='Vehicle_Type' icon='fa fa-font'></app-input-row>
+              <app-input-row label='Description' elementID='Description' boundColumn='Description' icon='fa fa-eye'></app-input-row>
+              <app-input-row label='Malf' elementID='Malf_Desc' boundColumn='Malf_Desc' icon='fa fa-unlink'></app-input-row>
+              <app-input-row label='Call_Number' elementID='Work_Order_ID' boundColumn='Work_Order_ID' icon='fa fa-list-ol'></app-input-row>
+            </div>
+          </div>
+
+          <div class="tab-pane tframe" id="tab2">
+            <div class="form-horizontal">
+              <app-phone-row label='Contact_Phone_1' elementID='Contact_Phone_1' boundColumn='Contact_Phone_1' icon='fa fa-phone'></app-phone-row>
+              <app-phone-row label='Contact_Phone_2' elementID='Contact_Phone_2' boundColumn='Contact_Phone_2' icon='fa fa-phone'></app-phone-row>
+              <app-phone-row label='Contact_Phone_3' elementID='Contact_Phone_3' boundColumn='Contact_Phone_3' icon='fa fa-phone'></app-phone-row>
+              <app-address-row label='Address' elementID='Source_Addr' boundColumn='Source_Addr' icon='fa fa-location-arrow'></app-address-row>
+              <app-input-row label='Description' elementID='Source_Desc' boundColumn='Source_Desc' icon='fa fa-eye'></app-input-row>
+              <app-address-row label='Address' elementID='Destination_Addr' boundColumn='Destination_Addr' icon='fa fa-location-arrow'></app-address-row>
+              <app-input-row label='Description' elementID='Destination_Desc' boundColumn='Destination_Desc' icon='fa fa-eye'></app-input-row>
+            </div>
+          </div>
+          <div class="tab-pane tframe" id="tab3">
+            <div class="form-horizontal">
+              <app-date-row label='From_Time' elementID='From_Coordinated_Time' boundColumn='From_Coordinated_Time' isReadOnly=false icon='fa fa-calendar-o'></app-date-row>
+              <app-date-row label='To_Time' elementID='To_Coordinated_Time' boundColumn='To_Coordinated_Time' icon='fa fa-clock-o'></app-date-row>
+              <app-button-row label='On_My_Way' elementID='On_My_Way_Time' boundColumn='On_My_Way_Time' icon='fa fa-thumbs-o-up'></app-button-row>
+              <app-button-row label='Got_There' elementID='Got_There_Time' boundColumn='Got_There_Time' icon='fa fa-play'></app-button-row>
+              <app-button-row label='Leave' elementID='Leave_Time' boundColumn='Leave_Time' icon='fa fa-dot-circle-o'></app-button-row>
+              <app-button-row label='Done' elementID='Done_Time' boundColumn='Done_Time' icon='fa fa-check-square-o'></app-button-row>
+            </div>
+          </div>
+          <div class="tab-pane tframe" id="tab4">
+            <div class="form-horizontal">
+              <div class="row form-group col-12" style="text-align:center;">
+                <label class="col-4 label-align-opposite" style="font-size:18px">{{'Got_There' | translate}}</label>
+              </div>
+              <div class="cameraFrame">
+                <i class="fa fa-camera"></i>
+                <div class="cameraPhoto"></div>
+                <input type="file" accept="image/*" capture data-file="Before1">
+              </div>
+              <div class="cameraFrame">
+                <i class="fa fa-camera"></i>
+                <div class="cameraPhoto"></div>
+                <input type="file" accept="image/*" capture data-file="Before2">
+              </div>`
+              <div class="cameraFrame">
+                <i class="fa fa-camera"></i>
+                <div class="cameraPhoto"></div>
+                <input type="file" accept="image/*" capture data-file="Before3">
+              </div>
+              <div class="row form-group col-12" style="text-align:center;">
+                <label class="col-4 label-align-opposite" style="font-size:18px">{{'Leave' | translate}}</label>
+              </div>
+              <div class="cameraFrame">
+                <i class="fa fa-camera"></i>
+                <div class="cameraPhoto"></div>
+                <input type="file" accept="image/*" capture data-file="After1">
+              </div>
+              <div class="cameraFrame">
+                <i class="fa fa-camera"></i>
+                <div class="cameraPhoto"></div>
+                <input type="file" accept="image/*" capture data-file="After2">
+              </div>
+              <div class="cameraFrame">
+                <i class="fa fa-camera"></i>
+                <div class="cameraPhoto"></div>
+                <input type="file" accept="image/*" capture data-file="After3">
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane tframe" id="tab5">
+            <div id="eid_cart_wraper" class="form-horizontal">
+              <table id="eid_cart_table" data-bind="VU_Cart_Detail_Line_Extended">
+                <thead>
+                  <tr>
+                    <th style="width: 10%" data-bind="Product_Name">
+                      <label>{{'Product_Name' | translate}}</label>
+                    </th>
+                    <th style="width: 35%" data-bind="Product_Desc">
+                      <label>{{'Product_Desc' | translate}}</label>
+                    </th>
+                    <th style="width: 15%" data-bind="Product_Sale_Price">
+                      <label>{{'Product_Sale_Price' | translate}}</label>
+                    </th>
+                    <th style="width: 15%" data-bind="Product_Sale_Quantity">
+                      <label>{{'Product_Unit_Quantity' | translate}}</label>
+                    </th>
+                    <th style="width: 15%" data-bind="Cart_Row_Total_Price">
+                      <label>{{'Cart_Row_Total_Price' | translate}}</label>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane tframe" id="tab6">
+            <div class="form-horizontal">
+              <app-input-row label='CCard_Number' elementID='eid_card_number' icon='fa fa-credit-card'></app-input-row>
+
+              <div class="row form-group col-12">
+                <label class="col-4 col-form-label label-align-opposite">{{'CCard_Owner' | translate}}</label>
+                <div class="col-4">
+                  <input type="text" class="form-control r_input" placeholder="{{'First_Name' | translate}}" id="eid_card_first_name">
+                </div>
+                <div class="col-4">
+                  <input type="text" class="form-control" placeholder="{{'Last_Name' | translate}}" id="eid_card_last_name">
+                </div>
+              </div>
+
+
+              <div class="row form-group col-12">
+                <label class="col-4 col-form-label label-align-opposite">{{'Expiration_Date' | translate}}</label>
+                <div class="col-4">
+                  <ng-select id="eid_expiration_month"
+                             [items]="month"
+                             [clearable]="false"
+                             bindLabel="name"
+                             [(ngModel)]="selectedMonth"
+                             class="form-control r_input">
+                  </ng-select>
+                </div>
+                <div class="col-4">
+                  <ng-select id="eid_expiration_year"
+                             [items]="year"
+                             [clearable]="false"
+                             bindLabel="name"
+                             [(ngModel)]="selectedYear"
+                             class="form-control r_input">
+                  </ng-select>
+                </div>
+              </div>
+
+              <div class="row form-group col-12">
+                <label class="col-4 col-form-label label-align-opposite">{{'CVV_Code' | translate}}</label>
+                <div class="col-8">
+                  <div class="input-group">
+                    <input type="tel" id="eid_cvv_code" class="form-control r_input"
+                           placeholder="{{'Last_3_Digits' | translate}}" />
+                    <span class="input-group-addon"><i class="fa fa-key icon-align-opposite" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+              <app-input-row label='Identity_Card' elementID='eid_id_number' icon='fa fa-id-card-o'></app-input-row>
+              <app-input-row label='Total_Payment' elementID='eid_total_payment' icon='fa fa-money'></app-input-row>
+
+              <div class="row form-group col-12">
+                <div class="col-4">
+                  <div class="input-group">
+                    <input type="button" class="btn btn-primary btn-block r_input"
+                           value="{{'Do_Payment' | translate}}" (click)="this.doCreditPayment()"
+                           id="eid_btn_payment" />
+                    <span class="input-group-addon">
+                      <i class="fa fa-check-square-o icon-align-opposite" style="color: white" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="input-group">
+                    <input id="eid_confirmation_number"
+                           class="form-control r_input"
+                           placeholder="{{'Confirmation_Number' | translate}}"
+                           readonly>
+                    <span class="input-group-addon"><i class="fa fa-check-square-o icon-align-opposite" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane tframe" style="padding-top: 0px; " id="tab7">
+            <div class="form-horizontal">
+              <div id="container-fluid">
+                <div class="col-xs-12" id="mapcanvas"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </as-split-area>
+  </as-split>
+</div>
+
