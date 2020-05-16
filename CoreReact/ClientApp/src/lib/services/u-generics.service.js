@@ -95,31 +95,34 @@ export class UGenericsService {
     setAppParams(parameters) {
         localStorage.setItem('AssemblyVersion', parameters.AssemblyVersion);
         localStorage.setItem('KnownLanguages', parameters.KnownLanguages);
-        localStorage.setItem('DefaultLanguage', parameters.DefaultLanguage);
+        localStorage.setItem('Language', parameters.Language);
         localStorage.setItem('Endpoints', parameters.Endpoints);
 
         this.Version = localStorage.getItem('AssemblyVersion');
 
-        var _defaultLanguage = localStorage.getItem('DefaultLanguage');
-        if (!_defaultLanguage) {
-            _defaultLanguage = 'English';
-        }
+        const language = localStorage.getItem('language');
 
-        var languageName = localStorage.getItem('language');
-        if (!(languageName) || (languageName === 'null')) {
-            languageName = _defaultLanguage;
-            localStorage.setItem('language', _defaultLanguage);
-        }
+
+        ////var _defaultLanguage = localStorage.getItem('DefaultLanguage');
+        //if (!_defaultLanguage) {
+        //    _defaultLanguage = 'English';
+        //}
+
+        //var languageName = localStorage.getItem('language');
+        //if (!(languageName) || (languageName === 'null')) {
+        //    languageName = _defaultLanguage;
+        //    localStorage.setItem('language', _defaultLanguage);
+        //}
         var _knownLanguages = localStorage.getItem('KnownLanguages');
         if (_knownLanguages) {
             this.knownLanguages = JSON.parse(_knownLanguages);
             if (this.knownLanguages.length) {
-                this.selectedLanguage = languageName;
+                this.selectedLanguage = language;
             }
         }
         else {
-            this.knownLanguages.push(_defaultLanguage);
-            this.selectedLanguage = _defaultLanguage;
+            this.knownLanguages.push(language);
+            this.selectedLanguage = language;
         }
         this.appparamsloded = true;
     }
