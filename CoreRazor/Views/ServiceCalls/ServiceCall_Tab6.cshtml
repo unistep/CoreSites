@@ -1,0 +1,98 @@
+﻿
+<script>
+	var g_total_payment		= '@Html.Localize("Total_Payment")'
+</script>
+
+<div class="tab-pane tframe" id="tab6">
+	<div class="form-horizontal" style="padding-top: 5px;">
+		@await Html.PartialAsync("ResponsiveRows/_input_row",
+		 new uResponsiveRow
+			  {
+			 elementID = "eid_card_number",
+			 //boundColumn = "Contact_Name",
+			 promptName = "CCard_Number",
+			 iconName = "fa fa-credit-card",
+			 inputType = "tel"
+		 })
+
+
+		<div class="row form-group col-12">
+			<label class="col-4 col-form-label label-align-opposite">@Html.Localize("CCard_Owner")</label>
+			<div class="col-4">
+				<input type="text" class="form-control" placeholder="@Html.Localize("First_Name")" id="eid_card_first_name">
+			</div>
+			<div class="col-4">
+				<input type="text" class="form-control" placeholder="@Html.Localize("Last_Name")" id="eid_card_last_name">
+			</div>
+		</div>
+
+
+		<div class="row form-group col-12">
+			<label class="col-4 col-form-label label-align-opposite">@Html.Localize("Expiration_Date")</label>
+			<div class="col-4">
+				<select class="select2 form-control" placeholder="@Html.Localize("Year")" id="eid_expiration_year"></select>
+			</div>
+			<div class="col-4">
+				<select class="select2 form-control" placeholder="@Html.Localize("Month")" id="eid_expiration_month"></select>
+			</div>
+		</div>
+
+		<div class="row form-group col-12">
+			<label class="col-4 col-form-label label-align-opposite">@Html.Localize("CVV_Code")</label>
+			<div class="col-4">
+				<div class="input-group">
+					<input type="tel" id="eid_cvv_code"
+						   class="form-control r_input"
+						   placeholder="@Html.Localize("Last_3_Digits")" />
+					<span class="input-group-addon"><i class="fa fa-key icon-align-opposite" aria-hidden="true"></i></span>
+				</div>
+			</div>
+		</div>
+
+
+
+		@await Html.PartialAsync("ResponsiveRows/_input_row",
+		 new uResponsiveRow
+			  {
+			 elementID = "eid_id_number",
+			 promptName = "Identity_Card",
+			 iconName = "fa fa-id-card-o",
+			 inputType = "tel"
+		 })
+
+
+		<div class="row form-group col-12">
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active">
+					<a href="#" style="font-size: 1.5em !important; text-align:center;">
+						<span class="badge pull-right">
+							<span id="eid_total_payment"></span> &#8362
+						</span> @Html.Localize("Total_Payment")
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="row form-group col-12">
+			<div class="col-4">
+				<div class="input-group">
+					<input type="button" class="btn btn-primary btn-block r_input"
+						   value="@Html.Localize("Do_Payment")" onclick="doCreditPayment()"
+						   id="eid_btn_payment" />
+					<span class="input-group-addon">
+						<i class="fa fa-check-square-o icon-align-opposite" style="color: white" aria-hidden="true"></i>
+					</span>
+				</div>
+			</div>
+			<div class="col-8">
+				<div class="input-group">
+					<input id="eid_confirmation_number"
+						   class="form-control r_input"
+						   placeholder="@Html.Localize("Confirmation_Number")"
+						   readonly>
+					<span class="input-group-addon"><i class="fa fa-check-square-o icon-align-opposite" aria-hidden="true"></i></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

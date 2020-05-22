@@ -1,0 +1,71 @@
+﻿
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta http-equiv="x-ua-compatible" content="IE=10">
+<meta name="author" content="Unistep">
+
+<link rel="shortcut icon" href="~/favicon.ico" />
+
+@*<title>@Html.Primary_Brand_Name()</title>*@
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+<link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" />
+<link rel="stylesheet" href="~/lib/select2/dist/css/select2.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+<script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.he.min.js"></script>
+<script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.ar.min.js"></script>
+<script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.ru.min.js"></script>
+<script src="~/lib/select2/dist/js/select2.js"></script>
+<script src="~/lib/defiant/dist/defiant.js"></script>
+<script src="~/lib/moment.js/moment.js"></script>
+<script src="~/lib/bowser/src/bowser.js"></script>
+<script src="~/lib/fontawesome-markers/fontawesome-markers.min.js"></script>
+
+<script src="~/js/uBase/uSprintf.js"></script>
+<script src="~/js/uBase/uGenerics.js"></script>
+<script src="~/js/uBase/uData_Binding.js"></script>
+<script src="~/js/uBase/uComm.js"></script>
+<script src="~/js/uBase/uGmaps.js"></script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?language=iw&key=AIzaSyCGRulRCmUy-CoqWo_zLVw1JHABXzLfh4Q"></script>
+
+@if (Html.GetViewDirection() == "RTL")
+{
+	@*<link rel="stylesheet" href="~/lib/bootstrap-rtl/dist/css/bootstrap-rtl.css">*@
+	<link rel="stylesheet" href="~/css/site-rtl.css" />
+}
+
+<script>
+
+	var g_datepicker_language			= '@Html.Datepicker_Language()'
+	var g_view_direction				= '@Html.GetViewDirection()'
+
+	var g_msg_yes						= '@Html.Localize("Yes")'
+	var g_msg_no						= '@Html.Localize("No")'
+	var g_msg_close						= '@Html.Localize("Close")'
+	var g_msg_error						= '@Html.Localize("Error")'
+	var g_msg_completed					= '@Html.Localize("Completed")'
+	var g_msg_no_response				= '@Html.Localize("No_Response")'
+	var g_msg_no_value					= '@Html.Localize("No_Value")'
+	var g_msg_illegal_value				= '@Html.Localize("Illegal_Value")'
+	var g_ccard_no_confirmation			= '@Html.Localize("Ccard_No_Confirmation")'
+	var g_ccard_successfully_confirmed	= '@Html.Localize("Ccard_Successfully_Confirmed")'
+
+	var g_legal_password_length			= '@Html.Localize("Legal_Password_Length")'
+	var g_legal_password_lower			= '@Html.Localize("Legal_Password_Lower")'
+	var g_legal_password_upper			= '@Html.Localize("Legal_Password_Upper")'
+	var g_legal_password_special		= '@Html.Localize("Legal_Password_Special")'
+	var g_here_within_7					= '@Html.Localize("Here_Within_7")'
+
+	var	g_datasets						= null;
+</script>

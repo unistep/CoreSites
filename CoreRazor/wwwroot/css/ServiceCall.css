@@ -1,0 +1,86 @@
+﻿
+.cameraFrame {
+	display: inline-block;
+	margin: 1em 1em;
+	padding: 5px 5px 0 0;
+	border: 2px solid blue;
+	border-radius: 2px;
+	text-align: center;
+	vertical-align: middle;
+	width: 20%;
+	min-height: 100px;
+	max-height: 100px;
+	min-width: 20%;
+}
+
+.cameraFrame:active {
+	border: 1px dashed blue;
+}
+
+.cameraFrame input {
+	display: none;
+}
+
+.cameraPhoto {
+	display: none;
+	background-image: url('');
+	background-size: cover;
+	background-position: center;
+	width: 95%;
+	min-height: 85px;
+	max-height: 95px;
+	min-width: 95%;
+}
+
+.cameraFrame i.fa {
+	color: cornflowerblue;
+	font-size: 50px;
+	margin-top: 17px;
+}
+
+
+#eid_cart_wraper {
+	width: 706px;
+	border-radius: 6px !important;
+	-webkit-border-radius: 6px !important;
+	-moz-border-radius: 6px !important;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	padding: 3px;
+	background: lightgray;
+	vertical-align: middle;
+}
+
+#eid_cart_table {
+	table-layout: auto;
+	width: 700px;
+	font-size: 12px;
+	margin: 0;
+	padding: 5px;
+	color: white;
+	border: solid 1px gray;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	text-align: right;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+#eid_cart_table > thead > tr > th {
+	padding-top: 10px;
+	border: solid 1px gray;
+	text-align: center;
+	vertical-align: middle;
+	color: white;
+}
+
+#eid_cart_table > tbody > tr > td {
+	margin: 0 !important;
+	padding-right: 3px;
+	padding-left: 3px;
+	border: solid 1px gray;
+	vertical-align: middle;
+	background-color: white;
+	color: black;
+}

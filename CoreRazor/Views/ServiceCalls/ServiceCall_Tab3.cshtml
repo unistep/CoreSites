@@ -1,0 +1,61 @@
+﻿
+<div class="tab-pane tframe" id="tab3">
+	<div class="form-horizontal">
+		<div class="row">
+
+			@await Html.PartialAsync("ResponsiveRows/_date_row",
+		new uResponsiveRow
+		{
+			elementID = "From_Coordinated_Time",
+			boundColumn = "From_Coordinated_Time",
+			promptName = "From_Time",
+			iconName = "fa fa-calendar-o"
+		})
+			@await Html.PartialAsync("ResponsiveRows/_date_row",
+		new uResponsiveRow
+		{
+			elementID = "To_Coordinated_Time",
+			boundColumn = "To_Coordinated_Time",
+			promptName = "To_Time",
+			iconName = "fa fa-clock-o",
+			attributes = "readonly"
+		})
+			@await Html.PartialAsync("ResponsiveRows/_button_row",
+		new uResponsiveRow
+		{
+			elementID = "On_My_Way_Time",
+			boundColumn = "On_My_Way_Time",
+			promptName = "On_My_Way",
+			iconName = "fa fa-thumbs-o-up",
+			attributes = "readonly dir=ltr"
+		})
+			@await Html.PartialAsync("ResponsiveRows/_button_row",
+		new uResponsiveRow
+		{
+			elementID = "Got_There_Time",
+			boundColumn = "Got_There_Time",
+			promptName = "Got_There",
+			iconName = "fa fa-play",
+			attributes = "readonly dir=ltr"
+		})
+			@await Html.PartialAsync("ResponsiveRows/_button_row",
+		new uResponsiveRow
+		{
+			elementID = "Leave_Time",
+			boundColumn = "Leave_Time",
+			promptName = "Leave",
+			iconName = "fa fa-dot-circle-o",
+			attributes = "readonly dir=ltr"
+		})
+			@await Html.PartialAsync("ResponsiveRows/_button_row",
+		new uResponsiveRow
+		{
+			elementID = "Done_Time",
+			boundColumn = "Done_Time",
+			promptName = "Done",
+			iconName = "fa fa-check-square-o ",
+			attributes = "readonly dir=ltr"
+		})
+		</div>
+	</div>
+</div>

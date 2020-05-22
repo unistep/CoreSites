@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreAngular", "CoreAngular\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreReact", "CoreReact\CoreReact.csproj", "{56D1D5BA-C0D7-4B31-9D31-3D96CBB1830B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreRazor", "CoreRazor\CoreRazor.csproj", "{D11C9A53-9245-40EA-811E-B48A92B86F5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{56D1D5BA-C0D7-4B31-9D31-3D96CBB1830B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56D1D5BA-C0D7-4B31-9D31-3D96CBB1830B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56D1D5BA-C0D7-4B31-9D31-3D96CBB1830B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11C9A53-9245-40EA-811E-B48A92B86F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11C9A53-9245-40EA-811E-B48A92B86F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D11C9A53-9245-40EA-811E-B48A92B86F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D11C9A53-9245-40EA-811E-B48A92B86F5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

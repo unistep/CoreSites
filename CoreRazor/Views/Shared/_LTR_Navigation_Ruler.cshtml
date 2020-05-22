@@ -1,0 +1,32 @@
+﻿
+<div class="container">
+	<div class="row">
+		<div class="row form-group col-12">
+			<div class="col-4">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-arrow-circle-left nav_back" aria-hidden="true"></i>
+					</span>
+					<input id="eid_nav_prev" type="button" class="btn btn-primary btn-block"
+						   style="color: white; font-size: .66rem;  line-height: 1.0;"
+						   value="@Html.Localize("Previous")" onclick="navigatePrev()" />
+				</div>
+			</div>
+			<div class="col-4" style="text-align:center">
+				<input id="eid_nav_position" type="text" class="form-control"
+					   style="font-size: .5rem;  font-weight: 600; line-height: 0.9; text-align: center;" readonly>
+			</div>
+			<div class="col-4">
+				<div class="input-group">
+					<input id="eid_nav_next" type="button" class="btn btn-primary btn-block"
+						   style="color: white; font-size: .66rem;  line-height: 1.0;"
+						   value="@Html.Localize("Next")" onclick="navigateNext()" />
+					<span class="input-group-addon">
+						<i class="fa fa-arrow-circle-right nav_forw" aria-hidden="true"></i>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

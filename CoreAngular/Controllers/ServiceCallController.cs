@@ -6,7 +6,7 @@ using uToolkit;
 
 namespace CoreAngular.Controllers
 {
-	public class ServiceCallController : Controller
+	public class ServiceCallController : WebApiController
 	{
 		//====================================================================================================
 		[HttpGet("ServiceCall")]

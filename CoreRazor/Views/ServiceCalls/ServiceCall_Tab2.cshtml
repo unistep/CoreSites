@@ -1,0 +1,70 @@
+﻿
+<div class="tab-pane tframe" id="tab2">
+	<div class="form-horizontal">
+		<div class="row">
+			@await Html.PartialAsync("ResponsiveRows/_phone_row",
+		  new uResponsiveRow
+		  {
+			  elementID = "Contact_Phone_1",
+			  boundColumn = "Contact_Phone_1",
+			  promptName = "Contact_Phone_1",
+			  iconName = "fa fa-phone",
+			  attributes = "readonly"
+		  })
+			@await Html.PartialAsync("ResponsiveRows/_phone_row",
+		  new uResponsiveRow
+		  {
+			  elementID = "Contact_Phone_2",
+			  boundColumn = "Contact_Phone_2",
+			  promptName = "Contact_Phone_2",
+			  iconName = "fa fa-phone",
+			  attributes = "readonly"
+		  })
+			@await Html.PartialAsync("ResponsiveRows/_phone_row",
+		 new uResponsiveRow
+		 {
+			 elementID = "Contact_Phone_3",
+			 boundColumn = "Contact_Phone_3",
+			 promptName = "Contact_Phone_3",
+			 iconName = "fa fa-phone",
+			 attributes = "readonly"
+		 })
+			@await Html.PartialAsync("ResponsiveRows/_address_row",
+		 new uResponsiveRow
+		 {
+			 elementID = "Source_Addr",
+			 boundColumn = "Source_Addr",
+			 promptName = "Address",
+			 iconName = "fa fa-location-arrow",
+			 attributes = "readonly"
+		 })
+			@await Html.PartialAsync("ResponsiveRows/_input_row",
+		new uResponsiveRow
+		{
+			elementID = "Source_Desc",
+			boundColumn = "Source_Desc",
+			promptName = "Description",
+			iconName = "fa fa-eye",
+			attributes = "readonly"
+		})
+			@await Html.PartialAsync("ResponsiveRows/_address_row",
+		new uResponsiveRow
+		{
+			elementID = "Destination_Addr",
+			boundColumn = "Destination_Addr",
+			promptName = "Address",
+			iconName = "fa fa-location-arrow",
+			attributes = "readonly"
+		})
+			@await Html.PartialAsync("ResponsiveRows/_input_row",
+		new uResponsiveRow
+		{
+			elementID = "Destination_Desc",
+			boundColumn = "Destination_Desc",
+			promptName = "Description",
+			iconName = "fa fa-eye",
+			attributes = "readonly"
+		})
+		</div>
+	</div>
+</div>

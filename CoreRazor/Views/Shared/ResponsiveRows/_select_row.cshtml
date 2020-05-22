@@ -1,0 +1,17 @@
+﻿
+
+@model uResponsiveRow
+
+<div class="row form-group col-12">
+	<label class="col-4 col-form-label label-align-opposite">@Html.Localize(Model.promptName)</label>
+	<div class="col-8">
+		<div class="input-group">
+			<select id="@Model.elementID" data-bind="@Model.boundColumn"  
+					data-dataset="@Model.datasetName"
+					placeholder="@Html.Localize(Model.promptName)"
+					class="select2 form-control r_input"
+					@Model.attributes></select>
+			<i class="@Model.iconName second-icon-align-opposite" aria-hidden="true"></i>
+		</div>
+	</div>
+</div>

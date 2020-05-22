@@ -1,0 +1,61 @@
+﻿
+<div class="tab-pane active tframe" id="tab1">
+	<div class="form-horizontal">
+		<div class="row">
+			@await Html.PartialAsync("ResponsiveRows/_input_row",
+			 new uResponsiveRow {
+				 elementID = "Contact_Name",
+				 boundColumn = "Contact_Name",
+				 promptName = "Contact_Name",
+				 iconName = "fa fa-user",
+				 attributes= "readonly"
+			 })
+
+			@await Html.PartialAsync("ResponsiveRows/_input_row",
+			 new uResponsiveRow {
+				 elementID = "Model",
+				 boundColumn = "Model",
+				 promptName = "Vehicle_Model",
+				 iconName = "fa fa-car",
+				 attributes = "readonly"
+			 })
+
+			@await Html.PartialAsync("ResponsiveRows/_input_row",
+			 new uResponsiveRow {
+				 elementID = "Vehicle_Type",
+				 boundColumn = "Vehicle_Type",
+				 promptName = "Vehicle_Type",
+				 iconName = "fa fa-font",
+				 attributes = "readonly"
+			 })
+
+			@await Html.PartialAsync("ResponsiveRows/_input_row",
+			 new uResponsiveRow {
+				 elementID = "Description",
+				 boundColumn = "Description",
+				 promptName = "Description",
+				 iconName = "fa fa-eye",
+				 attributes = "readonly"
+			 })
+
+			@await Html.PartialAsync("ResponsiveRows/_input_row",
+			 new uResponsiveRow {
+				 elementID = "Malf_Desc",
+				 boundColumn = "Malf_Desc",
+				 promptName = "Malf",
+				 iconName = "fa fa-unlink",
+				 attributes = "readonly"
+			 })
+
+			@await Html.PartialAsync("ResponsiveRows/_input_row",
+			 new uResponsiveRow {
+				 elementID = "Work_Order_ID",
+				 boundColumn = "Work_Order_ID",
+				 promptName = "Call_Number",
+				 iconName = "fa fa-list-ol",
+				 attributes = "readonly"
+			 })
+		</div>
+	</div>
+</div>
+

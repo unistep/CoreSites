@@ -1,0 +1,96 @@
+﻿
+@model uToolkit.uBusinessObject
+@using Newtonsoft.Json;
+
+<script language="JavaScript">
+	var g_datasets	= @Html.Raw(JsonConvert.SerializeObject(this.Model.datasets));
+</script>
+
+<script type="text/javascript" charset="utf-8" src="~/js/ServiceCall_ShoppingCart.js"></script>
+
+<form class="nframe" asp-antiforgery="true" method="post">
+	<div id="eid_cart_row" class="form-horizontal">
+		<div class="container">
+			<div class="row" style="padding-top: 10px;">
+
+				@await Html.PartialAsync("ResponsiveRows/_select_row",
+						 new uResponsiveRow
+						 {
+							 elementID = "Product_Family_ID",
+							 //boundColumn = "Product_Family_ID",
+							 promptName = "Product_Family",
+							 datasetName = "Product_Family",
+							 iconName = ""
+						 })
+
+				@await Html.PartialAsync("ResponsiveRows/_select_row",
+						 new uResponsiveRow
+						 {
+							 elementID = "Product_ID",
+							 boundColumn = "Product_ID",
+							 promptName = "Product",
+							 iconName = ""
+						 })
+
+				@await Html.PartialAsync("ResponsiveRows/_input_row",
+						 new uResponsiveRow
+						 {
+							 elementID = "Product_Name",
+							 //boundColumn = "Product_Name",
+							 promptName = "Product_ID",
+							 iconName = "fa fa-cart-arrow-down ",
+							 attributes = "readonly"
+						 })
+
+				@await Html.PartialAsync("ResponsiveRows/_input_row",
+						 new uResponsiveRow
+						 {
+							 elementID = "Product_Unit_Price",
+							 //boundColumn = "Product_Unit_Price",
+							 promptName = "Product_Unit_Price",
+							 iconName = "fa fa-money",
+							 attributes = "readonly"
+						 })
+
+				@await Html.PartialAsync("ResponsiveRows/_input_row",
+						 new uResponsiveRow
+						 {
+							 elementID = "Product_Sale_Price",
+							 boundColumn = "Product_Sale_Price",
+							 promptName = "Product_Sale_Price",
+							 iconName = "fa fa-money"
+						 })
+
+				@await Html.PartialAsync("ResponsiveRows/_input_row",
+						 new uResponsiveRow
+						 {
+							 elementID = "Product_Sale_Quantity",
+							 boundColumn = "Product_Sale_Quantity",
+							 promptName = "Product_Sale_Quantity",
+							 iconName = "fa fa-arrows-v"
+						 })
+
+				@await Html.PartialAsync("ResponsiveRows/_input_row",
+						 new uResponsiveRow
+						 {
+							 elementID = "Cart_Row_Total_Price",
+							 boundColumn = "Cart_Row_Total_Price",
+							 promptName = "Cart_Row_Total_Price",
+							 iconName = "fa fa-ils ",
+							 attributes = "readonly"
+						 })
+			</div>
+		</div>
+	</div>
+</form>
+
+<div class="navigate_ruler">
+	@if (Html.GetViewDirection() == "RTL")
+	{
+		@await Html.PartialAsync("_RTL_Navigation_Ruler")
+	}
+	else
+	{
+		@await Html.PartialAsync("_LTR_Navigation_Ruler")
+	}
+</div>

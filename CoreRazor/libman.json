@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+	"libraries": [
+		{
+			"library": "font-awesome@5.13.0",
+			"destination": "wwwroot/lib/font-awesome/"
+		},
+		{
+			"library": "bootstrap-datepicker@1.9.0",
+			"destination": "wwwroot/lib/bootstrap-datepicker/"
+		},
+		{
+			"library": "bootstrap-rtl@3.4.0",
+			"destination": "wwwroot/lib/bootstrap-rtl/"
+		},
+		{
+			"library": "bowser@1.9.4",
+			"destination": "wwwroot/lib/bowser/bowser/"
+		},
+		{
+			"library": "defiant.js@2.2.6",
+			"destination": "wwwroot/lib/defiant.js/"
+		},
+		{
+			"library": "jquery@3.5.1",
+			"destination": "wwwroot/lib/jquery/"
+		},
+		{
+			"library": "jquery-validate@1.19.1",
+			"destination": "wwwroot/lib/jquery-validate/"
+		},
+		{
+			"library": "moment.js@2.26.0",
+			"destination": "wwwroot/lib/moment.js/"
+		},
+		{
+			"library": "select2@4.0.12",
+			"destination": "wwwroot/lib/select2/"
+		}
+	]
+}

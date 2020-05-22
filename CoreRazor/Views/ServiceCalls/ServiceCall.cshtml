@@ -1,0 +1,75 @@
+﻿
+@model uToolkit.uBusinessObject
+@using Newtonsoft.Json;
+
+<script language="JavaScript">
+	var g_msg_on_my_way			= '@Html.Localize("SMS_On_My_Way")'
+	var g_msg_arrival_cancelled = '@Html.Localize("SMS_Arrival_Cancelled")'
+	var g_datasets				= @Html.Raw(JsonConvert.SerializeObject(this.Model.datasets));
+</script>
+
+<link rel="stylesheet" href="~/css/ServiceCall.css" />
+<script type="text/javascript" charset="utf-8" src="~/js/ServiceCall.js"></script>
+
+<form class="nframe" asp-antiforgery="true" method="post">
+
+	<div class="tabs-container">
+		<ul id="main_nav_tabs" class="nav nav-tabs">
+			<li class="nav-item active">
+				<a class="nav-link" href="#tab1" data-toggle="tab">
+					<span class="fa fa-info-circle"></span>  @Html.Localize("Details")
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#tab2" data-toggle="tab">
+					<span class="fa fa-map-marker"></span>  @Html.Localize("Location")
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#tab3" data-toggle="tab">
+					<span class="fa fa-clock-o"></span>  @Html.Localize("Schedule")
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#tab4" data-toggle="tab">
+					<span class="fa fa-image"></span>  @Html.Localize("Camera")
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#tab5" data-toggle="tab">
+					<span class="fa fa-cart-plus"></span>  @Html.Localize("Products")
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#tab6" data-toggle="tab">
+					<span class="fa fa-credit-card"></span>  @Html.Localize("Charge")
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#tab7" data-toggle="tab">
+					<span class="fa fa-map"></span>  @Html.Localize("Map")
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="tab-content" class="tab-content" style="padding-top:20px;">
+		<partial name="ServiceCall_Tab1" />
+		<partial name="ServiceCall_Tab2" />
+		<partial name="ServiceCall_Tab3" />
+		<partial name="ServiceCall_Tab4" />
+		<partial name="ServiceCall_Tab5" />
+		<partial name="ServiceCall_Tab6" />
+		<partial name="ServiceCall_Tab7" />
+	</div>
+</form>
+<div class="navigate_ruler">
+	@if (Html.GetViewDirection() == "RTL")
+	{
+		<partial name="_RTL_Navigation_Ruler" />
+	}
+	else
+	{
+		<partial name="_LTR_Navigation_Ruler" />
+	}
+</div>
