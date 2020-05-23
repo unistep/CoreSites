@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UfwInterface } from '../../../../angular-toolkit/src/public-api';
 
-//import * as $ from 'jquery';
+import * as $ from 'jquery';
+declare var $: any;
 
 @Component({
   selector: 'app-nav-menu',
@@ -19,14 +20,14 @@ export class NavMenuComponent {
   onChange() {
     this.ufw.ugs.adjastUserLanguage(this.ufw.ugs.selectedLanguage);
     const language = this.ufw.ugs.selectedLanguage;
-    this.ufw.post(`ChangeLanguage?language=${language}`);
+    this.ufw.post(`SPA_ChangeLanguage?language=${language}`);
     //location.reload();
-    const elmButton = document.getElementsByClassName("navbar-toggler")[0];
+    const elmButton: any = document.getElementsByClassName("navbar-toggler")[0];
     elmButton.click();
   }
 
   toggle() {
-    const elmButton = document.getElementsByClassName("navbar-toggler")[0];
+    const elmButton: any = document.getElementsByClassName("navbar-toggler")[0];
     elmButton.click();
   }
 

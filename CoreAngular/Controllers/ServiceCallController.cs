@@ -6,7 +6,7 @@ using uToolkit;
 
 namespace CoreAngular.Controllers
 {
-	public class ServiceCallController : WebApiController
+	public class ServiceCallController : Controller
 	{
 		//====================================================================================================
 		[HttpGet("ServiceCall")]
@@ -66,37 +66,6 @@ namespace CoreAngular.Controllers
 			//businessObject.parent_view = System.IO.Path.GetFileName(HttpContext.Request.Path.Value);
 			return Ok(businessObject);
 		}
-
-
-		//====================================================================================================
-		//[HttpPost("Upload"), DisableRequestSizeLimit]
-		//public IActionResult Upload()
-		//{
-		//	string userName = GetCallerLoginName();
-
-		//	if (Request.Form.Files.Count < 1)
-		//	{
-		//		uApp.Loger($"*** Upload file Error: Caller={userName}, No files recieved");
-		//		return BadRequest();
-		//	}
-
-		//	IFormFile file = Request.Form.Files[0];
-		//	long fileSize = file.Length;
-		//	string fileName = file.Name;
-		//	uApp.Loger($"Upload file request: Caller={userName}, {fileName}, Size: {fileSize}");
-
-		//	string strFilePath = uApp.m_homeDirectory + "/uploads/" + fileName;
-
-		//	string dirPath = uFile.GetDirPath(strFilePath);
-		//	if (dirPath == "") return BadRequest();
-
-		//	if (!uFile.CreateDirectory(dirPath)) return BadRequest();
-
-		//	if (!CreateFile(file, strFilePath)) return BadRequest();
-
-		//	uApp.Loger("Uploaded 1 files");
-		//	return Ok();
-		//}
 	}
 }
 

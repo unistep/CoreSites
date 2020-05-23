@@ -10,14 +10,14 @@ label, p, h1, h2, h3, h4, h5, address {
 	padding-right: unset;
 }
 
-.label-align-natural {
+.align-natural {
 	text-align: left;
 	vertical-align: middle;
-	white-space: nowrap;
-	color: cornflowerblue;
+	padding-left: 15px !important;
+	padding-right: unset;
 }
 
-.label-align-center {
+.align-center {
 	text-align: center;
 	vertical-align: middle;
 	white-space: nowrap;
@@ -28,7 +28,7 @@ label, p, h1, h2, h3, h4, h5, address {
 	width: 100%;
 }
 
-.label-align-opposite {
+.align-opposite {
 	text-align: right;
 	vertical-align: middle;
 	white-space: nowrap;

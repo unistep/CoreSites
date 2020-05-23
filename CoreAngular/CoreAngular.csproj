@@ -45,10 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Remove="wwwroot\lib\moment\moment.d.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="System_Options.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

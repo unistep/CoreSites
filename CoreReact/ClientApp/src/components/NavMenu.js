@@ -76,7 +76,7 @@ export class NavMenu extends Component {
         u.ugs.selectedLanguage = lang;
         await u.ugs.adjastUserLanguage(lang);
         const language = u.ugs.selectedLanguage;
-        u.post(`ChangeLanguage?language=${language}`);
+        u.post(`SPA_ChangeLanguage?language=${language}`);
 
         var url = "assets/i18n/" + u.ugs.current_language + '.json'
         const response = await fetch(url);

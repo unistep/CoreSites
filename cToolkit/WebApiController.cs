@@ -69,14 +69,36 @@ namespace uToolkit
 		}
 
 
+		[HttpGet("MVC_ChangeLanguage")]
 		//====================================================================================================
-		[HttpPost("ChangeLanguage")]
-		public IActionResult ChangeLanguage(string language)
+		public IActionResult MVC_ChangeLanguage(string language)
+		{
+			SetSessionLanguage(language);
+
+			var caller = (Request.Headers["Referer"] != "") ?
+						Request.Headers["Referer"].ToString() : "DefaultRedirect";
+
+			return Redirect(caller);
+		}
+
+		//====================================================================================================
+		[HttpPost("SPA_ChangeLanguage")]
+		public IActionResult SPA_ChangeLanguage(string language)
 		{
 			SetSessionLanguage(language);
 			return Ok("[]");
 		}
 
+
+		[HttpGet("SetNewLanguage")]
+		//====================================================================================================
+		public IActionResult SetNewLanguage()
+		{
+			var caller = (Request.Headers["Referer"] != "") ?
+						Request.Headers["Referer"].ToString() : "DefaultRedirect";
+
+			return Redirect(caller);
+		}
 
 		//====================================================================================================
 		[HttpPost("Upload"), DisableRequestSizeLimit]

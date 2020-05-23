@@ -3,43 +3,44 @@
 	box-sizing: border-box;
 }
 
+body {
+	height: 99vh;
+	margin: 1px;
+	padding: 3px;
+	background: #fff;
+	border: 1px solid lightblue;
+	border-radius: 6px;
+	overflow: hidden;
+}
+
 label, p, h1, h2, h3, h4, h5, address {
 	text-align: left;
 	width: 100%;
-	padding-left: 15px !important;
+	vertical-align: middle;
+	white-space: nowrap;
+	padding-left: 20px !important;
 	padding-right: unset;
 }
 
-.label-align-natural {
+
+.align-natural {
 	text-align: left;
-	vertical-align: middle;
-	white-space: nowrap;
-	color: cornflowerblue;
+	padding-left: 20px !important;
+	padding-right: unset;
 }
 
-.label-align-center {
-	text-align: center;
-	vertical-align: middle;
-	white-space: nowrap;
-	font-family: "Trebuchet MS", Arial, Tahoma, sans-serif;
-	font-size: 1em;
-	font-weight: 100 !important;
-	line-height: 2em;
-	width: 100%;
-}
-
-.label-align-opposite {
+.align-opposite {
 	text-align: right;
-	vertical-align: middle;
-	white-space: nowrap;
+	padding-left: unset;
+	padding-right: 20px !important;
 }
 
-.icon-align-natural {
-	text-align: left;
-	vertical-align: middle;
-	padding-left: 20px;
-	color: cornflowerblue;
+.align-center {
+	text-align: center;
+	padding-left: unset;
+	padding-right: unset;
 }
+
 
 .icon-align-opposite {
 	position: absolute;
@@ -49,317 +50,3 @@ label, p, h1, h2, h3, h4, h5, address {
 	color: cornflowerblue;
 	font-size: 16px;
 }
-
-.second-icon-align-opposite {
-	position: absolute;
-	right: 20px;
-	top: 10px;
-	pointer-events: none;
-	color: cornflowerblue;
-	font-size: 16px;
-}
-
-.vertical-splitter-container {
-	height: 87vh;
-	width: 100%;
-	display: flex;
-}
-
-.splitter {
-	background-color: gray;
-	border: 1px solid lightblue;
-	width: 4px;
-	cursor: col-resize;
-}
-
-#eid_pb_frame {
-	background-color: lightgray;
-	border-radius: 20px;
-	padding: 4px;
-}
-
-#eid_pb_bar {
-	background-color: #4681da;
-	width: 1%;
-	height: 16px;
-	border-radius: 10px;
-}
-
-#eid_enable_authenticator ol li p {
-	margin-left: 10px;
-}
-
-#eid_enable_authenticator p {
-	width: 70% !important;
-	margin: 0 auto;
-	margin-left: 5px;
-}
-
-#eid_manage_nav li a {
-	display: inline-block;
-	padding-right: 20px;
-}
-
-.navbar-nav > li > a {
-	white-space: nowrap;
-}
-
-.navbar-nav .nav-link:hover, .navbar-brand:hover {
-	background-color: lightgray;
-}
-
-
-.dropdown-menu a {
-	padding: 12px 16px;
-}
-
-.dropdown-submenu a {
-	padding: 12px 36px !important;
-}
-
-
-body {
-	height: 99vh;
-	margin: 1px;
-	padding: 3px;
-	background: #fff;
-	border: 1px solid lightblue;
-	/*border: 1px solid green;*/
-	border-radius: 6px;
-	overflow: hidden;
-}
-
-.body-content {
-	height: 86vh;
-	padding: 3px;
-	border: 1px solid lightblue;
-	border-radius: 6px;
-	overflow: hidden;
-}
-
-.nframe {
-	height: 80vh;
-	padding: 3px;
-	border: 1px solid lightblue;
-	/*border: 1px solid black;*/
-	border-radius: 6px;
-	overflow-x: hidden;
-	overflow-y: hidden;
-}
-
-.tframe {
-	height: 70vh;
-	border-bottom: 5px solid lightblue;
-	overflow: auto;
-}
-
-.navigate_ruler {
-	margin-top: 10px;
-}
-
-.carousel-caption p {
-	font-size: 20px;
-	line-height: 1.4;
-}
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-	width: 100%;
-}
-/* QR code generator */
-#qrCode {
-	margin: 15px;
-}
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-	.carousel-caption {
-		display: none;
-	}
-}
-
-.brand-header {
-	border-bottom: 1px solid #ddd;
-	border-top: 1px solid #ddd;
-	color: black;
-	font-size: 2.5em;
-	font-weight: bold;
-	line-height: 2.0em;
-	margin-top: 10px;
-	margin-right: 5%;
-	margin-left: 5%;
-	padding: 0px 2px;
-	width: 90%;
-	text-align: left;
-	background: url('/./Images/brand_logo.png'); /* careful its relative */
-	background-repeat: no-repeat;
-	background-size: 80px 40px !important;
-	background-position: right center;
-}
-
-h3 {
-	margin-top: 10px;
-	text-decoration: underline;
-	text-align: center;
-}
-
-input[type=checkbox], input[type=radio] {
-	vertical-align: middle;
-	position: relative;
-}
-
-
-.control-w70 {
-	width: 70% !important;
-	margin: 0 auto;
-}
-
-.loader {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	display: none;
-	z-index: 9999;
-}
-
-
-#eid_site a {
-	margin-bottom: 5px;
-	font-size: 12px;
-	text-decoration: none;
-	color: blue;
-}
-
-#eid_site a:hover {
-	text-decoration: underline;
-}
-
-#eid_status {
-	margin-bottom: 5px;
-	font-size: 12px;
-	text-decoration: none;
-	overflow-x: hidden;
-	white-space: nowrap;
-}
-
-#eid_status:hover {
-	text-decoration: solid;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__placeholder {
-	color: black;
-}
-
-.select2-container .select2-selection--single {
-	text-align: left;
-	font-size: 1em;
-	height: 2.3em;
-	padding-top: 3px;
-	color: black !important;
-	border: 1px solid lightgray;
-	border-radius: 2px;
-}
-
-.select2-search--dropdown .select2-search__field {
-	text-align: left;
-
-	font-size: 1.1em;
-}
-
-.select2-results {
-	text-align: left;
-	font-size: 1.1em;
-}
-
-.tabs-container {
-	border-bottom: 2px solid lightgray !important;
-	overflow-x: auto !important;
-	overflow-y: hidden !important;
-}
-
-.nav-tabs {
-	display: -webkit-box;
-	display: -moz-box;
-	border-bottom: none;
-	margin-left: 0px;
-	margin-right: 0px;
-	margin-bottom: 5px;
-	-ms-overflow-style: -ms-autohiding-scrollbar;
-	-webkit-overflow-scrolling: touch;
-	white-space: nowrap;
-}
-
-.nav-tabs > li {
-	border-top: 2px solid lightgray;
-	border-right: 2px solid lightgray;
-	border-radius: 3px;
-	margin-left: 5px;
-	float: none;
-}
-
-.nav-tabs > li > a {
-	color: blue;
-	font-size: 15px;
-	line-height: 30px;
-	padding: 0px 9px 0px 9px;
-	-webkit-transition: color .15s;
-	-moz-transition: color .15s;
-	-o-transition: color .15s;
-	transition: color .15s;
-	white-space: nowrap;
-}
-
-.nav-tabs > li > a:hover,
-.nav-tabs > li > a:active,
-.nav-tabs > li > a:focus {
-	color: black;
-}
-
-.map-canvas {
-	display: block;
-	position: absolute;
-	margin-top: -15px;
-	right: 15px;
-	min-width: 97%;
-	min-height: 66%;
-	border-radius: 3px;
-	overflow: hidden;
-}
-
-@media (min-width: 769px) and (max-width: 992px) {
-	.map-canvas {
-		min-width: 97%;
-	}
-}
-
-@media (min-width: 577px) and (max-width: 768px) {
-	.map-canvas {
-		min-width: 94%;
-	}
-}
-
-@media (max-width: 576px) {
-	.map-canvas {
-		min-width: 92%;
-	}
-}
-
-.nav_back {
-	position: absolute;
-	left: 5px;
-	top: 5px;
-	color: white;
-	font-size: 16px;
-	z-index: 99;
-}
-
-.nav_forw {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	color: white;
-	font-size: 16px;
-}
-
-.r_input{
-	padding-right: 25px;
-}
-
