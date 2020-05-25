@@ -2,10 +2,10 @@
 @model uResponsiveRow
 
 <div class="row form-group col-12">
-	<label class="col-4 col-form-label label-align-opposite">@Html.Localize(Model.promptName)</label>
+	<label class="col-4 col-form-label align-opposite">@Html.Localize(Model.promptName)</label>
 	<div class="col-8 input-group date" data-provide="datepicker">
 		<input id="@Model.elementID" data-bind="@Model.boundColumn" 
-			   type=text class="form-control r_input"
+			   type=text class="form-control r_input" dir="rtl"
 			   placeholder="@Html.Localize(Model.promptName)"
 			   @Model.attributes>
 		<span class="input-group-addon"><i class="@Model.iconName second-icon-align-opposite" aria-hidden="true"></i></span>

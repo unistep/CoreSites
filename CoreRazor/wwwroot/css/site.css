@@ -3,43 +3,66 @@
 	box-sizing: border-box;
 }
 
+body {
+	height: 99.5vh;
+	margin: 1px;
+	padding: 3px;
+	background: #fff;
+	border: 1px solid red;
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.body-content {
+	height: 86vh;
+	padding: 3px;
+	border: 1px solid green;
+	border-radius: 6px;
+	overflow: auto;
+}
+
+.nframe {
+	height: 78vh;
+	padding: 3px;
+	border: 1px solid lightblue;
+	/*border: 1px solid black;*/
+	border-radius: 6px;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.tframe {
+	height: 68vh;
+	border-bottom: 5px solid lightblue;
+	overflow-x: hidden;
+}
+
+
 label, p, h1, h2, h3, h4, h5, address {
 	text-align: left;
 	width: 100%;
-	padding-left: 15px !important;
+	vertical-align: middle;
+	white-space: nowrap;
+	padding-left: 20px !important;
 	padding-right: unset;
 }
 
-
-.label-align-natural {
+.align-natural {
 	text-align: left;
-	vertical-align: middle;
-	white-space: nowrap;
-	color: cornflowerblue;
+	padding-left: 20px !important;
+	padding-right: unset;
 }
 
-.label-align-center {
-	text-align: center;
-	vertical-align: middle;
-	white-space: nowrap;
-	font-family: "Trebuchet MS", Arial, Tahoma, sans-serif;
-	font-size: 1em;
-	font-weight: 100 !important;
-	line-height: 2em;
-	width: 100%;
-}
-
-.label-align-opposite {
+.align-opposite {
 	text-align: right;
-	vertical-align: middle;
-	white-space: nowrap;
+	padding-left: unset;
+	padding-right: 20px !important;
 }
 
-.icon-align-natural {
-	text-align: left;
-	vertical-align: middle;
-	padding-left: 20px;
-	color: cornflowerblue;
+.align-center {
+	text-align: center;
+	padding-left: unset;
+	padding-right: unset;
 }
 
 .icon-align-opposite {
@@ -119,41 +142,6 @@ label, p, h1, h2, h3, h4, h5, address {
 }
 
 
-body {
-	height: 99vh;
-	margin: 1px;
-	padding: 3px;
-	background: #fff;
-	border: 1px solid lightblue;
-	/*border: 1px solid green;*/
-	border-radius: 6px;
-	overflow-y: hidden;
-}
-
-.body-content {
-	height: 88vh;
-	padding: 3px;
-	border: 1px solid lightblue;
-	/*border: 1px solid red;*/
-	border-radius: 6px;
-	overflow: auto;
-}
-
-.nframe {
-	height: 80vh;
-	padding: 3px;
-	border: 1px solid lightblue;
-	/*border: 1px solid black;*/
-	border-radius: 6px;
-	overflow-x: hidden;
-	overflow-y: hidden;
-}
-
-.tframe {
-	height: 70vh;
-	border-bottom: 5px solid lightblue;
-	overflow: auto;
-}
 
 .navigate_ruler {
 	margin-top: 10px;
@@ -230,9 +218,9 @@ input[type=checkbox], input[type=radio] {
 	color: blue;
 }
 
-#eid_site a:hover {
-	text-decoration: underline;
-}
+	#eid_site a:hover {
+		text-decoration: underline;
+	}
 
 #eid_status {
 	margin-bottom: 5px;
@@ -242,9 +230,9 @@ input[type=checkbox], input[type=radio] {
 	white-space: nowrap;
 }
 
-#eid_status:hover {
-	text-decoration: solid;
-}
+	#eid_status:hover {
+		text-decoration: solid;
+	}
 
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
 	color: black;
@@ -262,7 +250,6 @@ input[type=checkbox], input[type=radio] {
 
 .select2-search--dropdown .select2-search__field {
 	text-align: left;
-
 	font-size: 1.1em;
 }
 
@@ -289,31 +276,31 @@ input[type=checkbox], input[type=radio] {
 	white-space: nowrap;
 }
 
-.nav-tabs > li {
-	border-top: 2px solid lightgray;
-	border-right: 2px solid lightgray;
-	border-radius: 3px;
-	margin-left: 5px;
-	float: none;
-}
+	.nav-tabs > li {
+		border-top: 2px solid lightgray;
+		border-right: 2px solid lightgray;
+		border-radius: 3px;
+		margin-left: 5px;
+		float: none;
+	}
 
-.nav-tabs > li > a {
-	color: blue;
-	font-size: 15px;
-	line-height: 30px;
-	padding: 0px 9px 0px 9px;
-	-webkit-transition: color .15s;
-	-moz-transition: color .15s;
-	-o-transition: color .15s;
-	transition: color .15s;
-	white-space: nowrap;
-}
+		.nav-tabs > li > a {
+			color: blue;
+			font-size: 15px;
+			line-height: 30px;
+			padding: 0px 9px 0px 9px;
+			-webkit-transition: color .15s;
+			-moz-transition: color .15s;
+			-o-transition: color .15s;
+			transition: color .15s;
+			white-space: nowrap;
+		}
 
-.nav-tabs > li > a:hover,
-.nav-tabs > li > a:active,
-.nav-tabs > li > a:focus {
-	color: black;
-}
+			.nav-tabs > li > a:hover,
+			.nav-tabs > li > a:active,
+			.nav-tabs > li > a:focus {
+				color: black;
+			}
 
 .map-canvas {
 	display: block;
@@ -361,7 +348,7 @@ input[type=checkbox], input[type=radio] {
 	font-size: 16px;
 }
 
-.r_input{
+.r_input {
 	padding-right: 25px;
 }
 

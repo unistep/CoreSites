@@ -1,5 +1,5 @@
 ﻿
-label, p, h1, h2, h3, h4, h5, address {
+/*label, p, h1, h2, h3, h4, h5, address {
 	text-align: right;
 	width: 100%;
 	padding-right: 15px;
@@ -68,8 +68,8 @@ label, p, h1, h2, h3, h4, h5, address {
 
 .brand-header {
 	text-align: right;
-	background: url('/./Images/brand_logo.png'); /* careful its relative */
-	background-repeat: no-repeat;
+	background: url('/./Images/brand_logo.png');*/ /* careful its relative */
+	/*background-repeat: no-repeat;
 	background-size: 80px 40px !important;
 	background-position: left center;
 }
@@ -150,4 +150,4 @@ label, p, h1, h2, h3, h4, h5, address {
 
 .date {
 	direction: ltr;
-}
+}*/

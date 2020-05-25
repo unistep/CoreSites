@@ -1,5 +1,5 @@
 ﻿
-*{
+/**{
 	box-sizing: border-box;
 }
 
@@ -115,24 +115,24 @@ label, p, h1, h2, h3, h4, h5, address {
 
 .dropdown-submenu a {
 	padding: 12px 36px !important;
-}
+}*/
 
 
-body {
+/*body {
 	height: 99vh;
 	margin: 1px;
 	padding: 3px;
 	background: #fff;
-	border: 1px solid lightblue;
+	border: 4px solid green;*/
 	/*border: 1px solid green;*/
-	border-radius: 6px;
+	/*border-radius: 6px;
 	overflow: hidden;
-}
+}*/
 
-.body-content {
+/*.body-content {
 	height: 86vh;
 	padding: 3px;
-	border: 1px solid lightblue;
+	border: 4px solid lightblue;
 	border-radius: 6px;
 	overflow: hidden;
 }
@@ -140,9 +140,9 @@ body {
 .nframe {
 	height: 80vh;
 	padding: 3px;
-	border: 1px solid lightblue;
+	border: 1px solid lightblue;*/
 	/*border: 1px solid black;*/
-	border-radius: 6px;
+	/*border-radius: 6px;
 	overflow-x: hidden;
 	overflow-y: hidden;
 }
@@ -160,17 +160,17 @@ body {
 .carousel-caption p {
 	font-size: 20px;
 	line-height: 1.4;
-}
+}*/
 /* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+/*.carousel-inner .item img[src$=".svg"] {
 	width: 100%;
-}
+}*/
 /* QR code generator */
-#qrCode {
+/*#qrCode {
 	margin: 15px;
-}
+}*/
 /* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
+/*@media screen and (max-width: 767px) {
 	.carousel-caption {
 		display: none;
 	}
@@ -189,8 +189,8 @@ body {
 	padding: 0px 2px;
 	width: 90%;
 	text-align: left;
-	background: url('/./Images/brand_logo.png'); /* careful its relative */
-	background-repeat: no-repeat;
+	background: url('/./Images/brand_logo.png');*/ /* careful its relative */
+	/*background-repeat: no-repeat;
 	background-size: 80px 40px !important;
 	background-position: right center;
 }
@@ -361,5 +361,5 @@ input[type=checkbox], input[type=radio] {
 
 .r_input{
 	padding-right: 25px;
-}
+}*/
 

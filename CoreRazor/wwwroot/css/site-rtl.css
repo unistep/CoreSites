@@ -1,25 +1,31 @@
 ﻿
+
 label, p, h1, h2, h3, h4, h5, address {
 	text-align: right;
 	width: 100%;
-	padding-right: 15px;
+	vertical-align: middle;
+	white-space: nowrap;
+	padding-right: 20px !important;
 	padding-left: unset;
 }
 
-.label-align-natural {
+.align-natural {
 	text-align: right;
+	padding-right: 20px !important;
+	padding-left: unset;
 }
 
-.label-align-opposite {
+.align-opposite {
 	text-align: left;
+	padding-right: unset;
+	padding-left: 20px !important;
 }
 
-.icon-align-natural {
-	text-align: right;
-	padding-left: initial;
-	padding-right: 20px;
+.icon-align-opposite {
+	position: absolute;
+	left: 5px;
+	right: unset;
 }
-
 
 #eid_two_factor_authentication {
 	text-align: right;
