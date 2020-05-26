@@ -76,7 +76,7 @@ export class UGmapsService {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(p => {
 				this.current_location = new window.google.maps.LatLng(p.coords.latitude, p.coords.longitude);
-        this.ugs.Loger(`Location: ${p.coords.latitude} ${p.coords.longitude}`);
+				this.ugs.Loger(`mapDrawRoute==> Location: ${p.coords.latitude} ${p.coords.longitude}`,false);
 				this.drawCenteredMap(this.current_location);
 				this.getGoogleDuration(this.current_location, destination);
 			})
