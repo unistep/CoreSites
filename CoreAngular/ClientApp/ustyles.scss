@@ -1,6 +1,10 @@
 
 @import "./node_modules/ngx-bdir/styles/bdir.mixins.scss";
 
+$label-color: cornflowerblue;
+$icon-color: royalblue;
+$border-radius: 4px;
+
 * {
   box-sizing: border-box;
 }

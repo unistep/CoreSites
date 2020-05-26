@@ -94,7 +94,7 @@ function resizeWindow() {
 
 	if (bowser.osname == 'Windows') {
 		$('.map-canvas').css({
-			'min-height': '70%'
+			'min-height': '35vw'
 		});
 
 		return;

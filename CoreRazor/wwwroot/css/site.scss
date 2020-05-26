@@ -1,37 +1,71 @@
 ﻿
-*{
+$label-color: cornflowerblue;
+$icon-color: cornflowerblue;
+$border-radius: 4px;
+
+* {
 	box-sizing: border-box;
 }
 
+body {
+	height: 99.5vh;
+	margin: 1px;
+	padding: 3px;
+	background: #fff;
+	border: 1px solid lightblue;
+	border-radius: $border-radius;
+	overflow-y: auto;
+}
+
+.body-content {
+	height: 86vh;
+	padding: 3px;
+	border: 1px solid lightblue;
+	border-radius: $border-radius;
+	overflow-y: auto;
+}
+
+.nframe {
+	height: 77vh;
+	padding: 3px;
+	border: 1px solid lightblue;
+	border-radius: $border-radius;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.tframe {
+	height: 66vh;
+	border-bottom: 5px solid lightblue;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
 label, p, h1, h2, h3, h4, h5, address {
-	text-align: left;
 	width: 100%;
-	padding-left: 15px !important;
-	padding-right: unset;
-}
-
-.align-natural {
 	text-align: left;
 	vertical-align: middle;
-	padding-left: 15px !important;
+	padding-left: 15px;
 	padding-right: unset;
-}
-
-.align-center {
-	text-align: center;
-	vertical-align: middle;
-	white-space: nowrap;
-	font-family: "Trebuchet MS", Arial, Tahoma, sans-serif;
-	font-size: 1em;
-	font-weight: 100 !important;
-	line-height: 2em;
-	width: 100%;
+	color: $label-color;
 }
 
 .align-opposite {
-	text-align: right;
-	vertical-align: middle;
+	@extend label;
 	white-space: nowrap;
+	text-align: right;
+}
+
+.align-natural {
+	@extend label;
+	white-space: nowrap;
+	text-align: left;
+}
+
+.align-center {
+	@extend label;
+	white-space: nowrap;
+	text-align: center;
 }
 
 .icon-align-natural {
@@ -47,7 +81,6 @@ label, p, h1, h2, h3, h4, h5, address {
 	top: 10px;
 	pointer-events: none;
 	color: cornflowerblue;
-	font-size: 16px;
 }
 
 .second-icon-align-opposite {
@@ -56,20 +89,6 @@ label, p, h1, h2, h3, h4, h5, address {
 	top: 10px;
 	pointer-events: none;
 	color: cornflowerblue;
-	font-size: 16px;
-}
-
-.vertical-splitter-container {
-	height: 87vh;
-	width: 100%;
-	display: flex;
-}
-
-.splitter {
-	background-color: gray;
-	border: 1px solid lightblue;
-	width: 4px;
-	cursor: col-resize;
 }
 
 #eid_pb_frame {
@@ -85,21 +104,6 @@ label, p, h1, h2, h3, h4, h5, address {
 	border-radius: 10px;
 }
 
-#eid_enable_authenticator ol li p {
-	margin-left: 10px;
-}
-
-#eid_enable_authenticator p {
-	width: 70% !important;
-	margin: 0 auto;
-	margin-left: 5px;
-}
-
-#eid_manage_nav li a {
-	display: inline-block;
-	padding-right: 20px;
-}
-
 .navbar-nav > li > a {
 	white-space: nowrap;
 }
@@ -107,7 +111,6 @@ label, p, h1, h2, h3, h4, h5, address {
 .navbar-nav .nav-link:hover, .navbar-brand:hover {
 	background-color: lightgray;
 }
-
 
 .dropdown-menu a {
 	padding: 12px 16px;
@@ -118,41 +121,6 @@ label, p, h1, h2, h3, h4, h5, address {
 }
 
 
-body {
-	height: 99vh;
-	margin: 1px;
-	padding: 3px;
-	background: #fff;
-	border: 1px solid lightblue;
-	/*border: 1px solid green;*/
-	border-radius: 6px;
-	overflow: hidden;
-}
-
-.body-content {
-	height: 86vh;
-	padding: 3px;
-	border: 1px solid lightblue;
-	border-radius: 6px;
-	overflow: hidden;
-}
-
-.nframe {
-	height: 80vh;
-	padding: 3px;
-	border: 1px solid lightblue;
-	/*border: 1px solid black;*/
-	border-radius: 6px;
-	overflow-x: hidden;
-	overflow-y: hidden;
-}
-
-.tframe {
-	height: 70vh;
-	border-bottom: 5px solid lightblue;
-	overflow: auto;
-}
-
 .navigate_ruler {
 	margin-top: 10px;
 }
@@ -160,20 +128,6 @@ body {
 .carousel-caption p {
 	font-size: 20px;
 	line-height: 1.4;
-}
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-	width: 100%;
-}
-/* QR code generator */
-#qrCode {
-	margin: 15px;
-}
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-	.carousel-caption {
-		display: none;
-	}
 }
 
 .brand-header {
@@ -206,11 +160,6 @@ input[type=checkbox], input[type=radio] {
 	position: relative;
 }
 
-
-.control-w70 {
-	width: 70% !important;
-	margin: 0 auto;
-}
 
 .loader {
 	position: fixed;
@@ -317,28 +266,28 @@ input[type=checkbox], input[type=radio] {
 	display: block;
 	position: absolute;
 	margin-top: -15px;
-	right: 15px;
-	min-width: 97%;
-	min-height: 66%;
-	border-radius: 3px;
+	right: 12vw;
+	min-width: 77vw;
+	min-height: 50vh;
+	border-radius: $border-radius;
 	overflow: hidden;
 }
 
-@media (min-width: 769px) and (max-width: 992px) {
+/*@media (min-width: 769px) and (max-width: 992px) {
 	.map-canvas {
 		min-width: 97%;
 	}
 }
-
+*/
 @media (min-width: 577px) and (max-width: 768px) {
 	.map-canvas {
-		min-width: 94%;
+		min-width: 72vw;
 	}
 }
 
 @media (max-width: 576px) {
 	.map-canvas {
-		min-width: 92%;
+		min-width: 68vw;
 	}
 }
 

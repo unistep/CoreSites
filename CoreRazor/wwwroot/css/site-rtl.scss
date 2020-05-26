@@ -1,57 +1,22 @@
 ﻿
 label, p, h1, h2, h3, h4, h5, address {
 	text-align: right;
-	width: 100%;
 	padding-right: 15px;
 	padding-left: unset;
 }
 
-.label-align-natural {
-	text-align: right;
+.align-opposite {
+	text-align: left;
 }
 
-.label-align-opposite {
-	text-align: left;
+.align-natural {
+	text-align: right;
 }
 
 .icon-align-natural {
 	text-align: right;
 	padding-left: initial;
 	padding-right: 20px;
-}
-
-
-#eid_two_factor_authentication {
-	text-align: right;
-}
-
-#eid_enable_authenticator p {
-	text-align: right;
-	margin-left: 0px;
-	margin-right: 5px;
-}
-
-#eid_enable_authenticator ol li p {
-	text-align: right;
-	margin-left: 0px;
-	margin-right: 10px;
-}
-
-#eid_manage_nav li a {
-	padding-right: 0px;
-	padding-left: 20px;
-}
-
-#eid_manage_nav li {
-	text-align: right;
-}
-
-.text-danger {
-	text-align: right !important;
-}
-
-.navbar-nav .nav-link, .dropdown-menu .nav-link {
-	text-align: right;
 }
 
 .icon-align-opposite {
@@ -64,7 +29,15 @@ label, p, h1, h2, h3, h4, h5, address {
 	position: absolute;
 	left: 20px;
 	right: initial;
-}	
+}
+
+.text-danger {
+	text-align: right !important;
+}
+
+.navbar-nav .nav-link, .dropdown-menu .nav-link {
+	text-align: right;
+}
 
 .brand-header {
 	text-align: right;
@@ -87,22 +60,22 @@ label, p, h1, h2, h3, h4, h5, address {
 }
 
 .eid_ok:before {
-    float: left;
-    margin-left: 10px;
+	float: left;
+	margin-left: 10px;
 }
 
 .eid_next:before {
-    float: left;
-    margin-left: 10px;
-    font-family: "FontAwesome";
-    content: " \f0a5";
+	float: left;
+	margin-left: 10px;
+	font-family: "FontAwesome";
+	content: " \f0a5";
 }
 
 .eid_prev:before {
-    float: right;
-    margin-right: 10px;
-    font-family: "FontAwesome";
-    content: "\f0a4";
+	float: right;
+	margin-right: 10px;
+	font-family: "FontAwesome";
+	content: "\f0a4";
 }
 
 .radio-inline label {
@@ -114,10 +87,10 @@ label, p, h1, h2, h3, h4, h5, address {
 	width: 200%;
 }
 
-.nav-tabs > li {
-	border-right: 0;
-	border-left: 2px solid lightgray;
-}
+	.nav-tabs > li {
+		border-right: 0;
+		border-left: 2px solid lightgray;
+	}
 
 
 .nav_back {
