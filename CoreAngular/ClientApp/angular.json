@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "E:/UTemplates/CoreAngular/bin/Release/netcoreapp3.1/CoreAngular/ClientApp/dist",
+            "outputPath": "dist",
             "index": "projects/angular-base/src/index.html",
             "main": "projects/angular-base/src/main.ts",
             "polyfills": "projects/angular-base/src/polyfills.ts",
@@ -180,7 +180,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "E:/UTemplates/CoreAngular/bin/Release/netcoreapp3.1/CoreAngular/ClientApp/dist",
+            "outputPath": "dist",
             "index": "projects/core-authentication/src/index.html",
             "main": "projects/core-authentication/src/main.ts",
             "polyfills": "projects/core-authentication/src/polyfills.ts",
@@ -307,7 +307,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "E:/UTemplates/CoreAngular/bin/Release/netcoreapp3.1/CoreAngular/ClientApp/dist",
+            "outputPath": "dist",
             "index": "projects/defacto/src/index.html",
             "main": "projects/defacto/src/main.ts",
             "polyfills": "projects/defacto/src/polyfills.ts",
@@ -434,7 +434,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "E:/UTemplates/CoreAngular/bin/Release/netcoreapp3.1/CoreAngular/ClientApp/dist",
+            "outputPath": "dist",
             "index": "projects/service-call/src/index.html",
             "main": "projects/service-call/src/main.ts",
             "polyfills": "projects/service-call/src/polyfills.ts",
