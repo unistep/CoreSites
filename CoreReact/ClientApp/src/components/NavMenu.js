@@ -25,6 +25,7 @@ export class NavMenu extends Component {
         this.toggle = this.toggle.bind(this);
         this.onChange = this.onChange.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.closeNavbar = this.closeNavbar.bind(this);
         this.ufx = ufwX;
     }
     //
@@ -45,6 +46,12 @@ export class NavMenu extends Component {
     toggleNavbar() {
         this.setState({
             collapsed: !this.state.collapsed
+        });
+    }
+    //
+    closeNavbar() {
+        this.setState({
+            collapsed: true
         });
     }
     //
@@ -114,7 +121,7 @@ export class NavMenu extends Component {
                                     </select>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/">{translate('Home')}</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/" onClick={this.closeNavbar}>{translate('Home')}</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink to="" className="text-dark" onClick={this.toggle}> {translate('About')}
@@ -140,16 +147,16 @@ export class NavMenu extends Component {
                                     </Modal>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/servicecallX">Service call</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/servicecallX" onClick={this.closeNavbar}>Service call</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/counter" onClick={this.closeNavbar}>Counter</NavLink>
                                 </NavItem>
                                 <NavItem className='timeclock'>
-                                    <NavLink tag={Link} className="text-dark" to="/timeclock">{translate('Time_Clock')}</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/timeclock" onClick={this.closeNavbar}>{translate('Time_Clock')}</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/fetch-data" onClick={this.closeNavbar}>Fetch data</NavLink>
                                 </NavItem>
                                 <LoginMenu>
                                 </LoginMenu>
