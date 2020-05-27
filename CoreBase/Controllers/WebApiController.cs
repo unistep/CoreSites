@@ -1,8 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,10 +8,10 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using uToolkit.ClearingInt;
-using System.Security.Claims;
-using System.Linq;
+using CoreBase.Models;
+using uToolkit;
 
-namespace uToolkit
+namespace CoreBase.Controllers
 {
 	public class WebApiController : Controller
 	{

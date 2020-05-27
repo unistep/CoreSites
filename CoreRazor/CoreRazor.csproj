@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-CoreRazor-302510A0-BEA7-403E-A3FB-E527B9DAB10A</UserSecretsId>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,7 +1,8 @@
 ﻿
 using System.Collections.Generic;
+using uToolkit;
 
-namespace uToolkit
+namespace CoreBase.Models
 {
 	public class uBusinessObject
 	{

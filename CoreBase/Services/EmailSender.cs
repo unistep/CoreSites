@@ -6,8 +6,9 @@ using System;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using uToolkit;
 
-namespace uToolkit
+namespace CoreBase.Services
 {
     public class EmailSender : IEmailSender
     {

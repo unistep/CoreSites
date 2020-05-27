@@ -6,7 +6,7 @@
 <html lang="en" dir="@Html.GetViewDirection()">
 
 <head>
-	@Html.Partial("_Global_Section")
+	<partial name="_Global_Section" />
 </head>
 
 <body>
@@ -41,7 +41,7 @@
 		@RenderBody()
 	</div>
 	<div id="footer">
-		@Html.Partial("_Footer")
+		<partial name="_Footer" />
 	</div>
 	@RenderSection("Scripts", required: false)
 </body>
