@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using CoreBase.Services;
 using uToolkit;
-using System.IO;
+//using System.IO;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 
 namespace CoreBase
@@ -58,15 +58,15 @@ namespace CoreBase
 			services.AddControllersWithViews();
 			services.AddRazorPages();
 
-			string rootPath = uApp.m_homeDirectory + "\\ClientApp\\public";  // true for React
-			if (Directory.Exists(rootPath))
-			{
-				rootPath = "ClientApp/build";
-			}
-			else
-			{
-				rootPath = "ClientApp/dist";
-			}
+			string rootPath = uApp.m_homeDirectory + "/ClientApp/dist";  // true for React
+			//if (Directory.Exists(rootPath))
+			//{
+			//	rootPath = "ClientApp/build";
+			//}
+			//else
+			//{
+			//	rootPath = "ClientApp/dist";
+			//}
 
 			// In production, the React/angular files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
@@ -125,15 +125,16 @@ namespace CoreBase
 
 				if (env.IsDevelopment())
 				{
-					string rootPath = uApp.m_homeDirectory + "\\ClientApp\\public";  // true for React
-					if (Directory.Exists(rootPath))
-					{
-						spa.UseReactDevelopmentServer(npmScript: "start");
-					}
-					else
-					{
-						spa.UseAngularCliServer(npmScript: "start");
-					}
+					spa.UseAngularCliServer(npmScript: "start");
+					//string rootPath = uApp.m_homeDirectory + "\\ClientApp\\public";  // true for React
+					//if (Directory.Exists(rootPath))
+					//{
+					//	spa.UseReactDevelopmentServer(npmScript: "start");
+					//}
+					//else
+					//{
+					//	spa.UseAngularCliServer(npmScript: "start");
+					//}
 				}
 			});
 

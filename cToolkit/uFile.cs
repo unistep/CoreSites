@@ -68,7 +68,7 @@ namespace uToolkit
 		public static string[] GetFilesList (string _folderPath, string _template, bool _lookForDirectories)
 		{
 			string[] files = null;
-			_folderPath += uStr.EndItWithXXX (_folderPath, "\\");
+			_folderPath += uStr.EndItWithXXX (_folderPath, "/");
 
 			try
 			{

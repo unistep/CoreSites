@@ -62,12 +62,12 @@ namespace uToolkit
 
 		public static void Create_i18n()
 		{
-			string internationalDrawer = uApp.m_homeDirectory + "\\ClientApp\\src\\assets\\i18n";// Angular
+			string internationalDrawer = uApp.m_homeDirectory + "/ClientApp/src/assets/i18n";// Angular
 
-			string checkForPublic = "\\ClientApp\\public";  // true for React
+			string checkForPublic = "/ClientApp/public";  // true for React
 			if (Directory.Exists(checkForPublic))
 			{
-				internationalDrawer = uApp.m_homeDirectory + "\\ClientApp\\public\\assets\\i18n";
+				internationalDrawer = uApp.m_homeDirectory + "/ClientApp/public/assets/i18n";
 			}
 
 			if (Directory.Exists(internationalDrawer)) Directory.Delete(internationalDrawer, true);
@@ -94,7 +94,7 @@ namespace uToolkit
 				if (i18nJson == "") continue;
 
 				i18nJson = "{\n" + i18nJson.TrimEnd(",\n".ToCharArray()) + "\n}";
-				uFile.WriteFile(internationalDrawer + "\\" + languageCode.m_googleCode + ".json", i18nJson);
+				uFile.WriteFile(internationalDrawer + "/" + languageCode.m_googleCode + ".json", i18nJson);
 			}
 		}
 

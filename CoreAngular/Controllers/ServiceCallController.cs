@@ -64,7 +64,6 @@ namespace CoreAngular.Controllers
 			stmt = "SELECT Product_ID as id, Product_Desc as name, * FROM Product";  // + where businessObject.parent_key_value (not view_key_value)...    
 			((List<uDatasets>)businessObject.datasets).Add(new uDatasets(stmt));
 
-			//businessObject.parent_view = System.IO.Path.GetFileName(HttpContext.Request.Path.Value);
 			return Ok(businessObject);
 		}
 	}

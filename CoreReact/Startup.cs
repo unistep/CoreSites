@@ -2,9 +2,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using CoreBase.Data;
 using CoreBase.Models;
@@ -15,7 +12,6 @@ using System;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using CoreBase.Services;
-using System.IO;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 
 namespace CoreReact

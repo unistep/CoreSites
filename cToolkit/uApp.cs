@@ -27,9 +27,9 @@ namespace uToolkit
 			m_assemblyTitle = runningAssembly.GetName().Name;
 			m_assemblyVersion = runningAssembly.GetName().Version.ToString();
 
-			if (!Directory.Exists(m_homeDirectory + "\\" + m_assemblyTitle))
+			if (!Directory.Exists(m_homeDirectory + "/" + m_assemblyTitle))
 			{
-				uFile.CreateDirectory(m_homeDirectory + "\\" + m_assemblyTitle);
+				uFile.CreateDirectory(m_homeDirectory + "/" + m_assemblyTitle);
 			}
 
 			if (isServer) m_logerMessages = ArrayList.Synchronized(new ArrayList());
@@ -64,7 +64,7 @@ namespace uToolkit
 			{
 				Console.WriteLine(message);
 
-				string logPath	= m_homeDirectory + "\\" + m_assemblyTitle + "\\"
+				string logPath	= m_homeDirectory + "/" + m_assemblyTitle + "/"
 								+ m_assemblyTitle + "_" + DateTime.Now.ToString("yyyy_MM_dd") + ".Log";
 				uFile.WriteFile(logPath, message + "\r\n");
 			}

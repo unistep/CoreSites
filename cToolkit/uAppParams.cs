@@ -32,8 +32,8 @@ namespace uToolkit
 
 		public static void Load()
 		{
-			m_instance	 = ReadJsonFile(uApp.m_homeDirectory + "\\" + uApp.m_assemblyTitle + ".json");
-			AppParams so = ReadJsonFile(uApp.m_homeDirectory + "\\" + "System_Options.json");
+			m_instance	 = ReadJsonFile(uApp.m_homeDirectory + "/" + uApp.m_assemblyTitle + ".json");
+			AppParams so = ReadJsonFile(uApp.m_homeDirectory + "/" + "System_Options.json");
 
 			if (so == null)						return;
 

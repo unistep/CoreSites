@@ -24,7 +24,7 @@ namespace uToolkit.ClearingInt
 
 		public void GetTerminal_Parameters()
 		{
-			m_transactionLog = uApp.m_homeDirectory + "\\" + uApp.m_assemblyTitle + "\\"
+			m_transactionLog = uApp.m_homeDirectory + "/" + uApp.m_assemblyTitle + "/"
 				   + m_clearingCenterID + "_" + DateTime.Now.ToString("yyyy_MM_dd") + ".Log";
 		}
 
