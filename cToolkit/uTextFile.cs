@@ -50,12 +50,15 @@ namespace uToolkit
 
 			if ((_language == null) || (_language == "")) _language = "English";
 
-            foreach (uTextFile textFile in uTextFile.m_textFiles)
+			if (_keyword == "AppName") _keyword = uApp.m_assemblyTitle;
+
+			foreach (uTextFile textFile in uTextFile.m_textFiles)
             {
                 string promptValue = textFile.GetPrompt(_keyword, _language);
                 if (promptValue != "") return promptValue;
             }
 
+			if (_keyword == uApp.m_assemblyTitle) return _keyword;
 			return "?" + _keyword;
 		}
 
