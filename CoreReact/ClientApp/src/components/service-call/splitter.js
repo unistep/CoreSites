@@ -6,7 +6,17 @@ export function dragElement(element, direction, handler) {
     /* if present, the handler is where you move the DIV from
        otherwise, move the DIV from anywhere inside the DIV */
     handler ? (handler.onmousedown = dragMouseDown) : (element.onmousedown = dragMouseDown);
+    handler ? (handler.ontouchstart = touchstart) : (element.ontouchstart = touchstart);
 
+    function touchstart(e) {
+        console.log("touch start");
+        const first = document.getElementById("first");
+        const second = document.getElementById("second");
+        let firstWidth = first.offsetWidth + 120;
+        let secondWidth = second.offsetWidth - 120;
+        first.style.width = secondWidth + "px";
+        second.style.width = firstWidth + "px";
+    }
     // function that will be called whenever the down event of the mouse is raised
     function dragMouseDown(e) {
         const first = document.getElementById("first");
