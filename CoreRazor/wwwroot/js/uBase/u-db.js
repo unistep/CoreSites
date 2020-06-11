@@ -347,11 +347,11 @@ function onNewRecordEvent() {
 
 //=================================================================================
 function onDeleteRecordEvent() {
-	if (g_primary_dataset.dataset_content[g_record_position].__State != '1') {// Indicate new row
+	if (g_primary_dataset.dataset_content[g_record_position].__State !== '1') {// Indicate new row
 		stmt = formSqlDeleteStmt();
 		if (stmt === "") return;
 
-		commProcedure(null, g_primary_dataset.dataset_name, stmt);
+		WebQuery(stmt)
 	}
 
 	g_primary_dataset.dataset_content.splice(g_record_position, 1);
@@ -386,7 +386,8 @@ function onRecordBeenModified() {
 
 	stmt = (g_primary_dataset.dataset_content[g_record_position]['__State'] == '1') ? formSqlInsertStmt() : formSqlUpdateStmt();
 	if (stmt === "") return;
-	commProcedure(null, g_primary_dataset.dataset_name, stmt);
+	WebQuery(stmt);
+
 	g_primary_dataset.dataset_content[g_record_position]['__State'] = "0";
 }
 

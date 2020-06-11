@@ -39,7 +39,12 @@ export class UfwInterface {
         payments, cvv, holderID, firstName, lastName });
   }
 
-    public post(service: string, params: any = "", body?): Promise<any> {
+  public WebQuery(stmt) {
+    return this.post('WebQuery', "", stmt);
+  }
+  
+
+  public post(service: string, params: any = "", body?): Promise<any> {
     const httpOptions: any = { responseType: 'text' };
 
     let url = `${this.ugs.getEndpointUrl("")}${this.controllerName()}${service}`;

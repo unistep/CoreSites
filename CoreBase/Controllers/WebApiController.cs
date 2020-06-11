@@ -40,6 +40,9 @@ namespace CoreBase.Controllers
 		[HttpPost("TimeClock")]
 		public IActionResult TimeClock(uBusinessObject businessObject)
 		{
+			string userName = GetCallerLoginName();
+			uApp.Loger($"TimeClock: Caller={userName}");
+
 			businessObject.datasets = new List<uDatasets>();
 
 			// Primary dataset goes FIRST!
@@ -54,6 +57,9 @@ namespace CoreBase.Controllers
 		[HttpPost("GetAppParams")]
 		public IActionResult GetAppParams(string language)
 		{
+			string userName = GetCallerLoginName();
+			uApp.Loger($"GetAppParams: Caller={userName}");
+
 			SetSessionLanguage(language);
 
 			Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -71,6 +77,9 @@ namespace CoreBase.Controllers
 		//====================================================================================================
 		public IActionResult MVC_ChangeLanguage(string language)
 		{
+			string userName = GetCallerLoginName();
+			uApp.Loger($"MVC_ChangeLanguage: Caller={userName}");
+
 			SetSessionLanguage(language);
 
 			var caller = (Request.Headers["Referer"] != "") ?
@@ -83,6 +92,9 @@ namespace CoreBase.Controllers
 		[HttpPost("SPA_ChangeLanguage")]
 		public IActionResult SPA_ChangeLanguage(string language)
 		{
+			string userName = GetCallerLoginName();
+			uApp.Loger($"SPA_ChangeLanguage: Caller={userName}");
+
 			SetSessionLanguage(language);
 			return Ok("[]");
 		}
@@ -92,6 +104,9 @@ namespace CoreBase.Controllers
 		//====================================================================================================
 		public IActionResult SetNewLanguage()
 		{
+			string userName = GetCallerLoginName();
+			uApp.Loger($"SetNewLanguage: Caller={userName}");
+
 			var caller = (Request.Headers["Referer"] != "") ?
 						Request.Headers["Referer"].ToString() : "DefaultRedirect";
 
@@ -102,7 +117,8 @@ namespace CoreBase.Controllers
 		[HttpPost("Upload"), DisableRequestSizeLimit]
 		public IActionResult Upload()
 		{
-			string userName = ""; // await GetCallerLoginName();
+			string userName = GetCallerLoginName();
+			uApp.Loger($"Upload: Caller={userName}");
 
 			if (Request.Form.Files.Count < 1)
 			{
@@ -153,9 +169,10 @@ namespace CoreBase.Controllers
 		[HttpPost("CreditAction")]
 		public async Task<IActionResult> CreditAction()
 		{
-			var details = JsonConvert.DeserializeObject<dynamic>(await GetRawBodyString(Request));
-
 			string userName = GetCallerLoginName();
+			uApp.Loger($"CreditAction: Caller={userName}");
+
+			var details = JsonConvert.DeserializeObject<dynamic>(await GetRawBodyString(Request));
 
 			string transType = details["transType"];
 			string transID = details["transID"];
@@ -209,10 +226,6 @@ namespace CoreBase.Controllers
 				return Error($"{transType} Error: Unknown transaction type");
 			}
 
-			//OnErrorNotifications(response);
-
-			//uApp.Loger($"Response: {response}");
-
 			if (response.IndexOf("<ERROR>:") != -1)
 			{
 				return Error(response.Replace("<ERROR>:", "ERROR:"));
@@ -220,6 +233,28 @@ namespace CoreBase.Controllers
 
 			return Ok(response);
 		}
+
+		[HttpPost("WebQuery")]
+		//====================================================================================================
+		public async Task<IActionResult> WebQuery()
+		{
+			string userName = GetCallerLoginName();
+			string stmt = await GetRawBodyString(Request);
+
+			uApp.Loger($"WebQuery: Caller={userName}, Stmt={stmt}");
+
+			if (String.IsNullOrEmpty(stmt))
+			{
+				return Error("Error, Empty statement");
+			}
+
+			string response = uDB.GetJsonRecordSet(stmt);
+
+			uApp.Loger($"Response: Byte Count={response.Length}, {uStr.Substring(response, 80)}");
+
+			return Ok(response);
+		}
+
 
 		public Task<string> GetRawBodyString(HttpRequest request, Encoding encoding = null)
 		{
@@ -356,13 +391,13 @@ namespace CoreBase.Controllers
 		//====================================================================================================
 		public string GetCallerLoginName()
 		{
-			string userName = "Anonymous";
+			string userName = "";
 			if ((HttpContext != null) && (HttpContext.User != null) && (HttpContext.User.Identities != null))
 			{
 				userName = HttpContext.User.Identity.Name;
 			}
 
-			return userName;
+			return userName == "" ? "Anonymous" : userName;
 		}
 	}
 }

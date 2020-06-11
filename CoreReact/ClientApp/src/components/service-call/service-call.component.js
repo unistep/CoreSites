@@ -29,7 +29,7 @@ export class ServiceCallComponent extends Component {
 	month = [];
 	year = [];
 	initDone = false;
-	//
+
 	bfc = null;
 	udb = null;
 	gmap = null;
@@ -45,47 +45,37 @@ export class ServiceCallComponent extends Component {
 		this.udb = this.ufw.udb;
 		this.gmap = this.ufw.gmap;
 		this.ugs = this.ufw.ugs;
-		//
+
 		this.componentDidMount = this.componentDidMount.bind(this);
 		this.UNSAFE_componentWillMount = this.UNSAFE_componentWillMount.bind(this);
 		this.doShoppingCart = this.doShoppingCart.bind(this);
 		this.doCreditPayment = this.doCreditPayment.bind(this);
-		//this.http.get<any>(this.ugs.ufw_url + 'ServiceCall').subscribe(result => {
-		//	this.getFormData(result, false);
-		//}, error => this.ugs.Loger(error));
 
 		var value, label;
 		var i;
 		for (i = 0; i < 8; i++) { value = label = (i + moment().year()); this.year.push({ value, label }) }
 		for (i = 1; i <= 12; i++) { value = label = i; this.month.push({ value, label }) }
-		//this.year.splice(0, 0, { value: '', lebel: this.ugs.uTranslate("Year") });
-		//this.month.splice(0, 0, { value: '', label: this.ugs.uTranslate("Month") });		this.selectedYear = this.year[0];
-		//this.selectedMonth = this.month[0];
 	}
 	//=================================================================================
 	async componentDidMount() {
 		var splitterX = splitter;
 		splitterX.dragElement(document.getElementById("seperator"), "H");
-		//this.bfc.splitter();
+
 		var elem = $(document).find('NavItem.servicecall');
 		if (elem && elem.style) {
 			elem[0].style.display = "none";
 		}
-		await this.bfc.setsScreenProperties();
-		//const scData = await this.ufw.get('ServiceCall', null);
-		const requestOptions = {
-			method: 'get',
-			headers: { 'Content-Type': 'application/json' },
-		};
-		let url = `${this.ugs.getEndpointUrl("")}${this.ufw.controllerName()}${'ServiceCall'}`;
-		const response = await fetch(url, requestOptions);
-		const data = await response.json();
-		//this.setState({ postId: data.id });
 
-		this.getFormData(data, false);
-		// $("#MySplitter").splitter();
+		this.bfc.setsScreenProperties();
 
+		this.ufw.ServiceCall(ServiceCallResponse)
+
+		const self = this;
+		function ServiceCallResponse(response) {
+			self.getFormData(response, false);
+		}
 	}
+
 	//=================================================================================
 	UNSAFE_componentWillMount() {
 		var elem = $(document).find('NavItem.servicecall');
@@ -223,7 +213,7 @@ export class ServiceCallComponent extends Component {
 
 
 	//=================================================================================
-	async doCreditPayment() {
+	doCreditPayment() {
 		const uiConfNo = document.getElementById("eid_confirmation_number");
 		if (uiConfNo === null) {
 			console.log("doCreditPayment null uiConfNo")
@@ -253,10 +243,12 @@ export class ServiceCallComponent extends Component {
 
 		const transType = "CreditPayment"; // "AuthorizeCredit"
 
-		const response = await this.ufw.CreditAction(transType, holderID, cardNumber, expiredYear, expiredMonth,
+		this.ufw.CreditAction(this.CreditPaymentResponse, transType, holderID, cardNumber, expiredYear, expiredMonth,
 			billAmount, payments, cvv, holderID, firstName, lastName);
+	}
 
-		if (!response || !response.confirmationNo) return;
+	CreditPaymentResponse(response) {
+		if (!response) return;
 
 		const confirmed = response.confirmationNo;
 		const issuerID = response.issuerID;
@@ -268,6 +260,7 @@ export class ServiceCallComponent extends Component {
 
 		this.ugs.Loger(message, true);
 
+		const uiConfNo = document.getElementById("eid_confirmation_number");
 		uiConfNo.value = confirmed;
 
 		this.setCreditTransactionElements();

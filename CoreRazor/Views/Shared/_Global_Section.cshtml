@@ -8,6 +8,8 @@
 
 <link rel="shortcut icon" href="~/favicon.ico" />
 
+@*<title>@Html.Primary_Brand_Name()</title>*@
+
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
 <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" />
@@ -28,18 +30,18 @@
 <script src="~/lib/bowser/src/bowser.js"></script>
 <script src="~/lib/fontawesome-markers/fontawesome-markers.min.js"></script>
 
-<script src="~/js/services/uSprintf.js"></script>
-<script src="~/js/services/uGenerics.js"></script>
-<script src="~/js/services/uData_Binding.js"></script>
-<script src="~/js/services/uComm.js"></script>
-<script src="~/js/services/uGmaps.js"></script>
+<script src="~/js/uBase/uSprintf.js"></script>
+<script src="~/js/uBase/uGenerics.js"></script>
+<script src="~/js/uBase/u-db.js"></script>
+<script src="~/js/uBase/ufw-interface.js"></script>
+<script src="~/js/uBase/uGmaps.js"></script>
 
 
 <script src="https://maps.googleapis.com/maps/api/js?language=iw&key=AIzaSyCGRulRCmUy-CoqWo_zLVw1JHABXzLfh4Q"></script>
 
 @if (Html.GetViewDirection() == "RTL")
 {
-	<link rel="stylesheet" href="~/lib/bootstrap-rtl/dist/css/bootstrap-rtl.css">
+	@*<link rel="stylesheet" href="~/lib/bootstrap-rtl/dist/css/bootstrap-rtl.css">*@
 	<link rel="stylesheet" href="~/css/site-rtl.css" />
 }
 

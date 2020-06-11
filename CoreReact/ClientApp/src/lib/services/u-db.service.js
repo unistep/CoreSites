@@ -354,7 +354,7 @@ export class UDbService {
 			var stmt = this.formSqlDeleteStmt();
 			if (stmt === "") return;
 
-			this.ufw.webRequest(null, null, "WebProcedure", this.primary_dataset.dataset_name, stmt);
+			this.ufw.WebQuery(stmt);
 		}
 
 		this.primary_dataset.dataset_content.splice(this.recordPosition, 1);
@@ -392,7 +392,7 @@ onBackToCallerEvent() {
 		var stmt = (this.primary_dataset.dataset_content[this.recordPosition]['__State'] === '1') ?
 			this.formSqlInsertStmt() : this.formSqlUpdateStmt();
 		if (stmt === "") return;
-		this.ufw.webRequest(null, null, "WebProcedure", this.primary_dataset.dataset_name, stmt);
+		this.ufw.WebQuery(stmt);
 		this.primary_dataset.dataset_content[this.recordPosition]['__State'] = "0";
 	}
 

@@ -4,8 +4,7 @@ import { UGenericsService } from './u-generics.service';
 import { UGmapsService } from './u-gmaps.service';
 import { UDbService } from './u-db.service';
 import { BaseFormComponent } from '../templates/BaseFormComponent';
-import { post } from 'axios';
-
+import * as $ from 'jquery';
 
 export class UfwInterface extends Component {
     ugs = null;
@@ -20,148 +19,92 @@ export class UfwInterface extends Component {
         this.udb = new UDbService(this);
         this.gmap = new UGmapsService(this.ugs);
         this.bfc = new BaseFormComponent(this.ugs, this.udb, this.gmap, this);
-
     }
 
-    async getAppParams() {
+    getAppParams(callBack) {
+        this.callPost(callBack, 'GetAppParams');
+    }
 
-        const result = await this.post('GetAppParams');
-        this.ugs.setAppParams(result);
-               //lang = await this.languageCodes.LoadLAng("assets/i18n/" + this.current_language + '.json');
-        //if (lang) setCurrLang(lang);
-
+    SPA_ChangeLanguage(language) {
+        this.callPost(null, 'SPA_ChangeLanguage', `language=${language}`);
     }
 
     TimeClock(params) {
-        return this.post('TimeClock', params);
-    }
-    //
-    SendSMS(recipient, message) {
-        return this.post('SendSMS', "", { recipient, message });
+        this.callPost(null, 'TimeClock', params);
     }
 
-    CreditAction(transType, transID, cardNumber, expiredYear, expiredMonth, billAmount,
+    SendSMS(recipient, message) {
+        this.callPost(null, 'SendSMS', "", JSON.stringify({ recipient, message }));
+    }
+
+    CreditAction(callBack, transType, transID, cardNumber, expiredYear, expiredMonth, billAmount,
         payments, cvv, holderID, firstName, lastName) {
-        return this.post('CreditAction', "", {
+
+        this.callPost(callBack, 'CreditAction', "", JSON.stringify({
             transType, transID, cardNumber, expiredYear, expiredMonth, billAmount,
             payments, cvv, holderID, firstName, lastName
-        });
+        }));
     }
 
-    timeout(milliseconds, promise) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                reject(new Error("timeout exceeded"))
-            }, milliseconds)
-            promise.then(resolve, reject)
-        })
+    WebQuery(stmt) {
+        this.callPost(null, 'WebQuery', "", stmt);
     }
 
-    async post(service, params = "", bodydata = {}) {
-        var b = await JSON.stringify(bodydata);
-         const httpOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/text' },
-             body: b
-        };
-        //if (body) {
-        //    httpOptions.body = await JSON.stringify(body);
-        //}
-        let url = `${this.ugs.getEndpointUrl("")}${this.controllerName()}${service}`;
+    ServiceCall(callBack, callerID) {
+        if (callerID) callerID = `view_key_value=${callerID}`;
+        this.callGet(callBack, 'ServiceCall', callerID);
+	}
+
+
+    //===================================================
+    callGet(callback, service, params) {
+        this.callHttp("GET", callback, service, params);
+    }
+
+    //===================================================
+    callPost(callback, service, params, body) {
+        this.callHttp("POST", callback, service, params, body);
+    }
+
+    //===================================================
+    callHttp(callType, callback, service, params, body) {
+        const self = this;
+        self.ugs.setSpinner(true);
+
+        const TO = 10000; // getEndpointTO("");
+        let url = `${this.ugs.getEndpointUrl("")}${service}`;
         if (params) url += '?' + params;
-        const response = await fetch(url, httpOptions);
-        const json = await response.json();
-        //self.setState({ data: json });
-        return json;
 
-    }
-    //
-    async  get(service, params = "") {
-        const httpOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/text' }
-        };
+        $.ajax({
+            url: url,
+            type: callType,
+            timeout: TO,
+            data: body,
+            dataType: "text",
+            cache: false,
 
- //       var self = this;
+            success: function (response) {
+                self.ugs.setSpinner(false);
 
-        let url = `${this.ugs.getEndpointUrl("")}${this.controllerName()}${service}`;
-        if (params) url += '?' + params;
-        const response = await fetch(url, httpOptions);
-        const json = await response.json();
-        //self.setState({ data: json });
-        return json;
-
-    }
-
-
-
-    //=================================================================================
-    async uploadFile(file, remoteFilePath) {
-        const ext = file.name.split('.').pop();
-        if (ext) remoteFilePath += ("." + ext);
-        const fileToUpload = file;
-        const formData = new FormData();
-        formData.append(remoteFilePath, fileToUpload, fileToUpload.name);
-        let url = this.ugs.getEndpointUrl("") + "Upload";
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-        };
-        return post(url, formData, config);
-
-
-
-        return await this.post('Upload', '', formData);
-    }
-
-    controllerName() {
-        return '';
-    }
-
-
-    //=================================================================================
-    webRequest(caller, callback, requestType, param1, param2) {
-        const url = this.ugs.getEndpointUrl("");
-
-        //const httpOptions = {
-        //    responseType: 'text',
-        //    observe: 'response'
-        //};
-        const httpOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/text' },
-            body: JSON.stringify({ title: 'React Hooks POST Request Example' })
-        };
-        const query = url + "WebApi?"
-            + "request_type=" + requestType
-            + "&param1=" + param1
-            + "&param2=" + param2;
-        httpOptions.body = "";
-
-        fetch(query, httpOptions)
-            .then(async response => {
-                const data = await response.json();
-
-                // check for error response
-                if (!response.ok) {
-                    // get error message from body or default to response status
-                    const error = (data && data.message) || response.status;
-                    return Promise.reject(error);
+                response = JSON.parse(response);
+                if (typeof response.errorMessage !== 'undefined') {
+                    self.ugs.Loger(response.errorMessage, true);
+                    return;
                 }
 
-                //this.setState({ postId: data.id })
-            })
-            .catch(error => {
-               // this.setState({ errorMessage: error });
-                console.error('There was an error!', error);
-            });
+                if (callback) callback(response);
+            },
+
+            error: function (err) {
+                self.ugs.setSpinner(false);
+
+                const errorText = err.responseText ? err.responseText : err.statusText;
+                self.ugs.Loger("*** " + service + " error: " + errorText, true);
+                return;
+            }
+        });
     }
 }
+
 const ufwX = new UfwInterface();
 export default ufwX;
-export const httpOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/text' },
-    body: ""
-};

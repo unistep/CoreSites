@@ -1,6 +1,6 @@
+
 import React, { Component } from 'react';
 import { Route } from 'react-router';
-//import Moment from 'react-moment';
 import 'moment-timezone';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
@@ -13,10 +13,8 @@ import { TimeClockComponent } from './lib/time-clock/time-clock.component';
 import { ServiceCallComponent } from './components/service-call/service-call.component';
 import { ShoppingCart} from '../src/components/service-call/shopping-cart.component';
 import 'font-awesome/css/font-awesome.min.css';
-import ufwX, { httpOptions }  from './lib/services/ufw-interface';
-
+import ufwX from './lib/services/ufw-interface';
 import './custom.scss'
-//import { setCurrLang } from './lib/services/u-language-codes.service';
 
 
 export default class App extends Component {
@@ -25,34 +23,22 @@ export default class App extends Component {
         this.state = {
             ready: false
         }
-        this.UNSAFE_componentWillMount = this.UNSAFE_componentWillMount.bind(this);
+
         this.componentDidMount = this.componentDidMount.bind(this);
     }
-    async UNSAFE_componentWillMount() {
- 
-        console.log('App UNSAFE_componentWillMount');
-    }
 
-     getData() {
-        console.log('Our data is fetched');
-        this.setState({
-            ready: true
-        });
- }
-
-    async componentDidMount() {
+    componentDidMount() {
         console.log('app componentDidMount start');
 
-        var u = ufwX;
-        let url = `${u.ugs.getEndpointUrl("")}${"GetAppParams"}`;
-        const response = await fetch(url, httpOptions);
-        const json = await response.json();
-        u.ugs.setAppParams(json);
-        console.log('app componentDidMount end');
-
-
-       await  this.getData();
+        const ufc = ufwX;
+        ufwX.getAppParams(onResponse);
+        const self = this;
+        function onResponse(response) {
+            ufc.ugs.setAppParams(response);
+            self.setState({ ready: true });
+        }
     }
+
     static displayName = App.name;
     render() {
         console.log("App render");

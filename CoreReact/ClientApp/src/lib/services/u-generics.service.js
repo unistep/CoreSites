@@ -91,40 +91,25 @@ export class UGenericsService {
 
         this.resizeWindow();
     }
-    appparamsloded = false;
+
+    //=================================================================================
     setAppParams(parameters) {
         localStorage.setItem('AssemblyVersion', parameters.AssemblyVersion);
         localStorage.setItem('KnownLanguages', parameters.KnownLanguages);
         localStorage.setItem('Language', parameters.Language);
         localStorage.setItem('Endpoints', parameters.Endpoints);
 
-        this.Version = localStorage.getItem('AssemblyVersion');
+        this.Version = parameters.AssemblyVersion;
 
-        const language = localStorage.getItem('language');
+        this.selectedLanguage = parameters.Language;
 
-
-        ////var _defaultLanguage = localStorage.getItem('DefaultLanguage');
-        //if (!_defaultLanguage) {
-        //    _defaultLanguage = 'English';
-        //}
-
-        //var languageName = localStorage.getItem('language');
-        //if (!(languageName) || (languageName === 'null')) {
-        //    languageName = _defaultLanguage;
-        //    localStorage.setItem('language', _defaultLanguage);
-        //}
         var _knownLanguages = localStorage.getItem('KnownLanguages');
         if (_knownLanguages) {
             this.knownLanguages = JSON.parse(_knownLanguages);
-            if (this.knownLanguages.length) {
-                this.selectedLanguage = language;
-            }
         }
         else {
-            this.knownLanguages.push(language);
-            this.selectedLanguage = language;
+            this.knownLanguages.push(this.selectedLanguage);
         }
-        this.appparamsloded = true;
     }
 
 
@@ -299,6 +284,7 @@ export class UGenericsService {
         await this.sleep(timeout) //wait 5 seconds
         //continue on...
     }
+
     //=================================================================================
     adjastUserLanguage(languageName) {
         var direction = 'ltr';

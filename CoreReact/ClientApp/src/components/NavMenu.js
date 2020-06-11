@@ -1,9 +1,8 @@
+
 import React, { Component } from 'react';
-//import ReactDOM from 'react-dom';
 import {Link, } from 'react-router-dom';
-//
+
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-//import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import { LoginMenu } from './api-authorization/LoginMenu';
@@ -28,27 +27,28 @@ export class NavMenu extends Component {
         this.closeNavbar = this.closeNavbar.bind(this);
         this.ufx = ufwX;
     }
-    //
+
     async componentDidMount() {
-        var u = ufwX;
         var lang = localStorage.getItem('language');
         if (!lang || lang === 'null') {
             lang = 'English';
         }
         console.log("nav componentDidMount");
-        u.ugs.adjastUserLanguage(lang);
-        var url = "assets/i18n/" + u.ugs.current_language + '.json'
+        this.ufx.ugs.adjastUserLanguage(lang);
+        var url = "assets/i18n/" + this.ufx.ugs.current_language + '.json'
         const response = await fetch(url);
         const data = await response.json();
-        u.ugs.languageCodes.LoadLAng(data);
+        this.ufx.ugs.languageCodes.LoadLAng(data);
         this.fillOption();
-     }
+    }
+
     toggleNavbar() {
         this.setState({
             collapsed: !this.state.collapsed
         });
     }
-    //
+
+
     closeNavbar() {
         this.setState({
             collapsed: true
@@ -57,41 +57,36 @@ export class NavMenu extends Component {
     //
   
     fillOption() {
-        var u = this.ufx;
-        //var langselect = document.getElementById("Selectlang");
-         var arr = [];
- //       arr.push(<select id='Selectlang' defaultValue={this.ufx.ugs.selectedLanguage}>);
-        for (let i = 0; i < u.ugs.knownLanguages.length; i++) {
-            var valueX = u.ugs.knownLanguages[i];
-            if (valueX === u.ugs.selectedLanguage) {
-               //arr.push(<option key={valueX} value="{valueX}" selected>{valueX}</option>);
-                arr.push(<option key={valueX} defaultValue="{valueX}">{valueX}</option>);
+        var arr = [];
+        for (let i = 0; i < this.ufx.ugs.knownLanguages.length; i++) {
+            var valueX = this.ufx.ugs.knownLanguages[i];
+            if (valueX === this.ufx.ugs.selectedLanguage) {
+                arr.push(<option key={valueX} value="{valueX}" selected>{valueX}</option>);
+                //arr.push(<option key={valueX} defaultValue="{valueX}">{valueX}</option>);
             }
             else {
                 arr.push(<option key={valueX} value="{valueX}">{valueX}</option>);
             }
         }
- //       arr.push(</select>);
+
         return arr;
     }
-    //
+
 
     async onChange(e) {
-        var u = ufwX;
         var i = e.target.selectedIndex;
-        var lang = u.ugs.knownLanguages[i];
-        u.ugs.selectedLanguage = lang;
-        await u.ugs.adjastUserLanguage(lang);
-        const language = u.ugs.selectedLanguage;
-        u.post(`SPA_ChangeLanguage?language=${language}`);
+        var lang = this.ufx.ugs.knownLanguages[i];
+        this.ufx.ugs.selectedLanguage = lang;
+        this.ufx.ugs.adjastUserLanguage(lang);
+        this.ufx.SPA_ChangeLanguage(lang);
 
-        var url = "assets/i18n/" + u.ugs.current_language + '.json'
+        var url = "assets/i18n/" + this.ufx.ugs.current_language + '.json'
         const response = await fetch(url);
         const data = await response.json();
-        u.ugs.languageCodes.LoadLAng(data);
+        this.ufx.ugs.languageCodes.LoadLAng(data);
         this.forceUpdate();
     }
-    //
+
    
     toggle() {
         this.setState({
@@ -100,8 +95,7 @@ export class NavMenu extends Component {
     }
 
     getversion() {
-        var u = ufwX;
-        return u.ugs.Version;
+        return this.ufx.ugs.Version;
     }
     //
     render() {

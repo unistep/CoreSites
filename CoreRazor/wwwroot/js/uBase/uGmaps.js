@@ -101,14 +101,16 @@ function setMarkerInfoWindow(marker, onLongClickMarkerAction)
 		}
 	});
 
+	var start, end;
+
 	google.maps.event.addListener(marker, 'mousedown', function (event)
 	{
-		var start = new Date().getTime();
+		start = new Date().getTime();
 	});
 
 	google.maps.event.addListener(marker, 'mouseup', function (event)
 	{
-		var end = new Date().getTime();
+		end = new Date().getTime();
 		long_press = (end - start < 500) ? false : true;
 	});
 }
@@ -155,23 +157,19 @@ function openInfoWindow(marker, content)
 
 
 //=================================================================================
-function getCurrentPosition()
-{
-	if (navigator.geolocation)
-	{
+function getCurrentPosition() {
+	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(geo_success, geo_error);
 	}
-	else
-	{
+	else {
 		Loger("*** Geo Location not supported");
 	}
 
-	function geo_success(positionCurrent)
-	{
+	function geo_success(positionCurrent) {
 		g_current_location = new google.maps.LatLng(positionCurrent.coords.latitude, positionCurrent.coords.longitude);
 
-		Loger("Location: " + sprintf("%.5f %.5f",   positionCurrent.coords.latitude,
-													positionCurrent.coords.longitude));
+		Loger("Location: " + sprintf("%.5f %.5f", positionCurrent.coords.latitude,
+			positionCurrent.coords.longitude));
 
 		if (g_map) {
 			var icon = fontawesome.markers.HOME; // "https://maps.google.com/mapfiles/kml/pal4/icon29.png";
@@ -184,8 +182,7 @@ function getCurrentPosition()
 		}
 	}
 
-	function geo_error(msg)
-	{
+	function geo_error(msg) {
 		Loger("*** " + msg.message, true);
 	}
 }
@@ -202,7 +199,7 @@ function getGoogleDuration(origin, destination, callback) {
 			map: g_map
 		});
 	}
-	if (!callback) return;
+//	if (!callback) return;
 
 	var request = {
 		origin: origin,
@@ -217,10 +214,25 @@ function getGoogleDuration(origin, destination, callback) {
 			}
 
 			duration = (response.routes[0].legs[0].duration.value / 60).toFixed(0);
-			callback(duration);
+			if (callback) callback(duration);
 		} else {
 			callback("~0:30");
 			window.alert('Please enter a starting location');
 		}
 	});
+}
+
+//=================================================================================
+function mapDrawRoute(destination) {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(p => {
+			current_location = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+			Loger(`Location: ${p.coords.latitude} ${p.coords.longitude}`);
+			drawMap(current_location);
+			getGoogleDuration(current_location, destination);
+		})
+	}
+	else {
+		Loger("*** Geo Location not supported");
+	}
 }

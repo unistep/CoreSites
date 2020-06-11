@@ -41,18 +41,16 @@ export class TimeClockComponent extends Component {
 	}
 
     //=================================================================================
-    async  componentDidMount() {
+    componentDidMount() {
         //var loginLA = document.getElementById("user_login_eid");
         //if (!loginLA || this.isChecked) return;
 
         this.isChecked = true;
         //this.userName = loginLA.innerText.replace("Hello ", "");
 
-        var result = await this.bfc.ufw.TimeClock('view_key_value=avivs@unistep.co.il');
-        if (!result) return;
-
-        this.formInit(result, false);
+        this.bfc.ufw.TimeClock(this.formInit, 'view_key_value=avivs@unistep.co.il');
     }
+
 	//=================================================================================
     componentWillUnmount() {
         this.udb.confirmExit();

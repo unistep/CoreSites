@@ -344,10 +344,10 @@ export class UDbService {
 	//=================================================================================
 	onDeleteRecordEvent() {
 		if (this.primaryDataset.dataset_content[this.recordPosition].__State !== '1') {// Indicate new row
-			var stmt = this.formSqlDeleteStmt();
+			const stmt = this.formSqlDeleteStmt();
 			if (stmt === "") return;
 
-			this.ufw.webRequest(null, null, "WebProcedure", this.primaryDataset.dataset_name, stmt);
+			this.ufw.WebQuery(stmt);
 		}
 
 		this.primaryDataset.dataset_content.splice(this.recordPosition, 1);
@@ -388,7 +388,7 @@ export class UDbService {
 		const stmt = (this.primaryDataset.dataset_content[this.recordPosition]['__State'] === '1') ?
 			this.formSqlInsertStmt() : this.formSqlUpdateStmt();
 		if (stmt === "") return;
-		this.ufw.webRequest(null, null, "WebProcedure", this.primaryDataset.dataset_name, stmt);
+		this.ufw.WebQuery(stmt);
 		this.primaryDataset.dataset_content[this.recordPosition]['__State'] = "0";
 	}
 

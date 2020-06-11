@@ -11,13 +11,14 @@ $(document).ready(function ()
 	initializeSelect2MonthCombo('#eid_expiration_month');
 
 	bindData();
-
-	drawMap(true) // true = get and draw current position 
 });
 
 
 //=================================================================================
 function afterBinding() {
+	const source = g_primary_dataset.dataset_content[g_record_position]["Source_Latlng"];
+	mapDrawRoute(source);
+
 	setTotalPayment();
 }
 
@@ -38,7 +39,7 @@ function doShoppingCart (event) {
 
 
 //=================================================================================
-function onButtonRowClicked(inputElement) {
+function buttonRowClicked(inputElement) {
 	if (!inputElement) return;
 
 	if (!inputElement.value)
@@ -46,7 +47,7 @@ function onButtonRowClicked(inputElement) {
 	else
 		inputElement.value = '';
 
-	if (inputElement.id != "On_My_Way_Time") return;
+	if (inputElement.id !== "On_My_Way_Time") return;
 
 	if (inputElement.value) {
 		if (!g_current_location) {
@@ -54,15 +55,16 @@ function onButtonRowClicked(inputElement) {
 			return;
 		}
 
-		origin = g_current_location;  // DO NOT REMOVE
+		const myPosition = g_current_location;  // DO NOT REMOVE
 		destination = g_primary_dataset.dataset_content[g_record_position].Destination_Latlng;
-		duration = getGoogleDuration(origin, destination, onDurationDone);
+		duration = getGoogleDuration(myPosition, destination, onDurationDone);
 	}
 	else {
-		recipient = "0544719547";
+		const recipient = "0544719547";
 		//recipient = g_primary_dataset.dataset_content[g_record_position].Contact_Phone_1;
-		message = sprintf(g_msg_arrival_cancelled, g_primary_dataset.dataset_content[g_record_position].Vehicle_ID);
-		commSms(null, recipient, message);
+		const message = g_msg_arrival_cancelled
+			.replaceAll("000", g_primary_dataset.dataset_content[g_record_position].Vehicle_ID);
+		SendSMS(recipient, message);
 	}
 }
 
@@ -72,7 +74,7 @@ function onDurationDone(duration) {
 	recipient = "0544719547";
 	//recipient = g_primary_dataset.dataset_content[g_record_position].Contact_Phone_1;
 	message = sprintf(g_msg_on_my_way, g_primary_dataset.dataset_content[g_record_position].Vehicle_ID, duration);
-	commSms(null, recipient, message);
+	SendSMS(recipient, message);
 }
 
 
@@ -95,11 +97,11 @@ function onLocationChange() {
 
 //=================================================================================
 function takeAPhoto() {
-    if (window.event.srcElement.localName == "input") return;
-    if (window.event.srcElement.className == "cameraPhoto") return;
+    if (window.event.srcElement.localName === "input") return;
+    if (window.event.srcElement.className === "cameraPhoto") return;
 
     var callerInput = this.getElementsByTagName('input')[0];
-    if (callerInput == null) return;
+    if (!callerInput) return;
 
     callerInput.click();
 }
@@ -141,7 +143,7 @@ function doCreditPayment(response) {
 
 	$("#eid_confirmation_number").val(confNo = "");
 
-	if (response == null) {
+	if (!response) {
 		if (!validateCreditTransactionElements()) return;
 
 		var cardNo		= $('#eid_card_number').val();
@@ -153,7 +155,7 @@ function doCreditPayment(response) {
 		var holderID	= $('#eid_id_number').val();
 
 		var billAmount	= document.getElementById("eid_total_payment").innerHTML;
-		var billAmount	= "1";
+			billAmount	= "1";
 		var payments	= "1";
 
 		var cardInfo = sprintf("%s, %s, %s, %s, %s, %s, %s, %s, %s", holderID, // DOC
@@ -166,7 +168,7 @@ function doCreditPayment(response) {
 		var message		= g_ccard_no_confirmation;
 		var messageExt	= g_msg_error + ": " + g_msg_no_response;
 
-		if (response != "") {
+		if (response !== "") {
 			var actionType	= fieldByPosition(response, 1, ",");
 			var confirmed	= fieldByPosition(response, 2, ",");
 			var arg3		= fieldByPosition(response, 3, ",");

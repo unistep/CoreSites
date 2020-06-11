@@ -4,7 +4,9 @@
 	var	g_current_controller	= "";
 	var	g_current_view			= "";
 	var g_splitter_slided		= null;
-
+	let version					= "";
+	let selectedLanguage		= "";
+	let knownLanguages			= null;
 
 //=================================================================================
 $(document).ready(function () {
@@ -46,7 +48,7 @@ $(document).ready(function () {
 
 	$('.splitter').mousedown(function () {
 		bodyContent = document.getElementsByClassName('body-content');
-		if (bodyContent && bodyContent.length != 0) {
+		if (bodyContent && bodyContent.length !== 0) {
 			bodyContent[0].addEventListener("mousemove", onResizePanel);
 			g_splitter_slided = this;
 		}
@@ -55,7 +57,7 @@ $(document).ready(function () {
 
 	$(document).mouseup(function () {
 		bodyContent = document.getElementsByClassName('body-content');
-		if (bodyContent && bodyContent.length != 0) {
+		if (bodyContent && bodyContent.length !== 0) {
 			bodyContent[0].removeEventListener("mousemove", onResizePanel);
 			g_splitter_slided = null;
 		}
@@ -92,17 +94,17 @@ function onResizePanel(event) {
 function resizeWindow() {
 	//Loger(sprintf("browser: %s, system: %s", bowser.name, bowser.osname), true);
 
-	if (bowser.osname == 'Windows') {
-		$('.map-canvas').css({
-			'min-height': '35vw'
-		});
+	if (bowser.osname === 'Windows') {
+		//$('.map-canvas').css({
+		//	'min-height': '70%'
+		//});
 
 		return;
 	}
 
-	if (bowser.osname == 'iOS') {
+	if (bowser.osname === 'iOS') {
 
-		if (bowser.name == "Safari") {
+		if (bowser.name === "Safari") {
 			$('body').css({
 				'height': '89vh'
 			});
@@ -123,7 +125,7 @@ function resizeWindow() {
 				'min-height': '68%'
 			});
 		}
-		else if (bowser.name == "Chrome") {
+		else if (bowser.name === "Chrome") {
 			$('.body-content').css({
 				'height': '86.5vh'
 			});
@@ -141,8 +143,8 @@ function resizeWindow() {
 			});
 		}
 	}
-	else if (bowser.osname == 'Android') {
-		if (bowser.name == "Safari") {
+	else if (bowser.osname === 'Android') {
+		if (bowser.name === "Safari") {
 			$('body').css({
 				'height': '90vh'
 			});
@@ -160,7 +162,7 @@ function resizeWindow() {
 			});
 		}
 		else {
-			if (bowser.name == "Chrome") {
+			if (bowser.name === "Chrome") {
 				$('body').css({
 					'height': '90vh'
 				});
@@ -192,7 +194,7 @@ function queryParam(param_name)
 	{
 		param_value = params[i].split("=");
 
-		if (param_value[0] == param_name)
+		if (param_value[0] === param_name)
 		{
 			return param_value[1];
 		}
@@ -203,13 +205,33 @@ function queryParam(param_name)
 
 
 //=================================================================================
+function setAppParams(parameters) {
+	localStorage.setItem('AssemblyVersion', parameters.AssemblyVersion);
+	localStorage.setItem('KnownLanguages', parameters.KnownLanguages);
+	localStorage.setItem('Language', parameters.Language);
+	localStorage.setItem('Endpoints', parameters.Endpoints);
+
+	version = parameters.AssemblyVersion;
+
+	selectedLanguage = parameters.Language;
+
+	var _knownLanguages = localStorage.getItem('KnownLanguages');
+	if (_knownLanguages) {
+		knownLanguages = JSON.parse(_knownLanguages);
+	}
+	else {
+		knownLanguages.push(selectedLanguage);
+	}
+}
+
+//=================================================================================
 function fieldByPosition(script, offset, stops)
 {
-	if (script == "" || script == null || offset == 0) return "";
+	if (!script || offset === 0) return "";
 
 	args = script.split (stops);
 
-	if (args.length == 0 || args.length < offset) return "";
+	if (args.length === 0 || args.length < offset) return "";
 
 	return args[offset - 1].trim();
 }
@@ -230,8 +252,8 @@ String.prototype.replaceAll = function (search, replace)
 //===================================================
 function Loger(message, do_alert)
 {
-	_status_line = document.getElementById('#eid_status');
-	_site_line = document.getElementById('#eid_site');
+	_status_line = document.getElementById('eid_status');
+	_site_line = document.getElementById('eid_site');
 
 	if (_status_line) _status_line.style.display	=  message ? 'block' : 'none';
 	if (_site_line)   _site_line.style.display		= !message ? 'block' : 'none';
@@ -275,7 +297,7 @@ function checkForLegalIsraelIDCard(il_id) {
 	tot = 0;
 	tz = new String(il_id);
 
-	while (tz.length != 9) tz = "0" + tz;
+	while (tz.length !== 9) tz = "0" + tz;
 
 	for (i = 0; i < 8; i++) {
 		x = (((i % 2) + 1) * tz.charAt(i));
@@ -286,7 +308,7 @@ function checkForLegalIsraelIDCard(il_id) {
 		tot += x;
 	}
 
-	if ((tot + parseInt(tz.charAt(8))) % 10 == 0) {
+	if ((tot + parseInt(tz.charAt(8))) % 10 === 0) {
 		return true;
 	} else {
 		return false;
@@ -306,11 +328,11 @@ function checkForRequired(elm_id)
 {
 	elment	= document.getElementById(elm_id);
 	value	= elment.value;
-	prompt	= elment.getAttribute("placeholder");
+	display	= elment.getAttribute("placeholder");
 
 	if (!value)
 	{
-		doModal(g_msg_error, sprintf(g_msg_no_value, prompt));
+		doModal(g_msg_error, sprintf(g_msg_no_value, display));
 		return false;
 	}
 
@@ -323,13 +345,13 @@ function checkForValidity(elm_id, validity_check)
 {
 	elment = document.getElementById(elm_id);
 	value = elment.value;
-	prompt = elment.getAttribute("placeholder");
+	display = elment.getAttribute("placeholder");
 
 	if (!value) return true;
 
 	if (!validity_check(value))
 	{
-		doModal(g_msg_error, sprintf(g_msg_illegal_value, prompt));
+		doModal(g_msg_error, sprintf(g_msg_illegal_value, display));
 		return false;
 	}
 
@@ -350,7 +372,7 @@ function checkForLegalPhoneNumber(eid_ac, eid_pn)
 	pn_prompt		= elm_phone_number.getAttribute("placeholder");
 
 	if (phone_number) {
-		if (phone_number.length != 7) {
+		if (phone_number.length !== 7) {
 			doModal(g_msg_error, sprintf(g_msg_illegal_value, pn_prompt));
 			return false;
 		}
@@ -420,8 +442,8 @@ function getExtension(path) {
 //==================================================================================
 function doModal(heading, formContent) {
 	html = '<div id="dynamicModal" class="modal fade" tabindex="-1" role="dialog" '
-		 + 'aria-labelledby="confirm-modal" aria-hidden="true" '
-		 + 'dir="' + g_view_direction + '"> ';
+         + 'aria-labelledby="confirm-modal" aria-hidden="true" '
+         + 'dir="' + g_view_direction + '"> ';
 	html += '<div class="modal-dialog">';
 	html += '<div class="modal-content">';
 	html += '<div class="modal-header">';

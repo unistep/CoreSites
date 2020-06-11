@@ -1,7 +1,7 @@
 ﻿
 @model uResponsiveRow
 
-<script>
+@*<script>
 	function buttonRowClicked(inputElement) {
 		if (!inputElement) return;
 
@@ -9,13 +9,13 @@
 			onButtonRowClicked(inputElement);
 		}
 	}
-</script>
+</script>*@
 
 <div class="row form-group col-12">
 	<div class="col-4">
 		<div class="input-group">
 			<input type="button" class="btn btn-primary btn-block r_input"
-				   value="@Html.Localize(@Model.promptName)" click="buttonRowClicked(@Model.boundColumn)"/>
+				   value="@Html.Localize(@Model.promptName)" onclick="buttonRowClicked(@Model.boundColumn)"/>
 			<span class="input-group-addon">
 				<i class="@Model.iconName icon-align-opposite" style="color: white" aria-hidden="true"></i>
 			</span>
@@ -27,7 +27,9 @@
 				   type=@Model.inputType class="form-control r_input" 
 				   placeholder="@Html.Localize(@Model.promptName)"
 				   @Model.attributes>
-			<span class="input-group-addon"><i class="@Model.iconName icon-align-opposite" aria-hidden="true"></i></span>
+			<span class="input-group-addon">
+				<i class="@Model.iconName icon-align-opposite" aria-hidden="true"></i>
+			</span>
 		</div>
 	</div>
 </div>
