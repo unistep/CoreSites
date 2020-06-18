@@ -8,7 +8,7 @@ import './service-call.component.scss';
 import { BaseFormComponent } from '../../lib/templates/BaseFormComponent'
 import '../service-call/splitter.css'
 import * as splitter from '../service-call/splitter';
-import ufwX from '../../lib/services/ufw-interface';
+
 import { translate } from '../../lib/services/u-language-codes.service';
 
 import * as $ from 'jquery';
@@ -23,23 +23,12 @@ export class ShoppingCart extends BaseFormComponent {
         redirect: null
     };
 
-    bfc = null;
-    udb = null;
-    gmap = null;
-    ufw = null;
-    ugs = null;
-
     constructor(props) {
         super(props);
-        this.ufw = ufwX;
-        this.bfc = this.ufw.bfc;
-        this.udb = this.ufw.udb;
-        this.gmap = this.ufw.gmap
-        this.ugs = this.ufw.ugs;
-        this.bfc.setThis(this);
+
+        this.setThis(this);
 
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.UNSAFE_componentWillMount = this.UNSAFE_componentWillMount.bind(this);
         this.genericActionNew = this.genericActionNew.bind(this);
         this.genericActionDelete = this.genericActionDelete.bind(this);
         this.genericActionExit = this.genericActionExit.bind(this);
@@ -47,55 +36,77 @@ export class ShoppingCart extends BaseFormComponent {
         this.productChanged = this.productChanged.bind(this);
 
     }
-    //=========================
-    async componentDidMount() {
+
+    //=================================================================================
+    componentDidMount() {
         var splitterX = splitter;
         splitterX.dragElement(document.getElementById("seperator"), "H");
-        //
-        var url = this.ugs.ufw_url + 'ShoppingCart?view_key_value=' + this.bfc.toShoppingCard.view_key_value;
-        const response = await fetch(url);
-        const data = await response.json();
-        //
-        this.udb.recordPosition = parseInt(this.bfc.toShoppingCard.parent_position);
-        this.getFormData(data, true);
-        this.bfc.setsScreenProperties();
-        //this.setState({inited: true});
+        this.setsScreenProperties();
 
-    }
-    //=================================================================================
-    UNSAFE_componentWillMount() {
-        this.udb.confirmExit();
-    }
-    //=================================================================================
-    async getFormData(scData, autoUpdate) {
+        const query = new URLSearchParams(this.props.location.search);
+        const viewKeyValue = query.get('view_key_value');
+        this.udb.recordPosition = parseInt(query.get('parent_position'));
 
-        this.bfc.formInit(scData, autoUpdate, this, ".rframe");
+        this.ufw.ShoppingCart(shoppingCartResponse, viewKeyValue);
+
+        const self = this;
+        function shoppingCartResponse(response) {
+            self.getFormData(response);
+		}
+    }
+
+
+    //=================================================================================
+    getFormData(response) {
+        this.formInit(response, true, this, ".rframe");
+
         $("#Product_Sale_Price").change(this.productSalePriceChanged.bind(this));
         $("#Product_Sale_Quantity").change(this.productSalePriceChanged.bind(this));
         $("#Product_Sale_Price").attr("readonly", false);
         $("#Product_Sale_Quantity").attr("readonly", false);
     }
+
+
     //=================================================================================
     afterBinding() {
-        //this.setSelectionList('Product_Family_ID', 'Product_Family');
         const cartRow = this.udb.primary_dataset.dataset_content[this.udb.recordPosition];
         const productRow = this.udb.getDatasetRow('Product', 'id', cartRow.Product_ID)
 
+        const dataset = this.udb.getDataset('Product_Family');
+        this.productFamily = dataset.dataset_content;
+        const name = this.ugs.uTranslate("Product_Family");
+        this.productFamily.splice(0, 0, { id: '', name });
+
         if (!productRow) this.selectedProductFamily = this.productFamily[0];
         else this.selectedProductFamily = this.udb.getDatasetRow('Product_Family', 'id', productRow.Product_Family_ID);
-        //("#Product_Desc").attr("value", this.selectedProductFamily);
-        //const name = this.ugs.uTranslate("Product_Family");
-        //this.productFamily.splice(0, 0, { id: '', name });
-
-        $("#Product_Sale_Price").attr("readonly", false);
-
         this.productFamilyChangedX();
 
         if (!productRow) this.selectedProduct = this.product[0];
         else this.selectedProduct = this.udb.getDatasetRow('Product', 'id', productRow.id);
         this.productChangedX();
+
         this.setState({ inited: true, redirect: null });
     }
+
+    //=================================================================================
+    productChangedX() {
+        console.log("productChangedX: " + this.selectedProduct.id)
+        $('#Product_ID').val(!this.selectedProduct ? '' : this.selectedProduct.id);
+        $('#Product_Unit_Price').val(!this.selectedProduct ? '0.00' : this.selectedProduct.Product_Unit_Price);
+
+        if (this.udb.on_binding) return;
+        $('#Product_Sale_Price').val(!this.selectedProduct.id ? '0.00' : this.selectedProduct.Product_Unit_Price);
+        $('#Product_Sale_Quantity').val('1');
+        $('#Cart_Row_Total_Price').val(!this.selectedProduct.id ? '0.00' : this.selectedProduct.Product_Unit_Price);
+    }
+
+    //=================================================================================
+    productChanged = selectedProduct => {
+        this.selectedProduct = selectedProduct;
+        this.productChangedX();
+        this.setState({ inited: true, redirect: null });
+    }
+
     //=================================================================================
     productSalePriceChanged() {
         let productSalePrice = $("#Product_Sale_Price").val();
@@ -108,10 +119,13 @@ export class ShoppingCart extends BaseFormComponent {
             productSaleQuantity = "1";
             $("#Product_Sale_Quantity").val(productSaleQuantity);
         }
+
         const totalAmount = (productSaleQuantity * productSalePrice);
 
         $("#Cart_Row_Total_Price").val(totalAmount/*.toLocaleString('he', { style: 'currency', currency: 'ILS' })*/);
     }
+
+
     //=================================================================================
     getSelectedValue(eidElement) {
         if (eidElement === 'Product_Family_ID')
@@ -125,82 +139,66 @@ export class ShoppingCart extends BaseFormComponent {
 
     //=================================================================================
     setSelectedValue(eidElement, itemID) {
-        if (eidElement === 'ReactSelect1')
+        if (eidElement === 'Product_Family_ID')
             this.selectedProductFamily = this.product.filter(function (item) { return item.id === itemID; })[0];
 
         if (eidElement === 'Product_Desc')
-            this.selectedProduct = this.productFamily.filter(function (item) { return item.id === itemID; })[0];
+            this.selectedProduct = this.produ3ctFamily.filter(function (item) { return item.id === itemID; })[0];
     }
-    //=============================================================
-    getSelectedLabel(eidElement) {
-        if (eidElement.id === 'Product_Family_ID')
-            return (this.productFamily ? this.productFamily[0].name : '');
 
-        if (eidElement.id === 'Product_Desc')
-            return (this.product ? this.product[0].name : '');
-
-        return '';
-    }
     //=================================================================================
-    setSelectionList(element, id) {
-        //this.setSelectionList('Product_Family_ID', 'Product_Family');
-        if (id === 1) {
-            const dataset = this.udb.getDataset('Product_Family');
-            this.productFamily = dataset.dataset_content;
-            const name = this.ugs.uTranslate("Product_Family");
-            this.productFamily.splice(0, 0, { id: '', name });
-
-        }
-    }
-    //======================================================
     genericActionNew(action) {
         this.udb.genericActions("New");
     }
+
+    //=================================================================================
     genericActionDelete(action) {
         this.udb.genericActions("Delete");
     }
+
+    //=================================================================================
     genericActionExit(action) {
-        this.udb.genericActions("Exit");
-        this.setState({ inited: false, redirect: "/servicecallX" });
+        if (!this.udb.onAboutToNavigate()) return;
+
+        const query = new URLSearchParams(this.props.location.search);
+
+        var parent_view = query.get('parent_view');
+        const view_key_value = query.get('view_key_value');
+        var view_position = query.get('parent_position');
+        var view_tab = query.get('parent_tab');
+
+        const url = `/${parent_view}?`
+            + `view_key_value=${view_key_value}&`
+            + `view_position=${view_position}&`
+            + `view_tab=${view_tab}`;
+
+        this.setState({
+            inited: false, redirect: url
+        });
     }
+
     //=================================================================================
     productFamilyChangedX() {
-        console.log("productFamilyChangedX: " + this.selectedProduct.id)
-       const productFamilyID = (this.selectedProductFamily.id ? this.selectedProductFamily.id : '');
+        const productFamilyID = (this.selectedProductFamily.id ? this.selectedProductFamily.id : '');
         this.product = this.udb.getDatasetRowsArray('Product', 'Product_Family_ID', productFamilyID);
         const name = this.ugs.uTranslate("Product");
         this.product.splice(0, 0, { id: '', name });
     }
+
+    //=================================================================================
     productFamilyChanged = selectedProductFamily => {
-        // if (this.udb.on_binding) return;
+        if (this.udb.on_binding) return;
+
         this.selectedProductFamily = selectedProductFamily
         this.productFamilyChangedX();
         this.selectedProduct = this.product[0];
         this.productChangedX();
-        this.setState({ inited: true ,redirect: "" });
-    }
-    //=================================================================================
-    productChangedX() {
-        console.log("productChangedX: " + this.selectedProduct.id)
-        $('#Product_ID').val(!this.selectedProduct ? '' : this.selectedProduct.id);
-        $('#Product_Unit_Price').val(!this.selectedProduct ? '0.00' : this.selectedProduct.Product_Unit_Price);
-
-        //if (this.udb.on_binding) return;
-        $('#Product_Sale_Price').val(!this.selectedProduct.id ? '0.00' : this.selectedProduct.Product_Unit_Price);
-        $('#Product_Sale_Quantity').val('1');
-        $('#Cart_Row_Total_Price').val(!this.selectedProduct.id ? '0.00' : this.selectedProduct.Product_Unit_Price);
-    }
-    productChanged = selectedProduct => {
-        this.selectedProduct = selectedProduct;
-        this.productChangedX();
-        this.setState({ inited: true, redirect: null });
-
+        this.setState({ inited: true, redirect: "" });
     }
 
 
-    //================================[RENDER================]
+    //==================================[RENDER]=======================================
     render() {
-        //console.log("render: + " + JSON.stringify(this.selectedProductFamily) + " " + JSON.stringify(this.selectedProduct));
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
         }
@@ -248,7 +246,8 @@ export class ShoppingCart extends BaseFormComponent {
                                                     id="eid_btn_new" style={{ textAlign: "center" }}
                                                     onClick={this.genericActionNew} />
                                                 <span className="input-group-addon">
-                                                    <i className="fa fa-cart-plus icon-align-opposite" style={{ color: "white" }} aria-hidden="true"></i>
+                                                    <i className="fa fa-cart-plus icon-align-opposite"
+                                                        style={{ color: "white" }} aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -280,7 +279,7 @@ export class ShoppingCart extends BaseFormComponent {
                                         <label className="col-4 col-form-label label-align-opposite">{translate('Product_Family')}</label>
                                         <div className="col-8">
                                             <div className="input-group">
-                                                <Select id='ReactSelect1' placeholder={translate('Product_Family')}
+                                                <Select id='Product_Family_ID' placeholder={translate('Product_Family')}
                                                     value={this.selectedProductFamily}
                                                     onChange={this.productFamilyChanged}
                                                     getOptionLabel={option => option.name}
@@ -296,13 +295,13 @@ export class ShoppingCart extends BaseFormComponent {
                                         <label className="col-4 col-form-label label-align-opposite">{translate('Product')}</label>
                                         <div className="col-8">
                                             <div className="input-group">
-                                                <Select id='Product_Desc'  placeholder={translate('Product')}
+                                                <Select id='Product_Desc' placeholder={translate('Product')}
                                                     value={this.selectedProduct}
                                                     onChange={this.productChanged}
                                                     getOptionLabel={option => option.name}
                                                     getOptionValue={option => option.id}
                                                     options={this.product}
-                                                    className="form-control r_input"/>
+                                                    className="form-control r_input" />
                                                 <i className="fa fa-group icon-align-opposite" aria-hidden="true"></i>
                                                 <i className="fa fa-navicon icon-align-opposite" aria-hidden="true"></i>
                                             </div>
@@ -319,11 +318,8 @@ export class ShoppingCart extends BaseFormComponent {
                             </div>
                         </div>
                     </div >
-
                 </div>
             </div>
-
         );
     }
-
 }

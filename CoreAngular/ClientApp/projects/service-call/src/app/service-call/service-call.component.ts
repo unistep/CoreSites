@@ -29,9 +29,9 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 			this.getFormData(result, false);
 		}, error => this.ugs.Loger(error));
 
-		var id, name;
-		for (var i = 0; i < 8; i++) { id = name = (i + moment().year()); this.year.push({ id, name }) }
-		for (var i = 1; i <= 12; i++) { id = name = i; this.month.push({ id, name }) }
+		let id, name;
+		for (let i = 0; i < 8; i++) { id = name = (i + moment().year()); this.year.push({ id, name }) }
+		for (let i = 1; i <= 12; i++) { id = name = i; this.month.push({ id, name }) }
 
 		this.year.splice(0, 0, { id: '', name: this.ugs.uTranslate("Year") });
 		this.month.splice(0, 0, { id: '', name: this.ugs.uTranslate("Month") });
@@ -64,50 +64,50 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 
 		super.formInit(scData, autoUpdate, ".rframe");
 
-		const self = this;
-
 		if (this.udb.view_tab) this.udb.selectTab('.nav-tabs', this.udb.view_tab);
 
 		$('#eid_cart_table').on('click', 'tr', this.doShoppingCart.bind(this));
 
 		$('input.clicked[type="button"]').on('click', this.serviceCallStep.bind(this));
 
+    const self = this;
 		$('.nav li').click(function () {
 			event.preventDefault();
 
-			var el: any = this;
-			for (var tab = 1; el = el.previousElementSibling; tab++);
+      let el = this;
+      let tab;
+			for (tab = 1; el = el.previousElementSibling; tab++);
 
 			self.udb.selectTab('.nav-tabs', tab);
 		});
 
-		$('.cameraFrame').click(function ($event) {
-			var callerInput = this.getElementsByTagName('input')[0];
-			if (callerInput == null) return;
+		$('.cameraFrame').click(function () {
+			const callerInput = this.getElementsByTagName('input')[0];
+			if (callerInput === null) return;
 
 			callerInput.click();
 		});
 
-		$('.cameraFrame input').change(function ($event) {
-			var file = (this as any).files[0];
+		$('.cameraFrame input').change(function () {
+			const file = this.files[0];
 			if (!file) return;
 
-			var callerCam = this.parentElement;
-			var callerImage = callerCam.getElementsByTagName('div')[0];
-			var callerFa = callerCam.getElementsByTagName('i')[0];
+			const callerCam = this.parentElement;
+			const callerImage = callerCam.getElementsByTagName('div')[0];
+			const callerFa = callerCam.getElementsByTagName('i')[0];
 
 			callerFa.style.display = 'none';
 			callerImage.style.display = 'block';
 
-			var reader = new FileReader();
+			const reader = new FileReader();
 			reader.onloadend = function () {
 				callerImage.style.background = 'url("' + reader.result + '")';
 				callerImage.style.backgroundSize = "cover";
 			}
 
 			reader.readAsDataURL(file);
-			var remoteFileName = this.getAttribute('data-file');
-			var remoteFilePath = self.udb.primaryDataset.dataset_content[self.udb.recordPosition]['Files_Folder'] + '/' + remoteFileName;
+			const remoteFileName = this.getAttribute('data-file');
+			const remoteFilePath = self.udb.primaryDataset.dataset_content[self.udb.recordPosition]['Files_Folder'] + '/' + remoteFileName;
 			self.ufw.uploadFile(file, remoteFilePath);
 		});
 	}
@@ -125,7 +125,7 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 
 	//=================================================================================
 	serviceCallStep() {
-		var elmInput = $(":input")[$(":input").index(document.activeElement) + 1] as HTMLInputElement;
+		const elmInput = $(":input")[$(":input").index(document.activeElement) + 1] as HTMLInputElement;
 
 		if (!elmInput.value)
 			elmInput.value = moment().format('YYYY/MM/DD HH:mm');
@@ -250,10 +250,10 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 
 	//=================================================================================
 	setCreditTransactionElements() {
-		const elm_isConfirmed = document.getElementById('eid_confirmation_number');
-		if (!elm_isConfirmed) return;
+		const elmIsConfirmed = document.getElementById('eid_confirmation_number');
+		if (!elmIsConfirmed) return;
 
-		const isConfirmed = (elm_isConfirmed as HTMLInputElement).value ? true : false;
+		const isConfirmed = (elmIsConfirmed as HTMLInputElement).value ? true : false;
 
 		(document.getElementById('eid_card_number') as HTMLInputElement).readOnly = isConfirmed;
 		(document.getElementById('eid_card_first_name') as HTMLInputElement).readOnly = isConfirmed;
@@ -288,11 +288,11 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 
 
 	//=================================================================================
-	public getSelectedValue(eid_element) {
-		if (eid_element == 'eid_expiration_month')
+	public getSelectedValue(eidElement) {
+		if (eidElement === 'eid_expiration_month')
 			return (this.selectedMonth ? this.selectedMonth.id : '');
 
-		if (eid_element == 'eid_expiration_year')
+		if (eidElement === 'eid_expiration_year')
 			return (this.selectedYear ? this.selectedYear.id : '');
 
 		return '';
@@ -300,11 +300,11 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 
 
 	//=================================================================================
-	public getSelectedLabel(eid_element) {
-		if (eid_element.id == 'eid_expiration_month')
+	public getSelectedLabel(eidElement) {
+		if (eidElement.id === 'eid_expiration_month')
 			return (this.month ? this.month[0].name : '');
 
-		if (eid_element.id == 'eid_expiration_year')
+		if (eidElement.id === 'eid_expiration_year')
 			return (this.year ? this.year[0].name : '');
 
 		return '';

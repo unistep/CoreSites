@@ -14,15 +14,19 @@ import { ServiceCallComponent } from './components/service-call/service-call.com
 import { ShoppingCart} from '../src/components/service-call/shopping-cart.component';
 import 'font-awesome/css/font-awesome.min.css';
 import ufwX from './lib/services/ufw-interface';
+import ugsX from './lib/services/u-generics.service';
 import './custom.scss'
 
 
 export default class App extends Component {
+    ufw = null;
+    ugs = null;
+
     constructor(props) {
         super(props);
-        this.state = {
-            ready: false
-        }
+        this.state = { ready: false }
+        this.ufw = ufwX;
+        this.ugs = ugsX;
 
         this.componentDidMount = this.componentDidMount.bind(this);
     }
@@ -30,11 +34,10 @@ export default class App extends Component {
     componentDidMount() {
         console.log('app componentDidMount start');
 
-        const ufc = ufwX;
-        ufwX.getAppParams(onResponse);
+        this.ufw.getAppParams(onResponse);
         const self = this;
         function onResponse(response) {
-            ufc.ugs.setAppParams(response);
+            self.ugs.setAppParams(response);
             self.setState({ ready: true });
         }
     }

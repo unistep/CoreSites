@@ -1,42 +1,56 @@
 ﻿
 import { Component } from 'react'
-import { UGenericsService } from './u-generics.service';
-import { UGmapsService } from './u-gmaps.service';
-import { UDbService } from './u-db.service';
-import { BaseFormComponent } from '../templates/BaseFormComponent';
+import ugsX from './u-generics.service';
 import * as $ from 'jquery';
 
 export class UfwInterface extends Component {
-    ugs = null;
-    udb = null;
-    gmap = null;
-    bfc = null;
 
+    ugs = null;
+
+    //===================================================
     constructor() {
         super();
-        this.state = {};
-        this.ugs = new UGenericsService(this);
-        this.udb = new UDbService(this);
-        this.gmap = new UGmapsService(this.ugs);
-        this.bfc = new BaseFormComponent(this.ugs, this.udb, this.gmap, this);
+        //this.state = {};
+
+        this.ugs = ugsX;
     }
 
+    //===================================================
     getAppParams(callBack) {
         this.callPost(callBack, 'GetAppParams');
     }
 
+    //===================================================
     SPA_ChangeLanguage(language) {
         this.callPost(null, 'SPA_ChangeLanguage', `language=${language}`);
     }
 
-    TimeClock(params) {
-        this.callPost(null, 'TimeClock', params);
+    //===================================================
+    setLanguage(language = null) {
+        var _language = language ? language : this.ugs.getLocalStorageItem('Language');
+        if (!_language) language = 'English';
+
+        const self = this;
+        const service = `assets/i18n/${this.ugs.languageCodes.getCodeByName(_language)}.json`;
+        this.callGet(setLanguageResponse, service);
+
+        function setLanguageResponse(response) {
+            self.ugs.adjustUserLanguage(_language, response);
+            if (language) self.SPA_ChangeLanguage(_language);
+        }
+	}
+
+    //===================================================
+    TimeClock(callBack, params) {
+        this.callPost(callBack, 'TimeClock', params);
     }
 
+    //===================================================
     SendSMS(recipient, message) {
         this.callPost(null, 'SendSMS', "", JSON.stringify({ recipient, message }));
     }
 
+    //===================================================
     CreditAction(callBack, transType, transID, cardNumber, expiredYear, expiredMonth, billAmount,
         payments, cvv, holderID, firstName, lastName) {
 
@@ -46,15 +60,27 @@ export class UfwInterface extends Component {
         }));
     }
 
+    //===================================================
     WebQuery(stmt) {
         this.callPost(null, 'WebQuery', "", stmt);
     }
 
+    //===================================================
+    WebProcedure(tableName, stmt) {
+        this.callPost(null, 'WebProcedure', "", JSON.stringify({ tableName, stmt }));
+    }
+
+    //===================================================
     ServiceCall(callBack, callerID) {
         if (callerID) callerID = `view_key_value=${callerID}`;
         this.callGet(callBack, 'ServiceCall', callerID);
 	}
 
+    //===================================================
+    ShoppingCart(callBack, view_key_value) {
+        view_key_value = `view_key_value=${view_key_value}`;
+        this.callGet(callBack, 'ShoppingCart', view_key_value);
+    }
 
     //===================================================
     callGet(callback, service, params) {
@@ -69,7 +95,7 @@ export class UfwInterface extends Component {
     //===================================================
     callHttp(callType, callback, service, params, body) {
         const self = this;
-        self.ugs.setSpinner(true);
+        this.ugs.setSpinner(true);
 
         const TO = 10000; // getEndpointTO("");
         let url = `${this.ugs.getEndpointUrl("")}${service}`;

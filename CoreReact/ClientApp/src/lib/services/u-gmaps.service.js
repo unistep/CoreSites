@@ -1,13 +1,11 @@
 
-//import React, { Component } from 'react';
-//import ReactDOM from 'react-dom';
-//import { google } from 'googlemaps';
 import { } from 'googlemaps';
-//import { UGenericsService } from './u-generics.service'
+import ugsX from './u-generics.service'
 
 
 export class UGmapsService {
-	map = null;//
+	usg = null;
+	map = null;
 
 	current_location = null;;
 	current_address = null;
@@ -16,11 +14,9 @@ export class UGmapsService {
 	zoom_level = 12;
 	duration = "30";
 
-	ugs = null;
-	constructor(ugsX) {
+	constructor() {
 		this.ugs = ugsX;
 	}
-
 
 	//=================================================================================
 	getMyLocation(eid) {
@@ -246,3 +242,5 @@ export class UGmapsService {
 	}
 }
 
+const gmapX = new UGmapsService();
+export default gmapX;

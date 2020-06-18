@@ -1,41 +1,43 @@
-import  { Component } from 'react';
-//import { UDbService } from '../services/u-db.service';
-//import { UGmapsService } from '../services/u-gmaps.service';
-//import { UGenericsService } from '../services/u-generics.service';
-//import { UfwInterface } from '../services/ufw-interface';
+
+import { Component } from 'react';
+
+import ufwX from '../../lib/services/ufw-interface';
+import ugsX from '../../lib/services/u-generics.service';
+import udbX from '../../lib/services/u-db.service';
+import gmapX from '../../lib/services/u-gmaps.service';
 
 import * as $ from 'jquery';
 
-export class BaseFormComponent extends Component{
-    gmap = null;
-    ugs = null;
-    udb = null;
-    ufw = null;
-    toShoppingCard = {};
+export class BaseFormComponent extends Component {
     parentThis = null;
 
     primary_table_name = '';
     primary_table_columns = [];
     splitDir = localStorage.getItem('direction');
 
-    constructor(ugsX, udbX, gmaxsX, ufwX) {
+    ufx = null;
+    ugs = null;
+    udb = null;
+    gmap = null;
+
+    constructor() {
         super();
-        this.gmap = gmaxsX;
+
+        this.ufw = ufwX;
         this.ugs = ugsX;
         this.udb = udbX;
-        this.ufw = ufwX;
-        this.mainTableClicked = this.mainTableClicked.bind(this);
-   }
+        this.gmap = gmapX;
+	}
     //===============================================
     setThis(pthis) {
         this.parentThis = pthis;
     }
     //===============================================
-    formInit(scData, autoUpdate, caller,setNavBar) {
+    formInit(scData, autoUpdate, caller, setNavBar) {
         this.udb.setNavigationBar(setNavBar);
 
         this.udb.prepareDatasets(scData);
-        this.udb.auto_update = autoUpdate; // Binding procedure should sync data with server
+        this.udb.auto_update = autoUpdate; // Binding procedure should auto sync data with server
         this.udb.bindData(caller);
 
         $('#eid_main_table tr td').click(this.mainTableClicked.bind(caller));
@@ -48,7 +50,7 @@ export class BaseFormComponent extends Component{
 
     //=================================================================================
     mainTableClicked(e) {
-        if (!this.ufw.udb.onAboutToNavigate()) return;
+        if (!this.udb.onAboutToNavigate()) return;
         this.udb.recordPosition = e.currentTarget.parentNode.rowIndex - 1;
         this.udb.bindData(this.parentThis);
         this.setMainTableCursor();

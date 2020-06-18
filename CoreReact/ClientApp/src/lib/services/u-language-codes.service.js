@@ -1,10 +1,10 @@
 ﻿
+var jsonLanguage = {};
 
 export class ULanguageCodes {
-    ugs = null;
-    constructor(ugsX) {
-        this.ugs = ugsX;
-    }
+    knownLanguages      = [];
+    selectedLanguage    = {};
+    currentLanguage     = "";
 
     languageCodes = [
         { gid: "af", iid: "af", name: "Afrikaans" },
@@ -90,12 +90,30 @@ export class ULanguageCodes {
 
 
     //=================================================================================
+    setAppParams() {
+        this.selectedLanguage = localStorage.getItem('Language');
+
+        var _knownLanguages = localStorage.getItem('KnownLanguages');
+        if (_knownLanguages) {
+            this.knownLanguages = JSON.parse(_knownLanguages);
+        }
+        else {
+            this.knownLanguages.push(this.selectedLanguage);
+        }
+    }
+
+    //=================================================================================
+    adjustUserLanguage(languageName, response) {
+        this.currentLanguage = this.getCodeByName(languageName);
+        jsonLanguage = response;
+    }
+
+    //=================================================================================
     getCodeByName(languageName) {
         var languageCode = this.languageCodes.find(item => item.name === languageName).gid;
         if (!languageCode) languageCode = 'en'
         return languageCode;
     }
-
 
     //=================================================================================
     getNameByCode(languageCode) {
@@ -121,29 +139,10 @@ export class ULanguageCodes {
 
         return (languageCode !== null)
     }
-    //
-     LoadLAng(currLang) {
-        // currLang = null;
-        //currLang = await this.ugs.ufw.get(lagnfile, "", "");
-        setCurrLang(currLang);
-     }
 }
-//
-var CurrLang = {};
-export default CurrLang;
-//
-export function setCurrLang(curlang) {
-    CurrLang = curlang;
-}
+
 export function translate(key) {
-    var result;
-    result = CurrLang[key];
-    if (!result) { result = key;}
+    let result = jsonLanguage[key];
+    if (!result) { result = key; }
     return result;
 }
-
-
-//const languageCodes = new ULanguageCodes();
-//export default languageCodes;
-
-

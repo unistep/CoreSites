@@ -1,11 +1,13 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect } from "react-router-dom";
 import Select from 'react-select';
 
-import ufwX from '../../lib/services/ufw-interface'
 import './service-call.component.scss';
+
 import { translate } from '../../lib/services/u-language-codes.service';
+
+import { BaseFormComponent } from '../../lib/templates/BaseFormComponent';
 import { InputRow } from '../../lib/templates/input-row.component';
 import { AddressRow } from '../../lib/templates/address-row';
 import { PhoneRow } from '../../lib/templates/phone-row.component';
@@ -18,33 +20,21 @@ import * as moment from 'moment';
 import '../service-call/splitter.css'
 import * as splitter from '../service-call/splitter';
 
-var bfc = null;
-export class ServiceCallComponent extends Component {
+export class ServiceCallComponent extends BaseFormComponent {
+
 	state = {
 		selectedYear: {},
 		selectedMonth: {},
 		redirect: null,
 		isConfirmed: false
 	};
+
 	month = [];
 	year = [];
 	initDone = false;
 
-	bfc = null;
-	udb = null;
-	gmap = null;
-	ufw = null;
-	ugs = null;
-
-
 	constructor(props) {
 		super(props);
-		this.ufw = ufwX;
-		this.bfc = this.ufw.bfc;
-		bfc = this.ufw.bfc;
-		this.udb = this.ufw.udb;
-		this.gmap = this.ufw.gmap;
-		this.ugs = this.ufw.ugs;
 
 		this.componentDidMount = this.componentDidMount.bind(this);
 		this.UNSAFE_componentWillMount = this.UNSAFE_componentWillMount.bind(this);
@@ -56,17 +46,16 @@ export class ServiceCallComponent extends Component {
 		for (i = 0; i < 8; i++) { value = label = (i + moment().year()); this.year.push({ value, label }) }
 		for (i = 1; i <= 12; i++) { value = label = i; this.month.push({ value, label }) }
 	}
+
 	//=================================================================================
 	async componentDidMount() {
 		var splitterX = splitter;
 		splitterX.dragElement(document.getElementById("seperator"), "H");
 
-		var elem = $(document).find('NavItem.servicecall');
-		if (elem && elem.style) {
-			elem[0].style.display = "none";
-		}
+		const elem = document.getElementsByClassName('servicecall');
+		if (elem && elem.style) elem[0].style.display = "none";
 
-		this.bfc.setsScreenProperties();
+		this.setsScreenProperties();
 
 		this.ufw.ServiceCall(ServiceCallResponse)
 
@@ -85,13 +74,16 @@ export class ServiceCallComponent extends Component {
 	}
 	//=================================================================================
 	async getFormData(scData, autoUpdate) {
-		this.udb.view_key_value = this.ufw.bfc.toShoppingCard.parent_key_value;
-		this.udb.recordPosition = parseInt(this.ufw.bfc.toShoppingCard.parent_position);
-		this.udb.view_tab = parseInt(this.ufw.bfc.toShoppingCard.parent_tab);
+
+		const query = new URLSearchParams(this.props.location.search);
+
+		this.udb.view_key_value = query.get('view_key_value');
+		this.udb.recordPosition = parseInt(query.get('view_position'));
+		this.udb.view_tab = parseInt(query.get('view_tab'));
 
 		if (!this.udb.recordPosition || (this.udb.recordPosition < 0)) this.udb.recordPosition = 0;
 		if (!this.udb.view_tab || (this.udb.view_tab < 0)) this.udb.view_tab = 0;
-		this.bfc.formInit(scData, autoUpdate, this, ".rframe");
+		this.formInit(scData, autoUpdate, this, ".rframe");
 
 		const self = this;
 
@@ -107,7 +99,7 @@ export class ServiceCallComponent extends Component {
 			var el = this;
 			for (var tab = 1; el = el.previousElementSibling; tab++);
 
-			bfc.udb.selectTab('.nav-tabs', tab);
+			self.udb.selectTab('.nav-tabs', tab);
 		});
 
 		$('.cameraFrame').click(function ($event) {
@@ -141,7 +133,6 @@ export class ServiceCallComponent extends Component {
 			await self.ufw.uploadFile(file, remoteFilePath);
 		});
 	}
-
 
 	//=================================================================================
 	afterBinding() {
@@ -192,23 +183,27 @@ export class ServiceCallComponent extends Component {
 			.replace("111", this.gmap.duration);
 		this.ufw.SendSMS(recipient, message);
 	}
+
 	//=================================================================================
 	doShoppingCart(event) {
-		this.bfc.toShoppingCard.view_key_value = this.udb.primary_dataset.dataset_content[this.udb.recordPosition]['Work_Order_PKey'];
-		this.bfc.toShoppingCard.view_position = (event.currentTarget.rowIndex).toString();
-		this.bfc.toShoppingCard.parent_key_value = this.udb.view_key_value;
-		this.bfc.toShoppingCard.parent_view = 'servicecallX';
-		this.bfc.toShoppingCard.parent_position = this.udb.recordPosition.toString();
-		this.bfc.toShoppingCard.parent_tab = '5';
-		this.setState({
-			redirect: "/shopingcard"
-		});
+		const view_key_value = this.udb.primary_dataset.dataset_content[this.udb.recordPosition]['Work_Order_PKey'];
+		const view_position = (event.currentTarget.rowIndex).toString();
+		const parent_key_value = this.udb.view_key_value;
+		const parent_view = 'servicecallX';
+		const parent_position = this.udb.recordPosition.toString();
+		const parent_tab = '5';
 
-		//this.router.navigate(['shopping-cart'], {
-		//	queryParams: {
-		//		view_key_value, view_position, parent_key_value, parent_view, parent_position, parent_tab
-		//	}
-		//});
+		const url = `/shopingcard?`
+			+ `view_key_value=${view_key_value}&`
+			+ `view_position=${view_position}&`
+			+ `parent_key_value=${parent_key_value}&`
+			+ `parent_view=${parent_view}&`
+			+ `parent_position=${parent_position}&`
+			+ `parent_tab=${parent_tab}`;
+
+		this.setState({
+			redirect: url
+		});
 	}
 
 
@@ -243,33 +238,33 @@ export class ServiceCallComponent extends Component {
 
 		const transType = "CreditPayment"; // "AuthorizeCredit"
 
-		this.ufw.CreditAction(this.CreditPaymentResponse, transType, holderID, cardNumber, expiredYear, expiredMonth,
+		this.ufw.CreditAction(CreditPaymentResponse, transType, holderID, cardNumber, expiredYear, expiredMonth,
 			billAmount, payments, cvv, holderID, firstName, lastName);
-	}
 
-	CreditPaymentResponse(response) {
-		if (!response) return;
+		var self = this;
+		function CreditPaymentResponse(response) {
+			if (!response) return;
 
-		const confirmed = response.confirmationNo;
-		const issuerID = response.issuerID;
-		const terminalID = response.TerminalID;
-		const rExpired = response.expired;
+			const confirmed = response.confirmationNo;
+			const issuerID = response.issuerID;
+			const terminalID = response.TerminalID;
+			const rExpired = response.expired;
 
-		const message = this.ugs.uTranslate("Ccard_Successfully_Confirmed")
-			+ `: ConfirmatioNo=${confirmed} issuer=${issuerID}, terminal=${terminalID}, expired=${rExpired}`;
+			const message = self.ugs.uTranslate("Ccard_Successfully_Confirmed")
+				+ `: ConfirmatioNo=${confirmed} issuer=${issuerID}, terminal=${terminalID}, expired=${rExpired}`;
 
-		this.ugs.Loger(message, true);
+			self.ugs.Loger(message, true);
 
-		const uiConfNo = document.getElementById("eid_confirmation_number");
-		uiConfNo.value = confirmed;
+			const uiConfNo = document.getElementById("eid_confirmation_number");
+			uiConfNo.value = confirmed;
 
-		this.setCreditTransactionElements();
+			self.setCreditTransactionElements();
+		}
 	}
 
 
 	//=================================================================================
 	validateCreditTransactionElements() {
-
 		if (!this.udb.checkForRequired('eid_card_number')) return false;
 		if (!this.udb.checkForRequired('eid_card_first_name')) return false;
 		if (!this.udb.checkForRequired('eid_card_last_name')) return false;
@@ -293,10 +288,10 @@ export class ServiceCallComponent extends Component {
 	setCreditTransactionElements() {
 		const elm_isConfirmed = document.getElementById('eid_confirmation_number');
 		if (!elm_isConfirmed) return;
-		//
+
 		const isConfirmed = (elm_isConfirmed).value ? true : false;
-		//
-		//		document.getElementById("eid_btn_payment").style.backgroundColor = isConfirmed ? "lightgray" : "#007bff";
+		
+		document.getElementById("eid_btn_payment").style.backgroundColor = isConfirmed ? "lightgray" : "#007bff";
 		this.setState({ isConfirmed: isConfirmed });
 
 	}
@@ -333,12 +328,10 @@ export class ServiceCallComponent extends Component {
 	//
 	handleChangeMonth = selectedMonth => {
 		this.setState({ selectedMonth: selectedMonth });
-		console.log(`Option selected:`, selectedMonth);
 	};
 
 	handleChangeYear = selectedYear => {
 		this.setState({ selectedYear: selectedYear });
-		console.log(`Option selected:`, selectedYear);
 	};
 
 
@@ -352,11 +345,13 @@ export class ServiceCallComponent extends Component {
 
 		return '';
 	}
-	//html
-	render() {
+
+	render()
+	{
 		if (this.state.redirect) {
 			return <Redirect to={this.state.redirect} />
 		}
+
 		const { selectedMonth } = this.state.selectedMonth;
 		const { selectedYear } = this.state.selectedYear;
 
@@ -456,8 +451,8 @@ export class ServiceCallComponent extends Component {
 								</div>
 								<div className="tab-pane tframe" id="tab3">
 									<div className="form-horizontal">
-										<DateRow label='From_Time' elementID='From_Coordinated_Time' boundColumn='From_Coordinated_Time' isReadOnly="false" local={this.bfc.ugs.current_language}></DateRow>
-										<DateRow label='To_Time' elementID='To_Coordinated_Time' boundColumn='To_Coordinated_Time' isReadOnly="false" local={this.bfc.ugs.current_language}></DateRow>
+										<DateRow label='From_Time' elementID='From_Coordinated_Time' boundColumn='From_Coordinated_Time' isReadOnly="false" local={this.ugs.languageCodes.currentLanguage}></DateRow>
+										<DateRow label='To_Time' elementID='To_Coordinated_Time' boundColumn='To_Coordinated_Time' isReadOnly="false" local={this.ugs.languageCodes.currentLanguage}></DateRow>
 										<ButtonRow label='On_My_Way' elementID='On_My_Way_Time' boundColumn='On_My_Way_Time' icon='fa fa-thumbs-o-up'></ButtonRow>
 										<ButtonRow label='Got_There' elementID='Got_There_Time' boundColumn='Got_There_Time' icon='fa fa-play'></ButtonRow>
 										<ButtonRow label='Leave' elementID='Leave_Time' boundColumn='Leave_Time' icon='fa fa-dot-circle-o'></ButtonRow>
@@ -585,5 +580,3 @@ export class ServiceCallComponent extends Component {
 		);
 	}
 }
-
-//<div className="valid-feedback">Valid.</div>

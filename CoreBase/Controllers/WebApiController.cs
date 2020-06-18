@@ -15,21 +15,13 @@ namespace CoreBase.Controllers
 {
 	public class WebApiController : Controller
 	{
+		//====================================================================================================
 		public WebApiController()
 		{
 		}
-		////====================================================================================================
-		//public string GetCallerLoginName()
-		//{
-		//	if (!User.Identity.IsAuthenticated) return "Anonymous";
 
-		//	var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-		//	if (String.IsNullOrEmpty(userId)) return "Anonymous";
-		//	string _user = uDB.GetStringColumn($"SELECT UserName FROM AspNetUsers WHERE Id='{userId}'");
 
-		//	return _user;
-		//}
-
+		//====================================================================================================
 		public IActionResult Error(string message)
 		{
 			OnErrorNotifications($"{message}");
@@ -73,8 +65,8 @@ namespace CoreBase.Controllers
 		}
 
 
-		[HttpGet("MVC_ChangeLanguage")]
 		//====================================================================================================
+		[HttpGet("MVC_ChangeLanguage")]
 		public IActionResult MVC_ChangeLanguage(string language)
 		{
 			string userName = GetCallerLoginName();
@@ -100,8 +92,8 @@ namespace CoreBase.Controllers
 		}
 
 
-		[HttpGet("SetNewLanguage")]
 		//====================================================================================================
+		[HttpGet("SetNewLanguage")]
 		public IActionResult SetNewLanguage()
 		{
 			string userName = GetCallerLoginName();
@@ -149,8 +141,8 @@ namespace CoreBase.Controllers
 			return Ok("{}");
 		}
 
-		[HttpPost("SendSMS")]
 		//====================================================================================================
+		[HttpPost("SendSMS")]
 		public async Task<IActionResult> SendSMS()
 		{
 			var details = JsonConvert.DeserializeObject<dynamic>(await GetRawBodyString(Request));
@@ -209,7 +201,7 @@ namespace CoreBase.Controllers
 				return Error($"{transType} Error: No Clearing center has been defined!");
 			}
 
-			string response = "";
+			string response;
 
 			if (transType.ToLower().Trim() == "CreditPayment".ToLower())
 			{
@@ -234,8 +226,8 @@ namespace CoreBase.Controllers
 			return Ok(response);
 		}
 
-		[HttpPost("WebQuery")]
 		//====================================================================================================
+		[HttpPost("WebQuery")]
 		public async Task<IActionResult> WebQuery()
 		{
 			string userName = GetCallerLoginName();
@@ -256,6 +248,38 @@ namespace CoreBase.Controllers
 		}
 
 
+		//====================================================================================================
+		[HttpPost("WebProcedure")]
+		public async Task<IActionResult> WebProcedure()
+		{
+			var details = JsonConvert.DeserializeObject<dynamic>(await GetRawBodyString(Request));
+
+			string userName = GetCallerLoginName();
+			string tableName = details["tableName"];
+			string stmt = details["stmt"];
+
+			uApp.Loger($"WebProcedure: Caller={userName}, Table={tableName}, Stmt={stmt}");
+
+			if (string.IsNullOrEmpty(stmt))
+			{
+				return Error("Error, Empty statement");
+			}
+
+			//if (!uDB.CheckForProcedure(procedure))
+			//{
+			//	uApp.Loger($"*** Unknown Procedure: {procedure}");
+			//	return "ERROR";
+			//}
+
+			string dbKey = uDB.GetTarget_DB(tableName);
+			if (dbKey == "") return Error("Error, Unknown dataset name");
+
+			uDB.DoNoneQuery(stmt, dbKey);
+
+			return Ok("{}");
+		}
+
+		//====================================================================================================
 		public Task<string> GetRawBodyString(HttpRequest request, Encoding encoding = null)
 		{
 			if (encoding == null) encoding = Encoding.UTF8;
@@ -264,71 +288,7 @@ namespace CoreBase.Controllers
 				return reader.ReadToEndAsync();
 		}
 
-
-		[HttpPost("WebApi")]
 		//====================================================================================================
-		public IActionResult WebApi(string request_type, string param1, string param2)
-		{
-			string userName = ""; // GetCallerLoginName();
-			string response = "";
-
-			switch (request_type)
-			{
-				case "WebQuery":
-					response = WebQuery(userName, param1, param2);
-					break;
-				case "WebProcedure":
-					response = WebProcedure(userName, param1, param2);
-					break;
-				default:
-					break;
-			}
-
-			if (response != "") return Ok(response);
-
-			response = $"Unknown Request: Caller={userName}, Request={request_type}, Param1={param1}, Param2={param2}";
-			uApp.Loger($"*** {response}");
-			return Ok($"Error, {response}");
-		}
-
-
-		//====================================================================================================
-		public string WebQuery(string userName, string table, string stmt)
-		{
-			uApp.Loger($"WebQuery: Caller={userName}, table={table}, Stmt={stmt}");
-
-			if (String.IsNullOrEmpty(stmt) || String.IsNullOrEmpty(table)) return "Error, Empty statement";
-
-			string response = uDB.GetJsonRecordSet(stmt);
-
-			uApp.Loger($"Response: Byte Count={response.Length}");
-
-			return response;
-		}
-
-
-		//====================================================================================================
-		public string WebProcedure(string userName, string procedure, string stmt)
-		{
-			uApp.Loger($"WebProcedure: Caller={userName}, Procedure={procedure}, Stmt={stmt}");
-
-			if (String.IsNullOrEmpty(stmt) || String.IsNullOrEmpty(procedure)) return "Error, Empty statement";
-
-			string dbKey = uDB.GetTarget_DB(procedure);
-			if (dbKey == "") return "Error, Unknown dataset name";
-
-			//if (!uDB.CheckForProcedure(procedure))
-			//{
-			//	uApp.Loger($"*** Unknown Procedure: {procedure}");
-			//	return "ERROR";
-			//}
-
-			string response = uDB.DoNoneQuery(stmt, dbKey) ? "OK" : "Error";
-
-			uApp.Loger($"Response: {response}");
-			return response;
-		}
-
 		public void OnErrorNotifications(string logMessage)
 		{
 			// --- IMPORTANT TO REMOVE ALARM TAGS FROM THE NOTIFYING MESSAGES TO PREVENT A MESS!!! ---
@@ -397,7 +357,7 @@ namespace CoreBase.Controllers
 				userName = HttpContext.User.Identity.Name;
 			}
 
-			return userName == "" ? "Anonymous" : userName;
+			return string.IsNullOrEmpty(userName) ? "Anonymous" : userName;
 		}
 	}
 }

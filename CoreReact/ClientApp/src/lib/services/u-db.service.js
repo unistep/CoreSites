@@ -5,6 +5,9 @@ import * as moment from 'moment';
 import * as $ from 'jquery';
 import { translate } from '../services/u-language-codes.service';
 
+import ufwX from '../services/ufw-interface';
+import ugsX from '../services/u-generics.service';
+
 export class UDbService {
 	view_key_value = "";
 	recordPosition = 0;
@@ -18,12 +21,12 @@ export class UDbService {
 
 	context = null;
 	ufw = null;
-	bfc = null;
-	constructor(ufwX) {
-		this.ufw = ufwX;
-		this.bfc = this.ufw.bfc;
-	}
+	ugs = null;
 
+	constructor() {
+		this.ufw = ufwX;
+		this.ugs = ugsX;
+	}
 
 	//=================================================================================
 	selectTab(class_name, tab) { 	//tabindex start at 0 
@@ -105,8 +108,6 @@ export class UDbService {
 		if (element_navpos) {
 			var navpos = (this.recordPosition + 1).toString() + " / " + this.primary_dataset.dataset_content.length.toString();
 			element_navpos.value = navpos;
-			//(element_navpos as HTMLInputElement).value = navpos;
-
 		}
 
 		this.on_binding = true;
@@ -130,6 +131,7 @@ export class UDbService {
 
 		this.setNavigationButtonsBehavior();
 	}
+
 	//=================================================================================
 	bindReactSelects() {
 		var slct = null;
@@ -143,6 +145,7 @@ export class UDbService {
             }
 		}
 	}
+
 	//=================================================================================
 	bindSelects() {
 		var value = '';
@@ -200,7 +203,7 @@ export class UDbService {
 
 
 	//=================================================================================
-	createTableRow(table, json_table_row) { // ??
+	createTableRow(table, json_table_row) {
 		var _row = document.createElement('tr');
 
 		Array.from(table.getElementsByTagName('th')).forEach((header) => {
@@ -305,12 +308,12 @@ export class UDbService {
 		if (!this.onAboutToNavigate()) return;
 		this.recordPosition--;
 		this.bindData();
-		this.ufw.bfc.setMainTableCursor();
-		//if (this.context &&
-		//	typeof this.context.setMainTableCursor !== 'undefined' &&
-		//	typeof this.context.setMainTableCursor === 'function') {
-  //			this.context.setMainTableCursor();
-		//}
+
+		if (this.context &&
+			typeof this.context.setMainTableCursor !== 'undefined' &&
+			typeof this.context.setMainTableCursor === 'function') {
+  			this.context.setMainTableCursor();
+		}
 	}
 
 
@@ -322,12 +325,12 @@ export class UDbService {
 
 		this.recordPosition++;
 		this.bindData();
-		this.ufw.bfc.setMainTableCursor();
-		//if (this.context &&
-		//	typeof this.context.setMainTableCursor !== 'undefined' &&
-		//	typeof this.context.setMainTableCursor === 'function') {
-	 // 		this.context.setMainTableCursor();
-		//}
+
+		if (this.context &&
+			typeof this.context.setMainTableCursor !== 'undefined' &&
+			typeof this.context.setMainTableCursor === 'function') {
+	  		this.context.setMainTableCursor();
+		}
 	}
 
 
@@ -354,7 +357,7 @@ export class UDbService {
 			var stmt = this.formSqlDeleteStmt();
 			if (stmt === "") return;
 
-			this.ufw.WebQuery(stmt);
+			this.ufw.WebProcedure(this.primary_dataset.dataset_name, stmt);
 		}
 
 		this.primary_dataset.dataset_content.splice(this.recordPosition, 1);
@@ -368,31 +371,22 @@ export class UDbService {
 
 
 	//=====================================================================================
-onBackToCallerEvent() {
-		if (!this.onAboutToNavigate()) return;
-	//var view_key_value = this.ufw.bfc.toShoppingCard.parent_key_value;
-	//var parent_view = this.ufw.bfc.toShoppingCard.parent_view;
-	//var view_tab = this.ufw.bfc.toShoppingCard.parent_tab;
-	//var view_position = this.ufw.bfc.toShoppingCard.parent_position
-	//this.router.navigate([parent_view], {
-	//		queryParams: {
-	//			view_key_value, view_position, view_tab
-	//		}
-	//	});
+	onBackToCallerEvent() {
+		return this.onAboutToNavigate();
 	}
 
 
 	//=================================================================================
 	onRecordBeenModified() {
 		if (!this.auto_update) {
-			//this.ufw.ugs.Loger("*** Error: Record been modified with no auto update procedure", true);
+			this.ugs.Loger("*** Error: Record been modified with no auto update procedure", true);
 			return;
 		}
 
 		var stmt = (this.primary_dataset.dataset_content[this.recordPosition]['__State'] === '1') ?
 			this.formSqlInsertStmt() : this.formSqlUpdateStmt();
 		if (stmt === "") return;
-		this.ufw.WebQuery(stmt);
+		this.ufw.WebProcedure(this.primary_dataset.dataset_name, stmt);
 		this.primary_dataset.dataset_content[this.recordPosition]['__State'] = "0";
 	}
 
@@ -481,9 +475,9 @@ onBackToCallerEvent() {
 
 		var where_stmt = this.formSqlWhereStmt();
 
-    return `UPDATE ${this.primary_dataset.dataset_name} `
-         + `SET ${this.ufw.ugs.rtrim(",", modifiedColumns)} `
-         + `WHERE ${where_stmt}`;
+		return `UPDATE ${this.primary_dataset.dataset_name} `
+			 + `SET ${this.ugs.rtrim(",", modifiedColumns)} `
+			 + `WHERE ${where_stmt}`;
 	}
 
 
@@ -516,9 +510,9 @@ onBackToCallerEvent() {
 			column_values += this.getSqlSyntaxColumnValue(ui_value, field_type) + ",";
 		}
 
-    return `INSERT INTO ${this.primary_dataset.dataset_name} `
-         + `(${this.ufw.ugs.rtrim(",", column_names)}) `
-         + `VALUES(${this.ufw.ugs.rtrim(",", column_values)}`;
+		return `INSERT INTO ${this.primary_dataset.dataset_name} `
+			 + `(${this.ugs.rtrim(",", column_names)}) `
+			 + `VALUES(${this.ugs.rtrim(",", column_values)}`;
 	}
 
 
@@ -528,14 +522,14 @@ onBackToCallerEvent() {
 
 		var where_stmt = this.formSqlWhereStmt();
 
-    return `DELETE FROM ${this.primary_dataset.dataset_name} WHERE ${where_stmt}`;
+	    return `DELETE FROM ${this.primary_dataset.dataset_name} WHERE ${where_stmt}`;
 	}
 
 
 	//=================================================================================
 	isPrimaryKey(field_name) {
 		for (var ipki = 1; ; ipki++) {
-			var primary_field_name = this.ufw.ugs.fieldByPosition(this.primary_dataset.primary_key_fields, ipki, "|");
+			var primary_field_name = this.ugs.fieldByPosition(this.primary_dataset.primary_key_fields, ipki, "|");
 			if (!primary_field_name) break;
 
 			if (field_name === primary_field_name) return true;
@@ -549,7 +543,7 @@ onBackToCallerEvent() {
 	formSqlWhereStmt() {
 		var where_stmt = "";
 		for (var fswsi = 1; ; fswsi++) {
-			var primary_field_name = this.ufw.ugs.fieldByPosition(this.primary_dataset.primary_key_fields, fswsi, "|");
+			var primary_field_name = this.ugs.fieldByPosition(this.primary_dataset.primary_key_fields, fswsi, "|");
 			if (!primary_field_name) break;
 
 			var primary_field_type = this.primary_dataset.dataset_format[0][primary_field_name];
@@ -559,19 +553,19 @@ onBackToCallerEvent() {
 		}
 
 		if (where_stmt === "") where_stmt = "0=1";
-		return this.ufw.ugs.rtrim(" AND ", where_stmt);
+		return this.ugs.rtrim(" AND ", where_stmt);
 	}
 
 
 	//=================================================================================
 	checkForUpdateValidity() {
 		if (!this.primary_dataset.dataset_name) {
-			this.ufw.ugs.Loger("Error: No table Name", true);
+			this.ugs.Loger("Error: No table Name", true);
 			return false;
 		}
 
 		if (!this.primary_dataset.primary_key_fields) {
-			this.ufw.ugs.Loger("Error: No primary key", true);
+			this.ugs.Loger("Error: No primary key", true);
 			return false;
 		}
 
@@ -582,7 +576,7 @@ onBackToCallerEvent() {
 	//=================================================================================
 	checkForInsertValidity() {
 		if (!this.primary_dataset.dataset_name) {
-			this.ufw.ugs.Loger("Error: No table Name", true);
+			this.ugs.Loger("Error: No table Name", true);
 			return false;
 		}
 
@@ -593,12 +587,12 @@ onBackToCallerEvent() {
 	//=================================================================================
 	checkForDeleteValidity() {
 		if (!this.primary_dataset.dataset_name) {
-			this.ufw.ugs.Loger("Error: No table Name", true);
+			this.ugs.Loger("Error: No table Name", true);
 			return false;
 		}
 
 		if (!this.primary_dataset.primary_key_fields) {
-			this.ufw.ugs.Loger("Error: No primary key", true);
+			this.ugs.Loger("Error: No primary key", true);
 			return false;
 		}
 
@@ -700,37 +694,8 @@ onBackToCallerEvent() {
 		var prevIcon = 'nav_back fa fa-arrow-circle-' + (direction === 'rtl' ? 'right' : 'left');
 		var nextIcon = 'nav_forw fa fa-arrow-circle-' + (direction === 'rtl' ? 'left' : 'right');
 
-
-
-		//var plainHTML = "<div style='margin-top: 1.25vh;'>"
-		//	+ "<div className'row form-group col-12'>"
-		//	+ "<div className'col-4'>"
-		//	+ "<div className'input-group'>"
-		//	+ "<span className'input-group-addon'>"
-		//	+ "<i className'nav_back fa fa-arrow-circle-" + prevIcon + "' aria-hidden='true'></i>"
-		//	+ "</span>"
-		//	+ "<input id='eid_nav_prev' type='button' className'btn btn-primary btn-block'"
-		//	+ "style='color: white; font-size: .8rem;  max-height: 30px;'"
-		//	+ "value='" + this.ufw.ugs.uTranslate('Previous') + "'/>"
-		//	+ "</div>"
-		//	+ "</div>"
-		//	+ "<div className'col-4' style='text-align:center'>"
-		//	+ "<input id='eid_nav_position' type='text' className'form-control' dir='ltr'"
-		//	+ "style='font-size: .8rem;  font-weight: 700; max-height: 30px; text-align: center;' readonly>"
-		//	+ "</div>"
-		//	+ "<div className'col-4'>"
-		//	+ "<div className'input-group'>"
-		//	+ "<input id='eid_nav_next' type='button' className'btn btn-primary btn-block'"
-		//	+ "style='color: white; font-size: .8rem;  max-height: 30px;'"
-		//	+ "value='" + this.ufw.ugs.uTranslate('Next') + "'/>"
-		//	+ "<span className'input-group-addon'>"
-		//	+ "<i className'nav_forw fa fa-arrow-circle-" + nextIcon + "' aria-hidden='true'></i>"
-		//	+ "</span>"
-		//	+ "</div>"
-		//	+ "</div>"
-		//	+ "</div>"
-		//	+ "</div>";
-		const element = (< div style = {{ marginTop: 1.25 + 'vh' }}>
+		const element = 
+		(<div style={{ marginTop: 1.25 + 'vh' }}>
 			<div className='row form-group col-12'>
 				<div className='col-4'>
 					<div className='input-group'>
@@ -739,29 +704,27 @@ onBackToCallerEvent() {
 						</span>
 						<input id='eid_nav_prev' type='button' className='btn btn-primary btn-block'
 							style={{ color: "white", fontSize: ".8rem", maxHeight: "30px" }}
-			value={translate('Previous')} />
-			</div>
+						value={translate('Previous')} />
+					</div>
 				</div>
-					<div className='col-4' style={{ textAlign: "center" }}>
+				<div className='col-4' style={{ textAlign: "center" }}>
 					<input id='eid_nav_position' type='text' className='form-control'
 						style={{ fontSize: .8 + "rem", fontWeight: "700", maxHeight: "30px", textAlign: "center" }} dir='ltr' readOnly />
-					</div>
-					<div className='col-4'>
-						<div className='input-group'>
-							<input id='eid_nav_next' type='button' className='btn btn-primary btn-block'
+				</div>
+				<div className='col-4'>
+					<div className='input-group'>
+						<input id='eid_nav_next' type='button' className='btn btn-primary btn-block'
 							style={{ color: "white", fontSize: .8 + "rem", maxHeight: 30 }}
-			value={translate('Next')}/>
-			<span className='input-group-addon'>
+							value={translate('Next')}/>
+						<span className='input-group-addon'>
 							<i className={nextIcon} aria-hidden='true'></i>
-							</span>
-						</div>
+						</span>
 					</div>
 				</div>
 			</div>
-		);
-	ReactDOM.render(element, a);
+		</div>);
 
-		//$(className).append(plainHTML);
+		ReactDOM.render(element, a);
 
 		$('#eid_nav_prev').on('click', this.navigatePrev.bind(this));
 		$('#eid_nav_next').on('click', this.navigateNext.bind(this));
@@ -816,7 +779,7 @@ onBackToCallerEvent() {
 		//var ui_prompt = ui_element.getAttribute("placeholder");
 		var ui_prompt = this.getElementInputLabel(ui_element);
     if (!ui_value) {
-      this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_no_value}: ${ui_prompt}`, true);
+      this.ugs.Loger(`Error: ${this.ugs.msg_no_value}: ${ui_prompt}`, true);
 			return false;
 		}
 
@@ -834,7 +797,7 @@ onBackToCallerEvent() {
 		if (!ui_value) return true;
 
 		if (!validity_check(ui_value)) {
-      this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_illegal_value}: ${ui_prompt}`, true);
+	    this.ugs.Loger(`Error: ${this.ugs.msg_illegal_value}: ${ui_prompt}`, true);
 			return false;
 		}
 
@@ -858,18 +821,18 @@ onBackToCallerEvent() {
 
 		if (phone_number) {
 			if (phone_number.length !== 7) {
-				this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_illegal_value}: ${pn_prompt}`, true);
+				this.ugs.Loger(`Error: ${this.ugs.msg_illegal_value}: ${pn_prompt}`, true);
 				return false;
 			}
 		}
 
 		if (area_code && !phone_number) {
-      this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_no_value}: ${pn_prompt}`, true);
+			this.ugs.Loger(`Error: ${this.ugs.msg_no_value}: ${pn_prompt}`, true);
 			return false;
 		}
 
 		if (!area_code && phone_number) {
-      this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_no_value}: ${ac_prompt}`, true);
+			this.ugs.Loger(`Error: ${this.ugs.msg_no_value}: ${ac_prompt}`, true);
 			return false;
 		}
 
@@ -903,3 +866,6 @@ onBackToCallerEvent() {
 		return ui_label;
 	}
 }
+
+const udbX = new UDbService();
+export default udbX;

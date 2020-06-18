@@ -1,5 +1,7 @@
-﻿import { isMobile, isMobileOnly, isTablet, isChrome, osName, browserName } from 'react-device-detect';
-import { ULanguageCodes, translate } from './u-language-codes.service';
+﻿
+import { isMobile, isMobileOnly, isTablet, isChrome, osName, browserName, } from 'react-device-detect';
+import { ULanguageCodes } from './u-language-codes.service';
+import { translate } from '../../lib/services/u-language-codes.service';
 import * as $ from 'jquery';
 
 export class UGenericsService {
@@ -9,21 +11,15 @@ export class UGenericsService {
     msg_no_value = "";
     msg_illegal_value = "";
 
-    current_language = "";
-
     Version = "";
 
-    knownLanguages = [];
-    selectedLanguage = {};
     ufw_url = "";
     base_url = null;
     languageCodes = null;
-    ufw = null;
     DT = {};
 
     //===================================================
-    constructor(ufwX) {
-        this.ufw = ufwX;
+    constructor() {
         this.DT.isMobileOnly = isMobileOnly;
         this.DT.isMobile = isMobile;
         this.DT.isTablet = isTablet;
@@ -58,7 +54,7 @@ export class UGenericsService {
     //=================================================================================
     getLocalStorageItem(itemName) {
         var item = localStorage.getItem(itemName);
-        if (!item || item === "undefined") item = "";
+        if (!item || item === "undefined" || item === "null") item = "";
         return item;
     }
 
@@ -101,15 +97,8 @@ export class UGenericsService {
 
         this.Version = parameters.AssemblyVersion;
 
-        this.selectedLanguage = parameters.Language;
-
-        var _knownLanguages = localStorage.getItem('KnownLanguages');
-        if (_knownLanguages) {
-            this.knownLanguages = JSON.parse(_knownLanguages);
-        }
-        else {
-            this.knownLanguages.push(this.selectedLanguage);
-        }
+        this.languageCodes.setAppParams();
+      
     }
 
 
@@ -274,19 +263,19 @@ export class UGenericsService {
         return filename.slice(pos + 1);            // extract extension ignoring `.`
     }
 
-    sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
+    //sleep = (milliseconds) => {
+    //    return new Promise(resolve => setTimeout(resolve, milliseconds))
+    //}
 
-    //setInterval(tick, 1000);
-    async  timeSensativeAction(timeout) { //must be async func
-        //do something here
-        await this.sleep(timeout) //wait 5 seconds
-        //continue on...
-    }
+    ////setInterval(tick, 1000);
+    //async  timeSensativeAction(timeout) { //must be async func
+    //    //do something here
+    //    await this.sleep(timeout) //wait 5 seconds
+    //    //continue on...
+    //}
 
     //=================================================================================
-    adjastUserLanguage(languageName) {
+    adjustUserLanguage(languageName, jsonLanguage) {
         var direction = 'ltr';
         document.getElementsByTagName('html')[0].removeAttribute('dir');
 
@@ -295,7 +284,7 @@ export class UGenericsService {
         document.getElementsByTagName('html')[0].setAttribute('dir', direction);
 
         localStorage.setItem('direction', direction);
-        localStorage.setItem('language', languageName);
+        localStorage.setItem('Language', languageName);
 
         if (direction === "rtl") {
             var link = document.createElement('link');
@@ -309,21 +298,13 @@ export class UGenericsService {
             var element = document.getElementById("elm_rtl");
             if (element) element.parentNode.removeChild(element);
         }
-        this.current_language = this.languageCodes.getCodeByName(languageName);
-        console.log("this.current_language: " + this.current_language);
-        //lang = await this.languageCodes.LoadLAng("assets/i18n/" + this.current_language + '.json');
-        //if (lang) setCurrLang(lang);
 
-        //this.timeSensativeAction(500);
-        //const history = useHistory();
-        // history.push(document.location.href);
-
+        this.languageCodes.adjustUserLanguage(languageName, jsonLanguage);
     }
 
     //=================================================================================
     uTranslate(keyword) {
-        keyword = translate(keyword);
-        return keyword;
+        return translate(keyword);
     }
 
     setSpinner(boolSet) {// on=true, off=false
@@ -495,5 +476,5 @@ export class UGenericsService {
 
 }
 
-//const ugsX = new UGenericsService();
-//export default ugsX;
+const ugsX = new UGenericsService();
+export default ugsX;
