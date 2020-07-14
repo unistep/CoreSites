@@ -10,16 +10,78 @@ using System.Threading.Tasks;
 using uToolkit.ClearingInt;
 using CoreBase.Models;
 using uToolkit;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CoreBase.Controllers
 {
 	public class WebApiController : Controller
 	{
+		private readonly SignInManager<ApplicationUser> _signInManager;
+
 		//====================================================================================================
-		public WebApiController()
+		public WebApiController(SignInManager<ApplicationUser> signInManager)
 		{
+			_signInManager = signInManager;
 		}
 
+		[BindProperty]
+		public InputModel Input { get; set; }
+
+		public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
+		public string ReturnUrl { get; set; }
+
+		[TempData]
+		public string ErrorMessage { get; set; }
+
+		public class InputModel
+		{
+			[Required]
+			//[EmailAddress]
+			public string Email { get; set; }
+
+			[Required]
+			[DataType(DataType.Password)]
+			public string Password { get; set; }
+
+			[Display(Name = "Remember me?")]
+			public bool RememberMe { get; set; }
+		}
+
+		[HttpPost("MobileLogin")]
+		public async Task<IActionResult> MobileLogin()
+		{
+			var details = JsonConvert.DeserializeObject<dynamic>(await GetRawBodyString(Request));
+			string username = details["Username"];
+			string password = details["Password"];
+			bool rememberMe = details["RememberMe"] == "true" ? true : false;
+			uApp.Loger($"MobileLogin:: User: {username}, password: {password}, Remember Me: {rememberMe}");
+
+			// This doesn't count login failures towards account lockout
+			// To enable password failures to trigger account lockout, set lockoutOnFailure: true
+			var result = await _signInManager.PasswordSignInAsync(username, password, rememberMe, lockoutOnFailure: false);
+			if (result.Succeeded)
+			{
+				uApp.Loger("User logged in.");
+				return GetAppParams("English");
+			}
+			if (result.RequiresTwoFactor)
+			{
+				return Ok("RequiresTwoFactor");
+			}
+			if (result.IsLockedOut)
+			{
+				uApp.Loger("User account locked out.");
+				return Error("User account locked out.");
+			}
+			else
+			{
+				uApp.Loger("Invalid login attempt.");
+				return Error("Invalid login attempt.");
+			}
+		}
 
 		//====================================================================================================
 		public IActionResult Error(string message)
