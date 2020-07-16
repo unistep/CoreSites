@@ -4,7 +4,7 @@ using uToolkit;
 
 namespace CoreBase.Models
 {
-	public class uBusinessObject
+	public class uBusinessObject : uErrorMessage
 	{
 		public string inner_partial_view { get; set; }
 		public string view_key_value { get; set; }
@@ -78,5 +78,10 @@ namespace CoreBase.Models
 			dataset_content		= uDB.GetJsonRecordSet(_stmt, ref format);
 			dataset_format		= format;
 		}
+	}
+
+	public class uErrorMessage
+	{
+		public string errorMessage { get; set; } 
 	}
 }

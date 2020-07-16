@@ -16,6 +16,13 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace CoreBase.Controllers
 {
+	public class UAppParams : uErrorMessage
+	{
+		public string AssemblyVersion { get; set; }
+		public List<string> KnownLanguages { get; set; }
+		public List<uToolkit.Endpoint> Endpoints { get; set; }
+	}
+
 	public class WebApiController : Controller
 	{
 		private readonly SignInManager<ApplicationUser> _signInManager;
@@ -24,30 +31,6 @@ namespace CoreBase.Controllers
 		public WebApiController(SignInManager<ApplicationUser> signInManager)
 		{
 			_signInManager = signInManager;
-		}
-
-		[BindProperty]
-		public InputModel Input { get; set; }
-
-		public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
-		public string ReturnUrl { get; set; }
-
-		[TempData]
-		public string ErrorMessage { get; set; }
-
-		public class InputModel
-		{
-			[Required]
-			//[EmailAddress]
-			public string Email { get; set; }
-
-			[Required]
-			[DataType(DataType.Password)]
-			public string Password { get; set; }
-
-			[Display(Name = "Remember me?")]
-			public bool RememberMe { get; set; }
 		}
 
 		[HttpPost("MobileLogin")]
@@ -65,7 +48,13 @@ namespace CoreBase.Controllers
 			if (result.Succeeded)
 			{
 				uApp.Loger("User logged in.");
-				return GetAppParams("English");
+				var parameters = new UAppParams();
+
+				parameters.AssemblyVersion = uApp.m_assemblyVersion;
+				parameters.KnownLanguages = new List<string> { "English", "Hebrew" };
+				parameters.Endpoints = AppParams.m_instance.Endpoints;
+
+				return Ok(parameters);
 			}
 			if (result.RequiresTwoFactor)
 			{
