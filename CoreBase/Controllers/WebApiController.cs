@@ -72,6 +72,19 @@ namespace CoreBase.Controllers
 			}
 		}
 
+		[HttpPost("MobileLogout")]
+		public async Task<IActionResult> MobileLogout()
+		{
+			var details = JsonConvert.DeserializeObject<dynamic>(await GetRawBodyString(Request));
+			string username = details["Username"];
+			uApp.Loger($"MobileLogout:: User: {username}");
+
+			await _signInManager.SignOutAsync();
+			uApp.Loger("User logged out.");
+			return Ok("{}");
+		}
+
+
 		//====================================================================================================
 		public IActionResult Error(string message)
 		{
