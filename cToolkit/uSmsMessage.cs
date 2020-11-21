@@ -45,7 +45,7 @@ namespace uToolkit
 		{
 			if (m_threadSmsQueue != null)
 			{
-				m_threadSmsQueue.Abort();
+                m_threadSmsQueue.Abort();
 				m_threadSmsQueue = null;
 			}
 		}

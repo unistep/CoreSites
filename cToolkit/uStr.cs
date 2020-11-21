@@ -681,8 +681,8 @@ namespace uToolkit
 						return Encoding.ASCII.GetBytes(_data);
 					case CONST_UNICODE:
 						return Encoding.Unicode.GetBytes(_data);
-					case CONST_UTF7:
-						return Encoding.UTF7.GetBytes(_data);
+					//case CONST_UTF7:
+					//	return Encoding.UTF7.GetBytes(_data);
 					case CONST_UTF8:
 						return Encoding.UTF8.GetBytes(_data);
 					case CONST_UTF32:
@@ -717,8 +717,8 @@ namespace uToolkit
 						return Encoding.ASCII.GetString   (data, _index, _count);
 					case CONST_UNICODE:
 						return Encoding.Unicode.GetString (data, _index, _count);
-					case CONST_UTF7:
-						return Encoding.UTF7.GetString    (data, _index, _count);
+					//case CONST_UTF7:
+					//	return Encoding.UTF7.GetString    (data, _index, _count);
 					case CONST_UTF8:
 						return Encoding.UTF8.GetString    (data, _index, _count);
 					case CONST_UTF32:
