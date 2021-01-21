@@ -12,6 +12,7 @@ declare var $: any;
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+  isExpanded = false;
 
   constructor(public ufw: UfwInterface,
     public router: Router) {
@@ -26,7 +27,12 @@ export class NavMenuComponent {
     elmButton.click();
   }
 
+  collapse() {
+    this.isExpanded = false;
+  }
+
   toggle() {
+    this.isExpanded = !this.isExpanded;
     const elmButton: any = document.getElementsByClassName("navbar-toggler")[0];
     elmButton.click();
   }

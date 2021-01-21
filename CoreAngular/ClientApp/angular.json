@@ -22,7 +22,7 @@
             "main": "projects/angular-base/src/main.ts",
             "polyfills": "projects/angular-base/src/polyfills.ts",
             "tsConfig": "projects/angular-base/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/angular-base/src/favicon.ico",
               "projects/angular-base/src/assets"
@@ -50,7 +50,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -143,7 +142,12 @@
             "tsConfig": "projects/angular-toolkit/tsconfig.lib.json",
             "project": "projects/angular-toolkit/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/angular-toolkit/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -185,7 +189,7 @@
             "main": "projects/core-authentication/src/main.ts",
             "polyfills": "projects/core-authentication/src/polyfills.ts",
             "tsConfig": "projects/core-authentication/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/core-authentication/src/favicon.ico",
               "projects/core-authentication/src/assets"
@@ -213,7 +217,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -312,7 +315,7 @@
             "main": "projects/defacto/src/main.ts",
             "polyfills": "projects/defacto/src/polyfills.ts",
             "tsConfig": "projects/defacto/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/defacto/src/favicon.ico",
               "projects/defacto/src/assets"
@@ -340,7 +343,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -439,7 +441,7 @@
             "main": "projects/service-call/src/main.ts",
             "polyfills": "projects/service-call/src/polyfills.ts",
             "tsConfig": "projects/service-call/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/service-call/src/favicon.ico",
               "projects/service-call/src/assets"
@@ -467,7 +469,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,

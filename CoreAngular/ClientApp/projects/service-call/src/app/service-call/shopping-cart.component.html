@@ -80,7 +80,7 @@
                              [(ngModel)]="selectedProductFamily"
                              class="form-control r_input"
                              data-dataset="Product_Family"
-                             (change)="productFamilyChanged($event)">
+                             (change)="productFamilyChanged()">
                   </ng-select>
                   <i class="fa fa-group icon-align-opposite" aria-hidden="true"></i>
                 </div>
@@ -96,7 +96,7 @@
                              [clearable]="false"
                              [(ngModel)]="selectedProduct"
                              class="form-control r_input"
-                             (change)="productChanged($event)">
+                             (change)="productChanged()">
                   </ng-select>
                   <i class="fa fa-navicon icon-align-opposite" aria-hidden="true"></i>
                 </div>
