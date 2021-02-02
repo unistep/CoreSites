@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UfwInterface } from './ufw-interface';
+import { ULocalization } from './u-localizaion.service';
 
 import * as moment from 'moment';
 
@@ -24,7 +25,7 @@ export class UDbService {
 
 	public context: any;
 
-	constructor(public ufw: UfwInterface, public router: Router) {
+  constructor(public locale: ULocalization, public ufw: UfwInterface, public router: Router) {
 	}
 
 
@@ -705,7 +706,7 @@ export class UDbService {
 			+ "</span>"
 			+ "<input id='eid_nav_prev' type='button' class='btn btn-primary btn-block'"
 			+ "style='color: white; font-size: .8rem;  max-height: 30px;'"
-			+ "value='" + this.ufw.ugs.uTranslate('Previous') + "'/>"
+      + "value='" + this.locale.uTranslate('Previous') + "'/>"
 			+ "</div>"
 			+ "</div>"
 			+ "<div class='col-4' style='text-align:center'>"
@@ -716,7 +717,7 @@ export class UDbService {
 			+ "<div class='input-group'>"
 			+ "<input id='eid_nav_next' type='button' class='btn btn-primary btn-block'"
 			+ "style='color: white; font-size: .8rem;  max-height: 30px;'"
-			+ "value='" + this.ufw.ugs.uTranslate('Next') + "'/>"
+      + "value='" + this.locale.uTranslate('Next') + "'/>"
 			+ "<span class='input-group-addon'>"
 			+ "<i class='nav_forw fa fa-arrow-circle-" + nextIcon + "' aria-hidden='true'></i>"
 			+ "</span>"
@@ -796,7 +797,7 @@ export class UDbService {
 		//var uiPrompt = uiElement.getAttribute("placeholder");
 		const uiPrompt = this.getElementInputLabel(uiElement);
     if (!uiValue) {
-      this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_no_value}: ${uiPrompt}`, true);
+      this.ufw.ugs.Loger(`Error: ${this.locale.msg_no_value}: ${uiPrompt}`, true);
 			return false;
 		}
 
@@ -814,7 +815,7 @@ export class UDbService {
 		if (!uiValue) return true;
 
 		if (!validityCheck(uiValue)) {
-      this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_illegal_value}: ${uiPrompt}`, true);
+      this.ufw.ugs.Loger(`Error: ${this.locale.msg_illegal_value}: ${uiPrompt}`, true);
 			return false;
 		}
 
@@ -838,18 +839,18 @@ export class UDbService {
 
 		if (phoneNumber) {
 			if (phoneNumber.length !== 7) {
-				this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_illegal_value}: ${pnPrompt}`, true);
+        this.ufw.ugs.Loger(`Error: ${this.locale.msg_illegal_value}: ${pnPrompt}`, true);
 				return false;
 			}
 		}
 
 		if (areaCode && !phoneNumber) {
-      this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_no_value}: ${pnPrompt}`, true);
+      this.ufw.ugs.Loger(`Error: ${this.locale.msg_no_value}: ${pnPrompt}`, true);
 			return false;
 		}
 
 		if (!areaCode && phoneNumber) {
-      this.ufw.ugs.Loger(`Error: ${this.ufw.ugs.msg_no_value}: ${acPrompt}`, true);
+      this.ufw.ugs.Loger(`Error: ${this.locale.msg_no_value}: ${acPrompt}`, true);
 			return false;
 		}
 

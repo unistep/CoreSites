@@ -85,20 +85,20 @@ export class CustomerRegisterComponent extends BaseFormComponent implements OnIn
 
     if (BirthDayYear) {
       if (BirthDayYear < 1900 || BirthDayYear > 2020) {
-        this.ugs.Loger(this.ugs.uTranslate("Year_Not_In_Range"), true);
+        this.ugs.Loger(this.ugs.locale.uTranslate("Year_Not_In_Range"), true);
         return;
       }
     }
     if (BirthDayMonth) {
       if (BirthDayMonth < 1 || BirthDayMonth > 12) {
-        this.ugs.Loger(this.ugs.uTranslate("Month_Not_In_Range"), true);
+        this.ugs.Loger(this.ugs.locale.uTranslate("Month_Not_In_Range"), true);
         return;
       }
     }
 
     if (BirthDayDay) {
       if (BirthDayDay < 1 || BirthDayDay > 31) {
-        this.ugs.Loger(this.ugs.uTranslate("Day_Not_In_Range"), true);
+        this.ugs.Loger(this.ugs.locale.uTranslate("Day_Not_In_Range"), true);
         return;
       }
     }

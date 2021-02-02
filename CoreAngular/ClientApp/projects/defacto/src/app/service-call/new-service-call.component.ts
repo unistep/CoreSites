@@ -166,7 +166,7 @@ export class NewServiceCallComponent extends BaseFormComponent
     }
     else {
       $("#to_color").css("background-color", "lightblue");
-      $("#eid_form_label").text(this.ugs.uTranslate("New_Order"));
+      $("#eid_form_label").text(this.ugs.locale.uTranslate("New_Order"));
     }
   }
 
@@ -181,10 +181,10 @@ export class NewServiceCallComponent extends BaseFormComponent
     //}
 
     this.status = [
-      { id: "0", name: this.ugs.uTranslate("New") },
-      { id: "1", name: this.ugs.uTranslate("InProcess") },
-      { id: "2", name: this.ugs.uTranslate("WaitingForCollect") },
-      { id: "3", name: this.ugs.uTranslate("Closed") }
+      { id: "0", name: this.ugs.locale.uTranslate("New") },
+      { id: "1", name: this.ugs.locale.uTranslate("InProcess") },
+      { id: "2", name: this.ugs.locale.uTranslate("WaitingForCollect") },
+      { id: "3", name: this.ugs.locale.uTranslate("Closed") }
     ];
     this.selectedStatus = this.status[0];
 

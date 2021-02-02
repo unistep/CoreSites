@@ -38,7 +38,7 @@ export class LoginComponent extends BaseFormComponent implements  AfterViewInit 
     const Password = $('#eid_password').val()
 
     if (!User || !Password) {
-      this.ugs.Loger(this.ugs.uTranslate("Invalid_Login_Attempt"), true);
+      this.ugs.Loger(this.ugs.locale.uTranslate("Invalid_Login_Attempt"), true);
       return;
     }
 

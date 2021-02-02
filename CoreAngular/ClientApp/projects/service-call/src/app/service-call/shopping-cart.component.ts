@@ -23,16 +23,20 @@ export class ShoppingCartComponent extends BaseFormComponent implements AfterVie
 
 		this.udb.recordPosition = parseInt(this.ugs.queryParam("view_position"));
 
-		this.http.get<any>(this.ugs.ufw_url + 'ShoppingCart?view_key_value=' + this.ugs.queryParam("view_key_value")).subscribe(result => {
-      this.getFormData(result, true);
-		}, error => this.ugs.Loger(error));
+		//this.http.get<any>(this.ugs.ufw_url + 'ShoppingCart?view_key_value=' + this.ugs.queryParam("view_key_value")).subscribe(result => {
+  //    this.getFormData(result, true);
+		//}, error => this.ugs.Loger(error));
 	}
 
 
-	ngAfterViewInit(): void {
-		super.setsScreenProperties();
-		//$(document).find('li.servicecall')[0].style.display = "none";
-	}
+  async ngAfterViewInit() {
+    const response = await this.ufw.get('ShoppingCart?view_key_value=' + this.ugs.queryParam("view_key_value"));
+
+    if (response) this.getFormData(response, false);
+
+    super.setsScreenProperties();
+    //$(document).find('li.servicecall')[0].style.display = "none";
+  }
 	
 
 	//=================================================================================
@@ -48,7 +52,7 @@ export class ShoppingCartComponent extends BaseFormComponent implements AfterVie
 
     const dataset = this.udb.getDataset(document.getElementById('Product_Family_ID').getAttribute('data-dataset'));
 		this.productFamily = dataset.dataset_content;
-		const name = this.ugs.uTranslate("Product_Family");
+    const name = this.ugs.locale.uTranslate("Product_Family");
 		this.productFamily.splice(0, 0, { id: '', name });
 
     $("#Product_Sale_Price").change(this.productSalePriceChanged.bind(this));
@@ -77,7 +81,7 @@ export class ShoppingCartComponent extends BaseFormComponent implements AfterVie
 	productFamilyChanged() {
 		const productFamilyID = (this.selectedProductFamily ? this.selectedProductFamily.id : '');
 		this.product = this.udb.getDatasetRowsArray('Product', 'Product_Family_ID', productFamilyID);
-		const name = this.ugs.uTranslate("Product");
+    const name = this.ugs.locale.uTranslate("Product");
 		this.product.splice(0, 0, { id: '', name });
 	}
 
@@ -154,7 +158,7 @@ export class ShoppingCartComponent extends BaseFormComponent implements AfterVie
 
 		const dataset = this.udb.getDataset(datasetName);
 		this.productFamily = dataset.dataset_content;
-    const name = this.ugs.uTranslate('Product_Family');
+    const name = this.ugs.locale.uTranslate('Product_Family');
 		this.productFamily.splice(0, 0, { id: '', name });
 	}
 }

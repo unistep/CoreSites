@@ -185,7 +185,7 @@ export class ServiceCallComponent extends BaseFormComponent
     //}
 
     var SysId = 0;
-    var Description = this.ugs.uTranslate('Choose_Vendor');
+    var Description = this.ugs.locale.uTranslate('Choose_Vendor');
     this.vendors.splice(0, 0, { SysId, Description });
     this.selectedVendor = this.vendors[0];
 
@@ -223,7 +223,7 @@ export class ServiceCallComponent extends BaseFormComponent
     //}
 
     var SysId = 0;
-    var Description = this.ugs.uTranslate('Choose_Customer');
+    var Description = this.ugs.locale.uTranslate('Choose_Customer');
     this.customers.splice(0, 0, { SysId, Description });
     this.selectedCustomer = this.customers[0];
 
@@ -245,7 +245,7 @@ export class ServiceCallComponent extends BaseFormComponent
     //}
 
     var SysId = 0;
-    var Description = this.ugs.uTranslate('Choose_Category');
+    var Description = this.ugs.locale.uTranslate('Choose_Category');
     this.categories.splice(0, 0, { SysId, Description });
     this.selectedCategory = this.customers[0];
 
@@ -258,10 +258,10 @@ export class ServiceCallComponent extends BaseFormComponent
 
   getStatusItems(response?) {
     this.status = [
-      { id: "0", name: this.ugs.uTranslate("New") },
-      { id: "1", name: this.ugs.uTranslate("InProcess") },
-      { id: "2", name: this.ugs.uTranslate("WaitingForCollect") },
-      { id: "3", name: this.ugs.uTranslate("Closed") }
+      { id: "0", name: this.ugs.locale.uTranslate("New") },
+      { id: "1", name: this.ugs.locale.uTranslate("InProcess") },
+      { id: "2", name: this.ugs.locale.uTranslate("WaitingForCollect") },
+      { id: "3", name: this.ugs.locale.uTranslate("Closed") }
     ];
     this.selectedStatus = this.status[0];
 
@@ -282,7 +282,7 @@ export class ServiceCallComponent extends BaseFormComponent
     const result: any = await this.trs.fetchTransactions(query);
     if (result) {
       this.transactions = result.Tickets;
-      this.ugs.Loger(`${this.transactions.length} ${this.ugs.uTranslate("Records_Found")}`);
+      this.ugs.Loger(`${this.transactions.length} ${this.ugs.locale.uTranslate("Records_Found")}`);
     }
 
     this.bindTransactions();
@@ -368,7 +368,7 @@ export class ServiceCallComponent extends BaseFormComponent
 
   bindTransactions() {
     for (var i = 0; i < this.status.length; i++) {
-      this.status[0].name = this.ugs.uTranslate(this.status[0].name);
+      this.status[0].name = this.ugs.locale.uTranslate(this.status[0].name);
     }
 
     Array.from(document.getElementsByTagName('table')).forEach((table) => {
@@ -441,7 +441,7 @@ export class ServiceCallComponent extends BaseFormComponent
     _cell.onclick = function () { DoClick(event); };
     _cell.style.cssText = 'margin: 0 !important; padding-right: 8px; padding-left: 8px; vertical-align: middle; background-color: white; color: black; text-align: center;';
     var _icon = document.createElement("img");
-    $(_icon).attr('title', this.ugs.uTranslate(hint));
+    $(_icon).attr('title', this.ugs.locale.uTranslate(hint));
     _icon.src = "/assets/img/" + imgPath;
     _icon.style.cssText = "height: 20px; width: 20px;";
 

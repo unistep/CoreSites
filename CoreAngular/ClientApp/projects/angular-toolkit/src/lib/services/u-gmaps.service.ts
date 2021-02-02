@@ -109,7 +109,7 @@ export class UGmapsService {
 	drawMarker(latlng, icon?, title?, info_data?, onLongClickMarkerAction?) {
 		// if (icon === null) icon = "https://maps.google.com/mapfiles/kml/pal4/icon30.png"; // fontawesome.markers.MAP_MARKER;
 
-		var set_title = title ? title : this.ugs.uTranslate("Here_Within_7");
+		var set_title = title ? title : this.ugs.locale.uTranslate("Here_Within_7");
 		info_data = info_data ? info_data : (title ? title : "%");
 
 		var marker = new google.maps.Marker(

@@ -428,7 +428,7 @@ export class EditServiceCallComponent extends BaseFormComponent implements OnIni
       $("#to_color").css("background-color", "#EFEFEF");
     }
     else {
-      $("#eid_form_label").text(this.ugs.uTranslate("Edit_Order"));
+      $("#eid_form_label").text(this.ugs.locale.uTranslate("Edit_Order"));
       $("#to_color").css("background-color", "lightblue");
     }
 

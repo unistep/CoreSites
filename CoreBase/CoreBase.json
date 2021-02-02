@@ -11,8 +11,8 @@
 
 	"Databases": [
 		{
-			"DatabaseName": "Core_300",
-			"ConnectionString": "Data Source=.\\SQLEXPRESS; Initial Catalog=Core_300; User ID=sa; Password=Iec11077;"
+			"DatabaseName": "Net_500",
+			"ConnectionString": "Data Source=.\\SQLEXPRESS; Initial Catalog=Net_500; User ID=sa; Password=Iec11077;"
 		},
 		{
 			"DatabaseName": "CoreSite",

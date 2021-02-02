@@ -24,7 +24,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 import { UDbService, UGmapsService, UGenericsService } from '../../../angular-toolkit/src/public-api';
-import { ULanguageCodes, UfwInterface } from '../../../angular-toolkit/src/public-api';
+import { ULocalization, UfwInterface } from '../../../angular-toolkit/src/public-api';
 import { BaseFormComponent } from '../../../angular-toolkit/src/public-api';
 
 import { LoginComponent } from '../app/Entrance/login.component';
@@ -83,7 +83,7 @@ import { PosPopupComponent } from './pos-popup/pos-popup.component';
     DeviceDetectorModule.forRoot()
   ],
   providers: [
-    HttpClient, UGenericsService, UDbService, UGmapsService, ULanguageCodes, UfwInterface,
+    HttpClient, UGenericsService, UDbService, UGmapsService, ULocalization, UfwInterface,
     NavMenuComponent
   ],
   bootstrap: [AppComponent],

@@ -58,8 +58,8 @@ export class NavMenu extends Component {
         for (let i = 0; i < this.ugs.languageCodes.knownLanguages.length; i++) {
             var valueX = this.ugs.languageCodes.knownLanguages[i];
             if (valueX === this.ugs.languageCodes.selectedLanguage) {
-                arr.push(<option key={valueX} value="{valueX}" selected>{valueX}</option>);
-                //arr.push(<option key={valueX} defaultValue="{valueX}">{valueX}</option>);
+                //arr.push(<option key={valueX} value="{valueX}" selected>{valueX}</option>);
+                arr.push(<option key={valueX} defaultValue="{valueX}">{valueX}</option>);
             }
             else {
                 arr.push(<option key={valueX} value="{valueX}">{valueX}</option>);

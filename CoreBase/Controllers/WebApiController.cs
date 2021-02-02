@@ -384,16 +384,20 @@ namespace CoreBase.Controllers
 		//====================================================================================================
 		public string GetSessionLanguage()
 		{
-			if ((HttpContext.Session == null) ||
-				!HttpContext.Session.IsAvailable ||
-				(HttpContext.Session.GetString("Language") == null) ||
-				(HttpContext.Session.GetString("Language") == ""))
+			string language = "";
+
+			if ((HttpContext.Session != null) ||
+				HttpContext.Session.IsAvailable)
 			{
-				SetSessionLanguage(AppParams.m_instance.DefaultLanguage);
-				return AppParams.m_instance.DefaultLanguage;
+				language = HttpContext.Session.GetString("Language");
 			}
 
-			string language = HttpContext.Session.GetString("Language");
+			if (string.IsNullOrEmpty(language) || language == "null")
+			{
+				language = AppParams.m_instance.DefaultLanguage;
+			}
+
+			SetSessionLanguage(language);
 			return language;
 		}
 

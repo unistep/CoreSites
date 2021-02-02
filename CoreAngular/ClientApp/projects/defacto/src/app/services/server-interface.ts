@@ -121,7 +121,7 @@ export class ServerInterface {
         this.ugs.Loger(result.ErrorMessage, true);
       }
       else {
-        this.ugs.Loger(`${this.ugs.uTranslate("Service_Unknown_Error")} ${ result.ErrorCode}`, true);
+        this.ugs.Loger(`${this.ugs.locale.uTranslate("Service_Unknown_Error")} ${ result.ErrorCode}`, true);
       }
       return null;
     }).catch(error => {

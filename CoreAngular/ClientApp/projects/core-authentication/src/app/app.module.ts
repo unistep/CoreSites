@@ -19,7 +19,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 
 import { UDbService, UGmapsService, UGenericsService } from '../../../angular-toolkit/src/public-api';
-import { ULanguageCodes, UfwInterface } from '../../../angular-toolkit/src/public-api';
+import { ULocalization, UfwInterface } from '../../../angular-toolkit/src/public-api';
 import { BaseFormComponent, TimeClockComponent } from '../../../angular-toolkit/src/public-api';
 import { CounterComponent, FetchDataComponent } from '../../../angular-toolkit/src/public-api';
 
@@ -63,7 +63,7 @@ import { AuthorizeInterceptor } from '../api-authorization/authorize.interceptor
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    HttpClient, UGenericsService, UDbService, UGmapsService, ULanguageCodes, UfwInterface
+    HttpClient, UGenericsService, UDbService, UGmapsService, ULocalization, UfwInterface
   ],
   bootstrap: [AppComponent]
 })

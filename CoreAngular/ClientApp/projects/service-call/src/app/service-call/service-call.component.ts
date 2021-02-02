@@ -25,23 +25,27 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 	constructor(injector: Injector) {
 		super(injector);
 
-		this.http.get<any>(this.ugs.ufw_url + 'ServiceCall').subscribe(result => {
-			this.getFormData(result, false);
-		}, error => this.ugs.Loger(error));
+  //  this.http.get<any>(this.ugs.ufw_url + 'ServiceCall').subscribe(result => {
+		//	this.getFormData(result, false);
+		//}, error => this.ugs.Loger(error));
 
 		let id, name;
 		for (let i = 0; i < 8; i++) { id = name = (i + moment().year()); this.year.push({ id, name }) }
 		for (let i = 1; i <= 12; i++) { id = name = i; this.month.push({ id, name }) }
 
-		this.year.splice(0, 0, { id: '', name: this.ugs.uTranslate("Year") });
-		this.month.splice(0, 0, { id: '', name: this.ugs.uTranslate("Month") });
+    this.year.splice(0, 0, { id: '', name: this.ugs.locale.uTranslate("Year") });
+    this.month.splice(0, 0, { id: '', name: this.ugs.locale.uTranslate("Month") });
 		this.selectedYear = this.year[0];
 		this.selectedMonth = this.month[0];
 	}
 
 
-  	ngAfterViewInit(): void {
-		super.setsScreenProperties();
+  	async ngAfterViewInit() {
+      const response = await this.ufw.get('ServiceCall');
+
+      if (response) this.getFormData(response, false);
+
+      super.setsScreenProperties();
 		$(document).find('li.servicecall')[0].style.display = "none";
 	}
 
@@ -147,7 +151,7 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 	sendArrivalCancel_SMS() {
 		const recipient = "0544719547";
 		// recipient = this.udb.primary_dataset.dataset_content[this.udb.record_position].Contact_Phone_1;
-		const message = this.ugs.uTranslate("SMS_Arrival_Cancelled")
+    const message = this.ugs.locale.uTranslate("SMS_Arrival_Cancelled")
 		.replace("000", this.udb.primaryDataset.dataset_content[this.udb.recordPosition].Vehicle_ID);
 		this.ufw.SendSMS(recipient, message);
 	}
@@ -157,7 +161,7 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 	sendOnMyWay_SMS() {
 		const recipient = "0544719547";
 		// recipient = this.udb.primary_dataset.dataset_content[this.udb.record_position].Contact_Phone_1;
-		const message = this.ugs.uTranslate("SMS_On_My_Way")
+    const message = this.ugs.locale.uTranslate("SMS_On_My_Way")
 		.replace("000", this.udb.primaryDataset.dataset_content[this.udb.recordPosition].Vehicle_ID)
 		.replace("111", this.gmaps.duration);
 		this.ufw.SendSMS(recipient, message);
@@ -218,7 +222,7 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 		const terminalID = response.TerminalID;
 		const rExpired = response.expired;
 
-		const message = this.ugs.uTranslate("Ccard_Successfully_Confirmed")
+    const message = this.ugs.locale.uTranslate("Ccard_Successfully_Confirmed")
 			+ `: ConfirmatioNo=${confirmed} issuer=${issuerID}, terminal=${terminalID}, expired=${rExpired}`;
 
 		this.ugs.Loger(message, true);
@@ -240,7 +244,7 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 		if (!this.udb.checkForValidity('eid_id_number', this.udb.checkForLegalIsraelIDCard)) return false;
 
 		if (!$("#eid_total_payment").val()) {
-			this.ugs.Loger(this.ugs.uTranslate("msg_no_value") + ": " + this.ugs.uTranslate("Total_Payment"), true);
+      this.ugs.Loger(this.ugs.locale.uTranslate("msg_no_value") + ": " + this.ugs.locale.uTranslate("Total_Payment"), true);
 			return false;
 		}
 

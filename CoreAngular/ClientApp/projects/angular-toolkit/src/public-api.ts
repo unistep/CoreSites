@@ -10,7 +10,8 @@ export * from './lib/services/ufw-interface';
 export * from './lib/services/u-db.service';
 export * from './lib/services/u-generics.service';
 export * from './lib/services/u-gmaps.service';
-export * from './lib/services/u-language-codes.service';
+export * from './lib/services/u-localizaion.service';
+export * from './lib/services/u-locale.pipe';
 
 export * from './lib/templates/base-form.component';
 export * from './lib/time-clock/time-clock.component';

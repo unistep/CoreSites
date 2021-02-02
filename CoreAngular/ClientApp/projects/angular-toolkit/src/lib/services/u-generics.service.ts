@@ -2,9 +2,8 @@
 
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TranslateService } from '@ngx-translate/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { ULanguageCodes } from './u-language-codes.service';
+import { ULocalization } from './u-localizaion.service';
 
 import * as $ from 'jquery';
 declare var $: any;
@@ -13,27 +12,19 @@ declare var $: any;
 export class UGenericsService {
   public pageLoad: boolean = false;
 
-  public msg_error: string = "";
-  public msg_no_value: string = "";
-  public msg_illegal_value: string = "";
-
-  public current_language: string = "";
-
   public Version: any = "";
-
-  public knownLanguages: any = [];
-  public selectedLanguage: any;
   public ufw_url = ""
 
   //===================================================
   constructor(public http: HttpClient, @Inject('BASE_URL') public base_url,
     public deviceDetector: DeviceDetectorService,
-    public translate: TranslateService,
-    public languageCodes: ULanguageCodes) {
+    public locale: ULocalization) {
 
-      const _parseURL = new URL(base_url);
-      if (_parseURL.port == '4200') this.ufw_url = "https://localhost:444/";
-      else this.ufw_url = base_url;
+    const _parseURL = new URL(base_url);
+    if (_parseURL.port == '4200') this.ufw_url = "https://localhost:444/";
+    else this.ufw_url = base_url;
+
+    locale.baseUrl = this.ufw_url;
   }
 
   isLandscape() {
@@ -99,21 +90,7 @@ export class UGenericsService {
 
     this.Version = localStorage.getItem('AssemblyVersion');
 
-    const language = localStorage.getItem('language');
-
-    var _knownLanguages = localStorage.getItem('KnownLanguages');
-    if (_knownLanguages) {
-      this.knownLanguages = JSON.parse(_knownLanguages);
-      if (this.knownLanguages.length) {
-        this.selectedLanguage = language;
-      }
-    }
-    else {
-      this.knownLanguages.push(language);
-      this.selectedLanguage = language;
-    }
-
-    this.adjastUserLanguage(language);
+    this.locale.setLanguageParams ();
   }
 
 
@@ -210,8 +187,8 @@ export class UGenericsService {
     if (!message) {
       var _site_address: any =
         `<div id='eid_site_address' dir='ltr'>`
-        + `<a href='${this.uTranslate("Developer_Site")}' `
-        + `target='_blank'>Site by: &nbsp; ${this.uTranslate("Developer_Name")}</a></div>`;
+        + `<a href='${this.locale.uTranslate("Developer_Site")}' `
+        + `target='_blank'>Site by: &nbsp; ${this.locale.uTranslate("Developer_Name")}</a></div>`;
       if (status_line) status_line.innerHTML = _site_address;
       return;
     }
@@ -279,50 +256,21 @@ export class UGenericsService {
   }
 
 
-  //=================================================================================
-  public async adjastUserLanguage(languageName: string) {
-    var direction: string = 'ltr';
-    document.getElementsByTagName('html')[0].removeAttribute('dir');
+  //===================================================
+  //public setLanguage(language = null) {
+  //  var _language = language ? language : this.getLocalStorageItem('Language');
+  //  if (!_language) language = 'English';
 
-    if (languageName === 'Arabic' || languageName === 'Hebrew') { direction = 'rtl' }
+  //  const service = `assets/i18n/${this.languageCodes.getCodeByName(_language)}.json`;
+  //  //const response = await this.ufw.get(service);
+  //  this.http.get<any>(this.ufw_url + service).subscribe(response => {
+  //    this.Loger(response, true);
+		//}, error => this.Loger(error));
 
-    document.getElementsByTagName('html')[0].setAttribute('dir', direction);
+  //  //this.adjastUserLanguage(_language, response);
+  //  //if (language) self.SPA_ChangeLanguage(_language);
+  //}
 
-    localStorage.setItem('direction', direction);
-    localStorage.setItem('language', languageName);
-
-    if (direction == "rtl") {
-      var link = document.createElement('link');
-      link.id = 'elm_rtl';
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = '/assets/css/styles-rtl.css';
-      document.getElementsByTagName('head')[0].appendChild(link);
-    }
-    else {
-      var element = document.getElementById("elm_rtl");
-      if (element) element.parentNode.removeChild(element);
-    }
-
-    this.current_language = this.languageCodes.getCodeByName(languageName);
-
-    this.translate
-      .getTranslation(this.current_language)
-      .subscribe(result => {
-
-        this.translate.setDefaultLang(this.current_language);
-
-        this.msg_error = this.uTranslate("Error");
-        this.msg_no_value = this.uTranslate("No_Value");
-        this.msg_illegal_value = this.uTranslate("Illegal_Value");
-      });
-  }
-
-  //=================================================================================
-  uTranslate(keyword) {
-    this.translate.get(keyword).subscribe((text: string) => { keyword = text; })
-    return keyword;
-  }
 
   public setSpinner(boolSet) {// on=true, off=false
 

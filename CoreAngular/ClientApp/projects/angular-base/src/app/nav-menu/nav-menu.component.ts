@@ -18,7 +18,7 @@ export class NavMenuComponent {
   }
 
   onChange() {
-    this.ufw.ugs.adjastUserLanguage(this.ufw.ugs.selectedLanguage);
+    this.ufw.ugs.adjastUserLanguage(this.ufw.ugs.locale.selectedLanguage);
     location.reload();
     var elm_button: any = document.getElementsByClassName("navbar-toggler")[0];
     elm_button.click();

@@ -8,11 +8,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularSplitModule } from 'angular-split';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
-}
+//import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+//import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+//export function createTranslateLoader(http: HttpClient) {
+//  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+//}
 
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { BDirModule } from 'ngx-bdir';
@@ -22,9 +22,10 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 
 import { UDbService, UGmapsService, UGenericsService } from '../../../angular-toolkit/src/public-api';
-import { ULanguageCodes, UfwInterface } from '../../../angular-toolkit/src/public-api';
+import { ULocalization, UfwInterface } from '../../../angular-toolkit/src/public-api';
 import { BaseFormComponent, TimeClockComponent } from '../../../angular-toolkit/src/public-api';
 import { CounterComponent, FetchDataComponent } from '../../../angular-toolkit/src/public-api';
+import { LocalePipe } from '../../../angular-toolkit/src/public-api';
 
 import { ApiAuthorizationModule } from '../api-authorization/api-authorization.module';
 import { AuthorizeGuard } from '../api-authorization/authorize.guard';
@@ -43,53 +44,54 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
 
 @NgModule({
   declarations: [
+    LocalePipe,
     AppComponent,
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
     TimeClockComponent,
-	BaseFormComponent,
-	AddressRowComponent,
-	ButtonRowComponent,
-	DateRowComponent,
-	InputRowComponent,
-	PhoneRowComponent,
-	SelectRowComponent,
-	ServiceCallComponent,
-	ShoppingCartComponent,
-  ],
+	  BaseFormComponent,
+	  AddressRowComponent,
+	  ButtonRowComponent,
+	  DateRowComponent,
+	  InputRowComponent,
+	  PhoneRowComponent,
+	  SelectRowComponent,
+	  ServiceCallComponent,
+	  ShoppingCartComponent,
+    ],
   imports: [
 	NgbModule,
 	NgSelectModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-    }),
+    //TranslateModule.forRoot({
+    //  loader: {
+    //    provide: TranslateLoader,
+    //    useFactory: createTranslateLoader,
+    //    deps: [HttpClient]
+    //  }
+    //}),
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     BDirModule,
     ApiAuthorizationModule,
-	AngularSplitModule.forRoot(),
+	  AngularSplitModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
       { path: 'time-clock', component: TimeClockComponent },
-	  { path: 'service-call', component: ServiceCallComponent },
-	  { path: 'shopping-cart', component: ShoppingCartComponent }
-]),
+	    { path: 'service-call', component: ServiceCallComponent },
+	    { path: 'shopping-cart', component: ShoppingCartComponent }
+  ]),
 
     DeviceDetectorModule.forRoot()
   ],
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    HttpClient, UGenericsService, UDbService, UGmapsService, ULanguageCodes, UfwInterface
+    HttpClient, UGenericsService, UDbService, UGmapsService, ULocalization, UfwInterface
   ],
   bootstrap: [AppComponent]
 })

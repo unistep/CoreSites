@@ -20,7 +20,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 import { UDbService, UGmapsService, UGenericsService } from '../../../angular-toolkit/src/public-api';
-import { ULanguageCodes, UfwInterface } from '../../../angular-toolkit/src/public-api';
+import { ULocalization, UfwInterface } from '../../../angular-toolkit/src/public-api';
 import { BaseFormComponent, TimeClockComponent } from '../../../angular-toolkit/src/public-api';
 import { CounterComponent, FetchDataComponent } from '../../../angular-toolkit/src/public-api';
 
@@ -56,7 +56,7 @@ import { CounterComponent, FetchDataComponent } from '../../../angular-toolkit/s
     DeviceDetectorModule.forRoot()
   ],
   providers: [
-    HttpClient, UGenericsService, UDbService, UGmapsService, ULanguageCodes, UfwInterface 
+    HttpClient, UGenericsService, UDbService, UGmapsService, ULocalization, UfwInterface 
   ],
   
   bootstrap: [AppComponent]

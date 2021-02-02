@@ -12,11 +12,15 @@ export class FetchDataComponent extends BaseFormComponent implements AfterViewIn
     super(inject);
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit() {
+    const response = await this.ufw.get('weatherforecast');
+
+    if (response) this.forecasts = response;
+
     this.setsScreenProperties();
-    this.http.get<WeatherForecast[]>(this.ugs.ufw_url + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
-    }, error => this.ugs.Loger(error, true));
+    //this.http.get<WeatherForecast[]>(this.ugs.ufw_url + 'weatherforecast').subscribe(result => {
+    //  this.forecasts = result;
+    //}, error => this.ugs.Loger(error, true));
   }
 }
 

@@ -13,7 +13,7 @@ __export(require("./lib/services/ufw-interface"));
 __export(require("./lib/services/u-db.service"));
 __export(require("./lib/services/u-generics.service"));
 __export(require("./lib/services/u-gmaps.service"));
-__export(require("./lib/services/u-language-codes.service"));
+__export(require("./lib/services/u-localizaion.service"));
 __export(require("./lib/templates/base-form.component"));
 __export(require("./lib/time-clock/time-clock.component"));
 __export(require("./lib/fetch-data/fetch-data.component"));

@@ -10,7 +10,6 @@ export class UfwInterface extends Component {
     //===================================================
     constructor() {
         super();
-        //this.state = {};
 
         this.ugs = ugsX;
     }
@@ -113,7 +112,9 @@ export class UfwInterface extends Component {
                 self.ugs.setSpinner(false);
 
                 response = JSON.parse(response);
-                if (typeof response.errorMessage !== 'undefined') {
+
+                if ((typeof response.errorMessage !== 'undefined') &&
+                    (response.errorMessage != null)) {
                     self.ugs.Loger(response.errorMessage, true);
                     return;
                 }

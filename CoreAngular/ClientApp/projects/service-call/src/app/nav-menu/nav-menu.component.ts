@@ -1,7 +1,7 @@
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UfwInterface } from '../../../../angular-toolkit/src/public-api';
+import { UfwInterface, ULocalization } from '../../../../angular-toolkit/src/public-api';
 
 import * as $ from 'jquery';
 declare var $: any;
@@ -15,14 +15,15 @@ export class NavMenuComponent {
   isExpanded = false;
 
   constructor(public ufw: UfwInterface,
+    public locale: ULocalization,
     public router: Router) {
   }
 
   onChange() {
-    this.ufw.ugs.adjastUserLanguage(this.ufw.ugs.selectedLanguage);
-    const language = this.ufw.ugs.selectedLanguage;
+    this.locale.adjastSelectedLanguage();
+    const language = this.ufw.ugs.locale.selectedLanguage;
     this.ufw.post(`SPA_ChangeLanguage?language=${language}`);
-    //location.reload();
+
     const elmButton: any = document.getElementsByClassName("navbar-toggler")[0];
     elmButton.click();
   }

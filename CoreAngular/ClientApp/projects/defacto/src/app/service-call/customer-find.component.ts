@@ -72,12 +72,12 @@ export class CustomerFindComponent extends BaseFormComponent implements OnInit, 
   checkForLegalPhoneNumber_defacto(phoneNumber) {
     var areaCode = phoneNumber.substring(0, 2);
     if (areaCode !== "05") {
-      this.ugs.Loger("Error: " + this.ugs.uTranslate("Invalid_Area_Code"), true);
+      this.ugs.Loger("Error: " + this.ugs.locale.uTranslate("Invalid_Area_Code"), true);
       return false;
     }
 
     if (phoneNumber.length !== 10) {
-      this.ugs.Loger("Error: " + this.ugs.uTranslate("Invalid_Phone_Number"), true);
+      this.ugs.Loger("Error: " + this.ugs.locale.uTranslate("Invalid_Phone_Number"), true);
       return false;
     }
 
@@ -131,7 +131,7 @@ export class CustomerFindComponent extends BaseFormComponent implements OnInit, 
     //}
 
     var SysId = 0;
-    var Description = this.ugs.uTranslate('New_Customer');
+    var Description = this.ugs.locale.uTranslate('New_Customer');
     this.customers.splice(0, 0, { SysId, Description });
     this.selectedCustomer = this.customers[0];
   }

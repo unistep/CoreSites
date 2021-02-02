@@ -17,22 +17,22 @@ export class UfwInterface {
   }
 
   public async getAppParams() {
-    let language = localStorage.getItem('language');
+    let language = localStorage.getItem('Language');
     if (!language) language = "";
      
-    const result = await this.post(`GetAppParams?language=${language}`);
-    this.ugs.setAppParams(result);
+    const response = await this.post(`GetAppParams?language=${language}`);
+    this.ugs.setAppParams(response);
   }
   
   public TimeClock(params): Promise<any> {
     return this.post('TimeClock', params);
   }
 
-    public SendSMS(recipient, message): Promise<any> {
+  public SendSMS(recipient, message): Promise<any> {
     return this.post('SendSMS', "", { recipient, message });
   }
 
-    public CreditAction(transType, transID, cardNumber, expiredYear, expiredMonth, billAmount,
+  public CreditAction(transType, transID, cardNumber, expiredYear, expiredMonth, billAmount,
         payments, cvv, holderID, firstName, lastName): Promise<any> {
     return this.post('CreditAction', "", {
         transType, transID, cardNumber, expiredYear, expiredMonth, billAmount,
@@ -52,12 +52,41 @@ export class UfwInterface {
 
     const TO: any = this.ugs.getEndpointTO("");
     const promise = this.http.post(url, body, httpOptions).pipe(timeout(TO)).toPromise();
-    return promise.then((result: any) => {
-      result = JSON.parse(result);
-      if (typeof result.errorMessage === 'undefined')  return result;
+    return promise.then((response: any) => {
+      response = JSON.parse(response);
 
-      this.ugs.Loger(result.errorMessage, true);
+      if ((typeof response.errorMessage !== 'undefined') &&
+        (response.errorMessage != null)) {
+        this.ugs.Loger(response.errorMessage, true);
+        return null;
+      }
+
+      return response;
+    }).catch(error => {
+      this.ugs.Loger(`${error.message}: ${url}`, true);
       return null;
+    });
+  }
+
+  //=================================================================================
+  public get(service: string, params: any = ""): Promise<any> {
+    const httpOptions: any = { responseType: 'text' };
+
+    let url = `${this.ugs.getEndpointUrl("")}${this.controllerName()}${service}`;
+    if (params) url += '?' + params
+
+    const TO: any = this.ugs.getEndpointTO("");
+    const promise = this.http.get(url, httpOptions).pipe(timeout(TO)).toPromise();
+    return promise.then((response: any) => {
+      response = JSON.parse(response);
+
+      if ((typeof response.errorMessage !== 'undefined') &&
+        (response.errorMessage != null)) {
+        this.ugs.Loger(response.errorMessage, true);
+        return null;
+      }
+
+      return response;
     }).catch(error => {
       this.ugs.Loger(`${error.message}: ${url}`, true);
       return null;

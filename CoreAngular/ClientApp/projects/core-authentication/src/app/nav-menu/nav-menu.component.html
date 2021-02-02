@@ -16,9 +16,9 @@
         <ul class="navbar-nav flex-grow">
           <li class="nav-item language">
             <select class="form-control"
-                    [(ngModel)]="this.ufw.ugs.selectedLanguage"
+                    [(ngModel)]="this.ufw.ugs.locale.selectedLanguage"
                      (change)="onChange($event)">
-              <option *ngFor="let supportedLangs of this.ufw.ugs.knownLanguages">
+              <option *ngFor="let supportedLangs of this.ufw.ugs.locale.knownLanguages">
                 {{supportedLangs}}
               </option>
             </select>
