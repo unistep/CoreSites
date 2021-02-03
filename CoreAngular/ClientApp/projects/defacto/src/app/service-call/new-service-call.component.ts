@@ -4,6 +4,7 @@ import { BaseFormComponent } from '../../../../angular-toolkit/src/public-api';
 import { ServerInterface } from '../services/server-interface';
 
 import * as $ from 'jquery';
+declare var $: any;
 
 @Component({
   selector: 'app-new-service-call',

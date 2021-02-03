@@ -3,6 +3,7 @@ import { Component, AfterViewInit, Injector, OnDestroy } from '@angular/core';
 import { BaseFormComponent } from '../../../../angular-toolkit/src/public-api';
 
 import * as $ from 'jquery';
+declare var $: any;
 
 import * as moment from 'moment';
 
@@ -25,10 +26,6 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 	constructor(injector: Injector) {
 		super(injector);
 
-  //  this.http.get<any>(this.ugs.ufw_url + 'ServiceCall').subscribe(result => {
-		//	this.getFormData(result, false);
-		//}, error => this.ugs.Loger(error));
-
 		let id, name;
 		for (let i = 0; i < 8; i++) { id = name = (i + moment().year()); this.year.push({ id, name }) }
 		for (let i = 1; i <= 12; i++) { id = name = i; this.month.push({ id, name }) }
@@ -40,14 +37,14 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 	}
 
 
-  	async ngAfterViewInit() {
-      const response = await this.ufw.get('ServiceCall');
+  async ngAfterViewInit() {
+    const response = await this.ufw.get('ServiceCall');
 
-      if (response) this.getFormData(response, false);
+    if (response) this.getFormData(response, false);
 
-      super.setsScreenProperties();
-		$(document).find('li.servicecall')[0].style.display = "none";
-	}
+    super.setsScreenProperties();
+    $(document).find('li.servicecall')[0].style.display = "none";
+  }
 
 
 	//=================================================================================

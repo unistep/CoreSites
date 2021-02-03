@@ -8,6 +8,7 @@ import { UGenericsService } from '../services/u-generics.service';
 import { UfwInterface } from '../services/ufw-interface';
 
 import * as $ from 'jquery';
+declare var $: any;
 
 @Component({
   templateUrl: './base-form.component.html',

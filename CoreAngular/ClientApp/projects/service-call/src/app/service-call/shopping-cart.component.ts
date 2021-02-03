@@ -3,6 +3,7 @@ import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
 
 import { BaseFormComponent } from '../../../../angular-toolkit/src/public-api';
 import * as $ from 'jquery';
+declare var $: any;
 
 @Component({
 	selector: 'app-shopping-cart',

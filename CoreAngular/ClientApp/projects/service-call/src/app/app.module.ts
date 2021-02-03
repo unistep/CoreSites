@@ -8,13 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularSplitModule } from 'angular-split';
 
-//import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-//import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-//export function createTranslateLoader(http: HttpClient) {
-//  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
-//}
-
-import { DeviceDetectorModule } from 'ngx-device-detector';
+//import { DeviceDetectorService } from 'ngx-device-detector';
 import { BDirModule } from 'ngx-bdir';
 
 import { AppComponent } from './app.component';
@@ -60,17 +54,11 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
 	  SelectRowComponent,
 	  ServiceCallComponent,
 	  ShoppingCartComponent,
+    //DeviceDetectorService,
     ],
   imports: [
-	NgbModule,
-	NgSelectModule,
-    //TranslateModule.forRoot({
-    //  loader: {
-    //    provide: TranslateLoader,
-    //    useFactory: createTranslateLoader,
-    //    deps: [HttpClient]
-    //  }
-    //}),
+	  NgbModule,
+	  NgSelectModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -84,9 +72,7 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
       { path: 'time-clock', component: TimeClockComponent },
 	    { path: 'service-call', component: ServiceCallComponent },
 	    { path: 'shopping-cart', component: ShoppingCartComponent }
-  ]),
-
-    DeviceDetectorModule.forRoot()
+    ]),
   ],
 
   providers: [
