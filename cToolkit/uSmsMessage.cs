@@ -136,7 +136,7 @@ namespace uToolkit
 			string serviceKeys = smsParams.ServiceKeys;
 			string userName = uStr.Get_CMD_Field(serviceKeys, 1);
 			string userID = uStr.Get_CMD_Field(serviceKeys, 2);
-			if (_sender == "") _sender = smsParams.CallerNumber;
+			/*if (_sender == "")*/ _sender = smsParams.CallerNumber;
 			_sender = uStr.Substring(_sender, 0, 11);
 
 			_recipients = _recipients.Replace(";", ",");
