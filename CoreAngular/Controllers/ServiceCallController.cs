@@ -40,7 +40,7 @@ namespace CoreAngular.Controllers
 
 
 		//====================================================================================================
-		[HttpPost("ShoppingCart")]
+		[HttpGet("ShoppingCart")]
 		public IActionResult ShoppingCart(uBusinessObject businessObject)
 		{
 			uApp.Loger("ServiceCallController, ShoppingCart API");

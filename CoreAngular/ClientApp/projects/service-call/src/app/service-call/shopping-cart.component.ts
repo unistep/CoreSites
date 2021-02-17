@@ -33,7 +33,7 @@ export class ShoppingCartComponent extends BaseFormComponent implements AfterVie
   async ngAfterViewInit() {
     const response = await this.ufw.get('ShoppingCart?view_key_value=' + this.ugs.queryParam("view_key_value"));
 
-    if (response) this.getFormData(response, false);
+    if (response) this.getFormData(response, true);
 
     super.setsScreenProperties();
     //$(document).find('li.servicecall')[0].style.display = "none";

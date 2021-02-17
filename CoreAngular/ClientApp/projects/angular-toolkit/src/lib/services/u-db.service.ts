@@ -388,8 +388,8 @@ export class UDbService {
 
 		const stmt = (this.primaryDataset.dataset_content[this.recordPosition]['__State'] === '1') ?
 			this.formSqlInsertStmt() : this.formSqlUpdateStmt();
-		if (stmt === "") return;
-		this.ufw.WebQuery(stmt);
+    if (stmt === "") return;
+    this.ufw.WebProcedure(stmt, this.primaryDataset.dataset_name);
 		this.primaryDataset.dataset_content[this.recordPosition]['__State'] = "0";
 	}
 
@@ -409,7 +409,8 @@ export class UDbService {
 			var uiElement = inputs[ocfci];
 			var fieldName = uiElement.getAttribute('data-bind');
 
-			if (fieldName) {
+      if (!fieldName) continue;
+
 				var fieldType = this.primaryDataset.dataset_format[0][fieldName];
 
 				var recordValue = this.primaryDataset.dataset_content[this.recordPosition][fieldName];
@@ -420,7 +421,6 @@ export class UDbService {
 				if (this.columnBeenModified(recordValue, uiValue, fieldType)) {
 					this.onRecordBeenModified();
 					break;
-				}
 			}
 		}
 	}
@@ -515,7 +515,7 @@ export class UDbService {
 
     return `INSERT INTO ${this.primaryDataset.dataset_name} `
          + `(${this.ufw.ugs.rtrim(",", column_names)}) `
-         + `VALUES(${this.ufw.ugs.rtrim(",", column_values)}`;
+         + `VALUES(${this.ufw.ugs.rtrim(",", column_values)})`;
 	}
 
 

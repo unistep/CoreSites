@@ -39,10 +39,16 @@ export class UfwInterface {
         payments, cvv, holderID, firstName, lastName });
   }
 
+
   public WebQuery(stmt) {
     return this.post('WebQuery', "", stmt);
   }
   
+
+  public WebProcedure(stmt, tableName) {
+    return this.post('WebProcedure', "", { stmt, tableName });
+  }
+
 
   public post(service: string, params: any = "", body?): Promise<any> {
     const httpOptions: any = { responseType: 'text' };
