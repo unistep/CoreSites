@@ -19,8 +19,8 @@ export class NavMenuComponent {
     public router: Router) {
   }
 
-  onChange() {
-    this.locale.adjastSelectedLanguage();
+  async onChange() {
+    await this.locale.adjastSelectedLanguage();
     const language = this.ufw.ugs.locale.selectedLanguage;
     this.ufw.post(`SPA_ChangeLanguage?language=${language}`);
 

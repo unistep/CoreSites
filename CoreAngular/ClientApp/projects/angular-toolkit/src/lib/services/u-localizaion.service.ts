@@ -1,7 +1,9 @@
 
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Router } from '@angular/router';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Injectable()
 export class ULocalization {
@@ -13,6 +15,7 @@ export class ULocalization {
   public msg_error: string = "";
   public msg_no_value: string = "";
   public msg_illegal_value: string = "";
+  public myTimer: any;
 
   private languageCodes: any = [
     { gid: "af", iid: "af", name: "Afrikaans" },
@@ -98,7 +101,7 @@ export class ULocalization {
 
 
   //=================================================================================
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public router: Router) {
   }
 
 
@@ -133,7 +136,7 @@ export class ULocalization {
     return (languageCode !== null)
   }
 
-  public setLanguageParams() {
+  public async setLanguageParams() {
     const language = localStorage.getItem('Language');
 
     var _knownLanguages = localStorage.getItem('KnownLanguages');
@@ -152,7 +155,7 @@ export class ULocalization {
 
     this.selectedLanguage = language;
 
-    this.adjastSelectedLanguage();
+    await this.adjastSelectedLanguage();
   }
 
 
@@ -185,15 +188,26 @@ export class ULocalization {
 
     const languageCode = this.getCodeByName(languageName);
 
-    const service = `assets/i18n/${languageCode}.json`;
-    this.http.get<any>(this.baseUrl + service).subscribe(response => {
-      this.jsonLanguage = response;
+    await this.getLanguage(languageCode);
 
-      this.msg_error = this.uTranslate("Error");
-      this.msg_no_value = this.uTranslate("No_Value");
-      this.msg_illegal_value = this.uTranslate("Illegal_Value");
-    },
-    error => {
+    this.msg_error = this.uTranslate("Error");
+    this.msg_no_value = this.uTranslate("No_Value");
+    this.msg_illegal_value = this.uTranslate("Illegal_Value");
+
+  }
+
+  //=================================================================================
+  public getLanguage(languageCode): Promise<any> {
+    const httpOptions: any = { responseType: 'text' };
+    const service = `assets/i18n/${languageCode}.json`;
+
+    const promise = this.http.get(this.baseUrl + service, httpOptions).toPromise();
+    return promise.then((response: any) => {
+      this.jsonLanguage = JSON.parse(response);
+      this.myTimer = interval(50).pipe(take(1));
+      this.myTimer.subscribe(x => {
+        window.console.log(`Change language: ${languageCode}`); });
+    }).catch(error => {
       window.console.log(error);
       window.alert(error);
     });
