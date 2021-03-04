@@ -1,7 +1,5 @@
 
-
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { ULocalization } from './u-localizaion.service';
 
@@ -12,19 +10,9 @@ declare var $: any;
 export class UGenericsService {
   public pageLoad: boolean = false;
 
-  public Version: any = "";
-  public ufw_url = ""
-
   //===================================================
-  constructor(public http: HttpClient, @Inject('BASE_URL') public base_url,
-    public deviceDetector: DeviceDetectorService,
+  constructor(public deviceDetector: DeviceDetectorService,
     public locale: ULocalization) {
-
-    const _parseURL = new URL(base_url);
-    if (_parseURL.port == '4200') this.ufw_url = "https://localhost:444/";
-    else this.ufw_url = base_url;
-
-    locale.baseUrl = this.ufw_url;
   }
 
   isLandscape() {
@@ -81,18 +69,6 @@ export class UGenericsService {
 
     this.resizeWindow();
   }
-
-  setAppParams(parameters) {
-    localStorage.setItem('AssemblyVersion', parameters.AssemblyVersion);
-    localStorage.setItem('KnownLanguages', parameters.KnownLanguages);
-    localStorage.setItem('Language', parameters.Language);
-    localStorage.setItem('Endpoints', parameters.Endpoints);
-
-    this.Version = localStorage.getItem('AssemblyVersion');
-
-    this.locale.setLanguageParams ();
-  }
-
 
   //=================================================================================
   public resizeWindow() {
@@ -255,66 +231,6 @@ export class UGenericsService {
     return filename.slice(pos + 1);            // extract extension ignoring `.`
   }
 
-
-  //===================================================
-  //public setLanguage(language = null) {
-  //  var _language = language ? language : this.getLocalStorageItem('Language');
-  //  if (!_language) language = 'English';
-
-  //  const service = `assets/i18n/${this.languageCodes.getCodeByName(_language)}.json`;
-  //  //const response = await this.ufw.get(service);
-  //  this.http.get<any>(this.ufw_url + service).subscribe(response => {
-  //    this.Loger(response, true);
-		//}, error => this.Loger(error));
-
-  //  //this.adjastUserLanguage(_language, response);
-  //  //if (language) self.SPA_ChangeLanguage(_language);
-  //}
-
-
-  public setSpinner(boolSet) {// on=true, off=false
-
-    document.body.style.cursor = boolSet ? "wait" : "default";
-
-    $('#eid_spinner').remove();
-    if (!boolSet) return;
-
-    var _spinner = "<div id='eid_spinner' class='spinner'>"
-      + "<i class='fa fa-spinner fa-spin fa-3x fa-fw'></i>"
-      + "<span class='sr-only'>Loading...</span>"
-      + "</div>";
-    $('body').append(_spinner);
-  }
-
-
-  getEndpointUrl(endpointName) {
-      if (!endpointName) return this.ufw_url;
-      let endpoints = localStorage.getItem('Endpoints');
-      if (!endpoints) return this.ufw_url;
-
-      let endpointsJSON = JSON.parse(endpoints);
-      for (let i = 0; i < endpointsJSON.length; i++) {
-        if (endpointsJSON[i].EndpointName !== endpointName) continue;
-        return endpointsJSON[i].EndpointUrl;
-      }
-
-      return this.ufw_url
-    }
-  
-    getEndpointTO(endpointName) {
-      if (!endpointName) return 30 * 1000;
-      let endpoints = localStorage.getItem('Endpoints');
-      if (!endpoints) return this.ufw_url;
-
-      let endpointsJSON = JSON.parse(endpoints);
-      for (let i = 0; i < endpointsJSON.length; i++) {
-        if (endpointsJSON[i].EndpointName !== endpointName) continue;
-        return Number(endpointsJSON[i].Timeout) * 1000;
-      }
-
-      return 30 * 1000;
-    }
-  
 
   //=================================================================================
   setIOS_Safari() {

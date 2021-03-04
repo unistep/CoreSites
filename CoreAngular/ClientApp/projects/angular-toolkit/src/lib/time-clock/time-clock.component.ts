@@ -81,7 +81,7 @@ export class TimeClockComponent extends BaseFormComponent implements AfterViewIn
 		var stmt = "INSERT INTO Time_Clock (Technician, User_Login, Action_Type, LatLng, Address_Reported) "
       + ` VALUES (1, '${this.userName}', '${newReport}', '${this.gmaps.current_location}', '${this.gmaps.current_address}')`;
 
-		this.ufw.webRequest(null, null, "WebProcedure", 'Time_Clock', stmt);
+		//this.ufw.webRequest(null, null, "WebProcedure", 'Time_Clock', stmt);
 		this.router.navigate(['']);
 	}
 }

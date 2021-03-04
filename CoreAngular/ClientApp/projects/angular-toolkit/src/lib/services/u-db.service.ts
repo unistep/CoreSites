@@ -796,8 +796,10 @@ export class UDbService {
 		const uiValue = this.getElementInputValue(uiElement);
 		//var uiPrompt = uiElement.getAttribute("placeholder");
 		const uiPrompt = this.getElementInputLabel(uiElement);
+    const uiMessage = this.locale.uTranslate("No_Value");
+
     if (!uiValue) {
-      this.ufw.ugs.Loger(`Error: ${this.locale.msg_no_value}: ${uiPrompt}`, true);
+      this.ufw.ugs.Loger(`Error: ${uiMessage}: ${uiPrompt}`, true);
 			return false;
 		}
 
@@ -815,7 +817,7 @@ export class UDbService {
 		if (!uiValue) return true;
 
 		if (!validityCheck(uiValue)) {
-      this.ufw.ugs.Loger(`Error: ${this.locale.msg_illegal_value}: ${uiPrompt}`, true);
+      this.ufw.ugs.Loger(`Error: ${this.locale.uTranslate("Illegal_Value")}: ${uiPrompt}`, true);
 			return false;
 		}
 
@@ -839,18 +841,18 @@ export class UDbService {
 
 		if (phoneNumber) {
 			if (phoneNumber.length !== 7) {
-        this.ufw.ugs.Loger(`Error: ${this.locale.msg_illegal_value}: ${pnPrompt}`, true);
+        this.ufw.ugs.Loger(`Error: ${this.locale.uTranslate("Illegal_Value")}: ${pnPrompt}`, true);
 				return false;
 			}
 		}
 
 		if (areaCode && !phoneNumber) {
-      this.ufw.ugs.Loger(`Error: ${this.locale.msg_no_value}: ${pnPrompt}`, true);
+      this.ufw.ugs.Loger(`Error: ${this.locale.uTranslate("No_Value")}: ${pnPrompt}`, true);
 			return false;
 		}
 
 		if (!areaCode && phoneNumber) {
-      this.ufw.ugs.Loger(`Error: ${this.locale.msg_no_value}: ${acPrompt}`, true);
+      this.ufw.ugs.Loger(`Error: ${this.locale.uTranslate("No_Value")}: ${acPrompt}`, true);
 			return false;
 		}
 

@@ -65,13 +65,7 @@ namespace uToolkit
 
 		public static void Create_i18n()
 		{
-			string internationalDrawer = uApp.m_homeDirectory + "/ClientApp/src/assets/i18n";// Angular
-
-			string checkForPublic = "/ClientApp/public";  // true for React
-			if (Directory.Exists(checkForPublic))
-			{
-				internationalDrawer = uApp.m_homeDirectory + "/ClientApp/public/assets/i18n";
-			}
+			string internationalDrawer = international_DrawerPath();
 
 			if (Directory.Exists(internationalDrawer)) Directory.Delete(internationalDrawer, true);
 			Thread.Sleep(200);
@@ -101,6 +95,18 @@ namespace uToolkit
 			}
 		}
 
+		public static string international_DrawerPath()
+		{
+			string internationalDrawerPath = uApp.m_homeDirectory + "/ClientApp/src/assets/i18n";// Angular
+
+			string checkForPublic = "/ClientApp/public";  // true for React
+			if (Directory.Exists(checkForPublic))
+			{
+				internationalDrawerPath = uApp.m_homeDirectory + "/ClientApp/public/assets/i18n";
+			}
+
+			return internationalDrawerPath;
+		}
 		public static ArrayList GetKnownLanguages()
 		{
 			return GetKnownLanguages(((uTextFile)uTextFile.m_textFiles[0]).m_tableName);

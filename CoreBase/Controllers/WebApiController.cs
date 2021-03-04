@@ -13,6 +13,7 @@ using uToolkit;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace CoreBase.Controllers
 {
@@ -104,7 +105,7 @@ namespace CoreBase.Controllers
 			// Primary dataset goes FIRST!
 			string stmt = $"SELECT Top 1 * FROM Time_Clock WHERE User_Login='{businessObject.view_key_value}'";
 			stmt += " ORDER BY Time_Reported DESC";
-			((List<uDatasets>)businessObject.datasets).Add(new uDatasets(stmt));  // PRIMARY DATASET comes FIRST!
+			businessObject.datasets.Add(new uDatasets(stmt));  // PRIMARY DATASET comes FIRST!
 
 			return Ok(businessObject);
 		}
@@ -130,11 +131,11 @@ namespace CoreBase.Controllers
 
 
 		//====================================================================================================
-		[HttpGet("MVC_ChangeLanguage")]
-		public IActionResult MVC_ChangeLanguage(string language)
+		[HttpGet("Change_SessionLanguage")]
+		public IActionResult Change_SessionLanguage(string language)
 		{
 			string userName = GetCallerLoginName();
-			uApp.Loger($"MVC_ChangeLanguage: Caller={userName}");
+			uApp.Loger($"Change_SessionLanguage: Caller={userName}");
 
 			SetSessionLanguage(language);
 
@@ -145,14 +146,19 @@ namespace CoreBase.Controllers
 		}
 
 		//====================================================================================================
-		[HttpPost("SPA_ChangeLanguage")]
+		[HttpGet("SPA_ChangeLanguage")]
 		public IActionResult SPA_ChangeLanguage(string language)
 		{
 			string userName = GetCallerLoginName();
 			uApp.Loger($"SPA_ChangeLanguage: Caller={userName}");
 
 			SetSessionLanguage(language);
-			return Ok("[]");
+
+			string languageCode = uLanguageCodes.GetCodeByName(language);
+			string filePath = uTextFile.international_DrawerPath() + $"/{languageCode}.json";
+			var fileBytes = uFile.ReadFile(filePath);
+			new FileExtensionContentTypeProvider().TryGetContentType(Path.GetFileName(filePath), out var contentType);
+			return File(fileBytes, contentType ?? "application/octet-stream", $"{languageCode}.json");
 		}
 
 

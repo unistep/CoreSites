@@ -1,5 +1,5 @@
 
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
@@ -12,10 +12,7 @@ export class ULocalization {
   public  knownLanguages: any = [];
   public  selectedLanguage: any;
 
-  public msg_error: string = "";
-  public msg_no_value: string = "";
-  public msg_illegal_value: string = "";
-  public myTimer: any;
+  public  refreshTimer: any;
 
   private languageCodes: any = [
     { gid: "af", iid: "af", name: "Afrikaans" },
@@ -136,7 +133,9 @@ export class ULocalization {
     return (languageCode !== null)
   }
 
-  public async setLanguageParams() {
+
+	//=================================================================================
+  public setLanguageParams() {
     const language = localStorage.getItem('Language');
 
     var _knownLanguages = localStorage.getItem('KnownLanguages');
@@ -155,23 +154,22 @@ export class ULocalization {
 
     this.selectedLanguage = language;
 
-    await this.adjastSelectedLanguage();
+    this.adjastSelectedLanguage(false);
   }
 
 
   //=================================================================================
-  public async adjastSelectedLanguage() {
-    var languageName = this.selectedLanguage;
+  public adjastSelectedLanguage(redraw) {
+    var language = this.selectedLanguage;
     var direction: string = 'ltr';
 
-    document.getElementsByTagName('html')[0].removeAttribute('dir');
-
-    if (languageName === 'Arabic' || languageName === 'Hebrew') { direction = 'rtl' }
+    if (language === 'Arabic' || language === 'Hebrew') { direction = 'rtl' }
 
     document.getElementsByTagName('html')[0].setAttribute('dir', direction);
+    document.documentElement.dir = direction;
 
     localStorage.setItem('direction', direction);
-    localStorage.setItem('Language', languageName);
+    localStorage.setItem('Language', language);
 
     if (direction == "rtl") {
       var link = document.createElement('link');
@@ -186,115 +184,25 @@ export class ULocalization {
       if (element) element.parentNode.removeChild(element);
     }
 
-    const languageCode = this.getCodeByName(languageName);
-
-    await this.getLanguage(languageCode);
-
-    this.msg_error = this.uTranslate("Error");
-    this.msg_no_value = this.uTranslate("No_Value");
-    this.msg_illegal_value = this.uTranslate("Illegal_Value");
-
-  }
-
-  //=================================================================================
-  public getLanguage(languageCode): Promise<any> {
     const httpOptions: any = { responseType: 'text' };
-    const service = `assets/i18n/${languageCode}.json`;
+    const service = this.baseUrl + `SPA_ChangeLanguage?language=${language}`;
 
-    const promise = this.http.get(this.baseUrl + service, httpOptions).toPromise();
+    const promise = this.http.get(service, httpOptions).toPromise();
     return promise.then((response: any) => {
       this.jsonLanguage = JSON.parse(response);
-      this.myTimer = interval(50).pipe(take(1));
-      this.myTimer.subscribe(x => {
-        window.console.log(`Change language: ${languageCode}`); });
+      if (redraw) location.reload();
+      //this.refreshTimer = interval(50).pipe(take(1));
     }).catch(error => {
       window.console.log(error);
       window.alert(error);
     });
   }
 
-  //===================================================
-  //public setLanguage(language = null) {
-  //  var _language = language ? language : this.getLocalStorageItem('Language');
-  //  if (!_language) language = 'English';
-
-  //  const service = `assets/i18n/${this.languageCodes.getCodeByName(_language)}.json`;
-  //  //const response = await this.ufw.get(service);
-  //  this.http.get<any>(this.ufw_url + service).subscribe(response => {
-  //    this.Loger(response, true);
-		//}, error => this.Loger(error));
-
-  //  //this.adjastUserLanguage(_language, response);
-  //  //if (language) self.SPA_ChangeLanguage(_language);
-  //}
-
 
   //=================================================================================
   uTranslate(key) {
     let result = this.jsonLanguage[key];
-    if (!result) { result = key; }
-    return result;
-
-    //this.translate.get(keyword).subscribe((text: string) => { keyword = text; })
-    //return keyword;
+    return result ? result : key;
   }
 }
 
-
-/*
-  //=================================================================================
-  public async adjastSelectedLanguage() {
-    var languageName = this.selectedLanguage;
-    var direction: string = 'ltr';
-
-    document.getElementsByTagName('html')[0].removeAttribute('dir');
-
-    if (languageName === 'Arabic' || languageName === 'Hebrew') { direction = 'rtl' }
-
-    document.getElementsByTagName('html')[0].setAttribute('dir', direction);
-
-    localStorage.setItem('direction', direction);
-    localStorage.setItem('Language', languageName);
-
-    if (direction == "rtl") {
-      var link = document.createElement('link');
-      link.id = 'elm_rtl';
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = '/assets/css/styles-rtl.css';
-      document.getElementsByTagName('head')[0].appendChild(link);
-    }
-    else {
-      var element = document.getElementById("elm_rtl");
-      if (element) element.parentNode.removeChild(element);
-    }
-
-    this.currentLanguage = this.getCodeByName(languageName);
-
-    this.translate
-      .getTranslation(this.currentLanguage)
-      .subscribe(result => {
-
-        this.translate.setDefaultLang(this.currentLanguage);
-
-        this.msg_error = this.uTranslate("Error");
-        this.msg_no_value = this.uTranslate("No_Value");
-        this.msg_illegal_value = this.uTranslate("Illegal_Value");
-      });
-  }
-
-  //===================================================
-  //public setLanguage(language = null) {
-  //  var _language = language ? language : this.getLocalStorageItem('Language');
-  //  if (!_language) language = 'English';
-
-  //  const service = `assets/i18n/${this.languageCodes.getCodeByName(_language)}.json`;
-  //  //const response = await this.ufw.get(service);
-  //  this.http.get<any>(this.ufw_url + service).subscribe(response => {
-  //    this.Loger(response, true);
-		//}, error => this.Loger(error));
-
-  //  //this.adjastUserLanguage(_language, response);
-  //  //if (language) self.SPA_ChangeLanguage(_language);
-  //}
-*/

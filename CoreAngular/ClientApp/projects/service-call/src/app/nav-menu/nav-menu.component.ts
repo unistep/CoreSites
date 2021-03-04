@@ -19,10 +19,8 @@ export class NavMenuComponent {
     public router: Router) {
   }
 
-  async onChange() {
-    await this.locale.adjastSelectedLanguage();
-    const language = this.ufw.ugs.locale.selectedLanguage;
-    this.ufw.post(`SPA_ChangeLanguage?language=${language}`);
+  onChange() {
+    this.locale.adjastSelectedLanguage(true);
 
     const elmButton: any = document.getElementsByClassName("navbar-toggler")[0];
     elmButton.click();
