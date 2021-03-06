@@ -5,10 +5,11 @@ import { BaseFormComponent } from '../templates/base-form.component';
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
-export class FetchDataComponent extends BaseFormComponent implements AfterViewInit{
+
+export class FetchDataComponent extends BaseFormComponent implements AfterViewInit {
   public forecasts: WeatherForecast[];
 
-  constructor(inject: Injector){
+  constructor(inject: Injector) {
     super(inject);
   }
 
@@ -17,10 +18,7 @@ export class FetchDataComponent extends BaseFormComponent implements AfterViewIn
 
     if (response) this.forecasts = response;
 
-    this.setsScreenProperties();
-    //this.http.get<WeatherForecast[]>(this.ugs.ufw_url + 'weatherforecast').subscribe(result => {
-    //  this.forecasts = result;
-    //}, error => this.ugs.Loger(error, true));
+    this.setDeviceProperties();
   }
 }
 

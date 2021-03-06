@@ -6,11 +6,13 @@ import { BaseFormComponent } from '../../../../angular-toolkit/src/public-api';
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
+
 export class HomeComponent extends BaseFormComponent implements AfterViewInit {
   constructor(injector: Injector){
     super (injector);
   }
+
   ngAfterViewInit(): void {
-    super.setsScreenProperties();
+    super.setDeviceProperties();
   }
 }

@@ -24,7 +24,7 @@ export class LoginComponent extends BaseFormComponent implements  AfterViewInit 
   
   //=================================================================================
   ngAfterViewInit(): void {
-    super.setsScreenProperties();
+    super.setDeviceProperties();
 
     $(document).find('li.serviceCall')[0].style.display = "none";
     $(document).find('li.logout')[0].style.display = "none";

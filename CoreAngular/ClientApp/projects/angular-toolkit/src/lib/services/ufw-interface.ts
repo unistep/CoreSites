@@ -16,6 +16,8 @@ export class UfwInterface {
 
   public Version = "";
 
+
+  //=================================================================================
   constructor(private http: HttpClient, @Inject('BASE_URL') public baseUrl,
     public ugs: UGenericsService) {
 
@@ -26,6 +28,8 @@ export class UfwInterface {
     this.getAppParams();
   }
 
+
+  //=================================================================================
   public async getAppParams() {
     let language = localStorage.getItem('Language');
     if (!language) language = "";
@@ -43,14 +47,19 @@ export class UfwInterface {
   }
   
 
+  //=================================================================================
   public TimeClock(params): Promise<any> {
     return this.post('TimeClock', params);
   }
 
+
+  //=================================================================================
   public SendSMS(recipient, message): Promise<any> {
     return this.post('SendSMS', "", { recipient, message });
   }
 
+
+  //=================================================================================
   public CreditAction(transType, transID, cardNumber, expiredYear, expiredMonth, billAmount,
         payments, cvv, holderID, firstName, lastName): Promise<any> {
     return this.post('CreditAction', "", {
@@ -59,16 +68,19 @@ export class UfwInterface {
   }
 
 
+  //=================================================================================
   public WebQuery(stmt) {
     return this.post('WebQuery', "", stmt);
   }
   
 
+  //=================================================================================
   public WebProcedure(stmt, tableName) {
     return this.post('WebProcedure', "", { stmt, tableName });
   }
 
 
+  //=================================================================================
   public post(service: string, params: any = "", body?): Promise<any> {
     const httpOptions: any = { responseType: 'text' };
 
@@ -95,6 +107,7 @@ export class UfwInterface {
       return null;
     });
   }
+
 
   //=================================================================================
   public get(service: string, params: any = ""): Promise<any> {
@@ -137,6 +150,8 @@ export class UfwInterface {
     return this.post('Upload', '', formData);
   }
 
+
+  //=================================================================================
   controllerName(): string {
     return '';
   }

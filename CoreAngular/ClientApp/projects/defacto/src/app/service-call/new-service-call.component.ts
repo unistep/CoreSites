@@ -40,7 +40,7 @@ export class NewServiceCallComponent extends BaseFormComponent
     public trs: ServerInterface) {
 		super(injector);
 
-    this.primeTicketType = this.ugs.queryParam("procedureType") == "Orders" ? "2" : "0";
+    this.primeTicketType = this.ugs.queryItem("procedureType") == "Orders" ? "2" : "0";
 
     var id, name;
     for (var i = 1; i <= 30; i++) { id = name = i; this.days.splice(0, 0, { id, name }); }
@@ -100,7 +100,7 @@ export class NewServiceCallComponent extends BaseFormComponent
 
   async OnSave() {
     var Status = "0";
-    var MemberSysId = this.ugs.queryParam("customerID");
+    var MemberSysId = this.ugs.queryItem("customerID");
     var TicketTypeSysId = this.selectedTicketType.SysId;
     var ItemType = this.selectedItemType;
     var RequestReason = this.selectedRequestReason;
@@ -146,8 +146,8 @@ export class NewServiceCallComponent extends BaseFormComponent
     const result: any = await this.trs.TicketRegistration(Ticket);
     if (result) {
       var callNumber = result.TicketSysId;
-      var customerName = this.ugs.queryParam("customerName");
-      var procedureType = this.ugs.queryParam("procedureType");
+      var customerName = this.ugs.queryItem("customerName");
+      var procedureType = this.ugs.queryItem("procedureType");
       this.router.navigate(['edit-service-call'], { queryParams: { procedureType, callNumber, customerName } });
     }
   }
@@ -162,7 +162,7 @@ export class NewServiceCallComponent extends BaseFormComponent
     if (this.initDone) return;
     this.initDone = true;
 
-    if (this.ugs.queryParam("procedureType") === "ServiceCalls") {
+    if (this.ugs.queryItem("procedureType") === "ServiceCalls") {
       $("#to_color").css("background-color", "#EFEFEF");
     }
     else {
@@ -172,7 +172,7 @@ export class NewServiceCallComponent extends BaseFormComponent
   }
 
   ngAfterViewInit(): void {
-    super.setsScreenProperties();
+    super.setDeviceProperties();
 
     $(document).find('li.serviceCall')[0].style.display = "block";
     $(document).find('li.logout')[0].style.display = "block";
@@ -221,7 +221,7 @@ export class NewServiceCallComponent extends BaseFormComponent
       this.selectedItemType = this.itemTypes[0];
       this.requestReasons = this.selectedTicketType.ReasonList;
       this.selectedRequestReason = this.requestReasons[0];
-      if (this.ugs.queryParam("procedureType") !== "ServiceCalls") {
+      if (this.ugs.queryItem("procedureType") !== "ServiceCalls") {
       }
       this.OnLoad();
     }

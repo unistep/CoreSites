@@ -4,44 +4,48 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { DeviceDetectorModule } from 'ngx-device-detector';
+import { BDirModule } from 'ngx-bdir';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { BDirModule } from 'ngx-bdir';
+import { UGenericsService, UResponsiveService } from '../../../angular-toolkit/src/public-api';
+import { UfwInterface, UDbService, UGmapsService } from '../../../angular-toolkit/src/public-api';
+import { ULocalization, LocalePipe, BaseFormComponent } from '../../../angular-toolkit/src/public-api';
 
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
-}
+import { AddressRowComponent } from '../../../angular-toolkit/src/public-api';
+import { ButtonRowComponent } from '../../../angular-toolkit/src/public-api';
+import { DateRowComponent } from '../../../angular-toolkit/src/public-api';
+import { InputRowComponent } from '../../../angular-toolkit/src/public-api';
+import { PhoneRowComponent } from '../../../angular-toolkit/src/public-api';
+import { SelectRowComponent } from '../../../angular-toolkit/src/public-api';
 
-import { UDbService, UGmapsService, UGenericsService } from '../../../angular-toolkit/src/public-api';
-import { ULocalization, UfwInterface } from '../../../angular-toolkit/src/public-api';
-import { BaseFormComponent, TimeClockComponent } from '../../../angular-toolkit/src/public-api';
-import { CounterComponent, FetchDataComponent } from '../../../angular-toolkit/src/public-api';
+import { TimeClockComponent, CounterComponent, FetchDataComponent } from '../../../angular-toolkit/src/public-api';
 
 @NgModule({
   declarations: [
+    LocalePipe,
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    BaseFormComponent,
     CounterComponent,
     FetchDataComponent,
     TimeClockComponent,
-    BaseFormComponent
+    AddressRowComponent,
+    ButtonRowComponent,
+    DateRowComponent,
+    InputRowComponent,
+    PhoneRowComponent,
+    SelectRowComponent
   ],
   imports: [
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-    }),
+    NgbModule,
+    NgSelectModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -50,15 +54,17 @@ import { CounterComponent, FetchDataComponent } from '../../../angular-toolkit/s
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'time-clock', component: TimeClockComponent },
+      { path: 'time-clock', component: TimeClockComponent }
     ]),
+  ],
 
-    DeviceDetectorModule.forRoot()
-  ],
   providers: [
-    HttpClient, UGenericsService, UDbService, UGmapsService, ULocalization, UfwInterface 
+    HttpClient,
+    UDbService, UGmapsService, UGenericsService,
+    UResponsiveService, ULocalization, UfwInterface
   ],
-  
+
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

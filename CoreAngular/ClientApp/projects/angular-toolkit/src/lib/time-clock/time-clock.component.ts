@@ -35,13 +35,6 @@ export class TimeClockComponent extends BaseFormComponent implements AfterViewIn
 	}
 
 
-	//=================================================================================
-	formInit(scData, autoUpdate) {
-		super.setsScreenProperties();
-		super.formInit(scData, autoUpdate, null);
-		}
-	
-
   //=================================================================================
    async ngAfterViewInit() {
 		//var loginLA = document.getElementById("user_login_eid");
@@ -50,10 +43,11 @@ export class TimeClockComponent extends BaseFormComponent implements AfterViewIn
 		this.isChecked = true;
 		//this.userName = loginLA.innerText.replace("Hello ", "");
 
-     var result = await this.ufw.TimeClock('view_key_value=avivs@unistep.co.il');
-     if (!result) return;
+     var response = await this.ufw.TimeClock('view_key_value=avivs@unistep.co.il');
+     if (!response) return;
 
-     this.formInit (result, false);
+     super.setDeviceProperties();
+     super.formInit(response, false, null);
 	}
 
 
@@ -81,7 +75,7 @@ export class TimeClockComponent extends BaseFormComponent implements AfterViewIn
 		var stmt = "INSERT INTO Time_Clock (Technician, User_Login, Action_Type, LatLng, Address_Reported) "
       + ` VALUES (1, '${this.userName}', '${newReport}', '${this.gmaps.current_location}', '${this.gmaps.current_address}')`;
 
-		//this.ufw.webRequest(null, null, "WebProcedure", 'Time_Clock', stmt);
+		this.ufw.WebProcedure(stmt, 'Time_Clock');
 		this.router.navigate(['']);
 	}
 }

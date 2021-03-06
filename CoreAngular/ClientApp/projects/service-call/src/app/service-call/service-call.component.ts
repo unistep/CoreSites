@@ -34,14 +34,17 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
     this.month.splice(0, 0, { id: '', name: this.ugs.locale.uTranslate("Month") });
 		this.selectedYear = this.year[0];
 		this.selectedMonth = this.month[0];
-
-    this.getFormData();
   }
 
 
  async ngAfterViewInit() {
-    super.setsScreenProperties();
-    $(document).find('li.servicecall')[0].style.display = "none";
+   $(document).find('li.servicecall')[0].style.display = "none";
+
+   super.setDeviceProperties();
+
+   const response = await this.ufw.get('ServiceCall');
+
+   if (response) this.getFormData(response, false);
   }
 
 
@@ -52,17 +55,16 @@ export class ServiceCallComponent  extends BaseFormComponent implements AfterVie
 
 
 	//=================================================================================
-	public async getFormData() {
-    const response = await this.ufw.get('ServiceCall');
+  public async getFormData(response, autoUpdate) {
 
-    this.udb.view_key_value = this.ugs.queryParam("view_key_value");
-		this.udb.recordPosition = parseInt(this.ugs.queryParam("view_position"));
-		this.udb.view_tab = parseInt(this.ugs.queryParam("view_tab"));
+    this.udb.view_key_value = this.ugs.queryItem("view_key_value");
+		this.udb.recordPosition = parseInt(this.ugs.queryItem("view_position"));
+		this.udb.view_tab = parseInt(this.ugs.queryItem("view_tab"));
 
 		if (!this.udb.recordPosition || (this.udb.recordPosition < 0)) this.udb.recordPosition = 0;
 		if (!this.udb.view_tab || (this.udb.view_tab < 0)) this.udb.view_tab = 0;
 
-		super.formInit(response, false, ".rframe");
+		super.formInit(response, autoUpdate, ".rframe");
 
 		if (this.udb.view_tab) this.udb.selectTab('.nav-tabs', this.udb.view_tab);
 

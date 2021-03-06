@@ -38,7 +38,7 @@ export class CustomerFindComponent extends BaseFormComponent implements OnInit, 
     if (this.selectedCustomer && (this.selectedCustomer.SysId !== 0)) {
       var customerName = this.selectedCustomer.Description;
       var customerID = this.selectedCustomer.SysId;
-      var procedureType = this.ugs.queryParam("procedureType");
+      var procedureType = this.ugs.queryItem("procedureType");
       this.router.navigate(['new-service-call'], { queryParams: { procedureType, customerName, customerID } });
       return;
     }
@@ -56,13 +56,13 @@ export class CustomerFindComponent extends BaseFormComponent implements OnInit, 
         this.customerInfo = result.MemberInfo;
         var customerName = this.customerInfo.Name;
         var customerID = this.customerInfo.SysId;
-        var procedureType = this.ugs.queryParam("procedureType");
+        var procedureType = this.ugs.queryItem("procedureType");
         this.router.navigate(['new-service-call'], { queryParams: { procedureType, customerName, customerID } });
         return;
       }
     }
 
-    var procedureType = this.ugs.queryParam("procedureType");
+    var procedureType = this.ugs.queryItem("procedureType");
     var phoneNumber = $("#eid_phone_number").val();
     this.router.navigate(['customer-register'], { queryParams: { procedureType, phoneNumber } });
   }
@@ -93,7 +93,7 @@ export class CustomerFindComponent extends BaseFormComponent implements OnInit, 
 
   //=================================================================================
   ngAfterViewInit(): void {
-    super.setsScreenProperties();
+    super.setDeviceProperties();
 
     $('.cl_vendor').hide();
     $('.cl_customer').hide();
@@ -101,7 +101,7 @@ export class CustomerFindComponent extends BaseFormComponent implements OnInit, 
     $(document).find('li.serviceCall')[0].style.display = "block";
     $(document).find('li.logout')[0].style.display = "block";
 
-    if (this.ugs.queryParam("procedureType") === "ServiceCalls") {
+    if (this.ugs.queryItem("procedureType") === "ServiceCalls") {
       $("#to_color").css("background-color", "#EFEFEF");
     }
     else {

@@ -32,13 +32,13 @@ export class CustomerRegisterComponent extends BaseFormComponent implements OnIn
 
   //=================================================================================
   ngAfterViewInit(): void {
-    super.setsScreenProperties();
+    super.setDeviceProperties();
 
     $(document).find('li.serviceCall')[0].style.display = "block";
     $(document).find('li.logout')[0].style.display = "block";
     $('#eid_first_name').focus();
 
-    if (this.ugs.queryParam("procedureType") === "ServiceCalls") {
+    if (this.ugs.queryItem("procedureType") === "ServiceCalls") {
       $("#to_color").css("background-color", "#EFEFEF");
     }
     else {
@@ -47,7 +47,7 @@ export class CustomerRegisterComponent extends BaseFormComponent implements OnIn
   }
 
   async OnLoad() {
-    var phoneNumber = this.ugs.queryParam('phoneNumber');
+    var phoneNumber = this.ugs.queryItem('phoneNumber');
     const result: any = await this.trs.fetchCustomer('{"param":"' + phoneNumber + '"}');
     if ((!result) || (!result.MemberInfo)) return;
 
@@ -147,7 +147,7 @@ export class CustomerRegisterComponent extends BaseFormComponent implements OnIn
         this.router.navigate(['service-call']);
       }
       else {
-        var procedureType = this.ugs.queryParam("procedureType");
+        var procedureType = this.ugs.queryItem("procedureType");
         this.router.navigate(['new-service-call'], { queryParams: { procedureType, customerName, customerID } });
       }
     }

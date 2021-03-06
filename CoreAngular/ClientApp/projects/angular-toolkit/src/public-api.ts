@@ -9,6 +9,7 @@
 export * from './lib/services/ufw-interface';
 export * from './lib/services/u-db.service';
 export * from './lib/services/u-generics.service';
+export * from './lib/services/u-responsive.service';
 export * from './lib/services/u-gmaps.service';
 export * from './lib/services/u-localizaion.service';
 export * from './lib/services/u-locale.pipe';

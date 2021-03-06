@@ -1,7 +1,7 @@
 
-import { Component, Injector, AfterViewInit, OnDestroy } from '@angular/core';
-
+import { AfterViewInit, Component, Injector, OnDestroy } from '@angular/core';
 import { BaseFormComponent } from '../../../../angular-toolkit/src/public-api';
+
 import * as $ from 'jquery';
 declare var $: any;
 
@@ -22,34 +22,28 @@ export class ShoppingCartComponent extends BaseFormComponent implements AfterVie
 	constructor(injector: Injector) {
 		super(injector);
 
-		this.udb.recordPosition = parseInt(this.ugs.queryParam("view_position"));
-
-		//this.http.get<any>(this.ugs.ufw_url + 'ShoppingCart?view_key_value=' + this.ugs.queryParam("view_key_value")).subscribe(result => {
-  //    this.getFormData(result, true);
-		//}, error => this.ugs.Loger(error));
+		this.udb.recordPosition = parseInt(this.ugs.queryItem("view_position"));
 	}
 
 
   async ngAfterViewInit() {
-    const response = await this.ufw.get('ShoppingCart?view_key_value=' + this.ugs.queryParam("view_key_value"));
+    super.setDeviceProperties();
+
+    const response = await this.ufw.get('ShoppingCart?view_key_value=' + this.ugs.queryItem("view_key_value"));
 
     if (response) this.getFormData(response, true);
-
-    super.setsScreenProperties();
-    //$(document).find('li.servicecall')[0].style.display = "none";
   }
 	
 
 	//=================================================================================
 	ngOnDestroy(): void {
 		this.udb.confirmExit();
-		//$(document).find('li.servicecall')[0].style.display = "block";
 	}
 
 	//=================================================================================
-  public getFormData(scData, autoUpdate) {
+  public getFormData(response, autoUpdate) {
 
-    super.formInit(scData, autoUpdate, ".rframe");
+    super.formInit(response, autoUpdate, ".rframe");
 
     const dataset = this.udb.getDataset(document.getElementById('Product_Family_ID').getAttribute('data-dataset'));
 		this.productFamily = dataset.dataset_content;

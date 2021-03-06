@@ -11,6 +11,7 @@ declare var $: any;
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
+
 export class NavMenuComponent {
   isExpanded = false;
 
@@ -36,11 +37,6 @@ export class NavMenuComponent {
     elmButton.click();
   }
 
-  public onLogout() {
-    this.router.navigate(['/']);
-    //this.setNavbarUserName();
-  }
-
   public onAbout() {
     $('#about-modal').modal('show');
   }
@@ -49,13 +45,9 @@ export class NavMenuComponent {
     $("#about-modal .close").click()
   }
 
-  //public setNavbarUserName() {
-  //  var at = this.session.getUserName();
-  //  if (this.UserName !== at) {
-  //    this.UserName = at;
-  //  }
-
-  //  $("#eid_user_name").text(this.UserName);
-  //}
+//  public onLogout() {  // for those apps that not using .net core authentication (self auth) 
+//    this.router.navigate(['/']);
+//    $("#eid_user_name").text(this.UserName = this.session.getUserName());
+//  }
 }
 

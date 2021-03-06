@@ -42,7 +42,7 @@ export class EditServiceCallComponent extends BaseFormComponent implements OnIni
     for (var i = 0; i <= 30; i++) { id = name = i; this.days.splice(0, 0, { id, name }); }
     this.selectedDay = this.days[0];
 
-    this.primeTicketType = this.ugs.queryParam("procedureType") == "Orders" ? "2" : "0";
+    this.primeTicketType = this.ugs.queryItem("procedureType") == "Orders" ? "2" : "0";
   }
 
   //=================================================================================
@@ -419,12 +419,12 @@ export class EditServiceCallComponent extends BaseFormComponent implements OnIni
 
   
   ngAfterViewInit(): void {
-    super.setsScreenProperties();
+    super.setDeviceProperties();
 
     $(document).find('li.serviceCall')[0].style.display = "none";
     $(document).find('li.logout')[0].style.display = "block";
 
-    if (this.ugs.queryParam("procedureType") === "ServiceCalls") {
+    if (this.ugs.queryItem("procedureType") === "ServiceCalls") {
       $("#to_color").css("background-color", "#EFEFEF");
     }
     else {
@@ -565,7 +565,7 @@ export class EditServiceCallComponent extends BaseFormComponent implements OnIni
 
   //=================================================================================
   public async fetchTicket() {
-    var TicketSysId = this.ugs.queryParam("callNumber");
+    var TicketSysId = this.ugs.queryItem("callNumber");
     const result: any = await this.trs.fetchTicket(TicketSysId);
     if (result) {
       this.transaction = result;

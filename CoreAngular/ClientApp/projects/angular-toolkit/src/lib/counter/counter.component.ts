@@ -11,7 +11,7 @@ export class CounterComponent extends BaseFormComponent  implements AfterViewIni
   public currentCount = 0;
 
   ngAfterViewInit(): void {
-    super.setsScreenProperties();
+    super.setDeviceProperties();
   }
 
   public incrementCounter() {

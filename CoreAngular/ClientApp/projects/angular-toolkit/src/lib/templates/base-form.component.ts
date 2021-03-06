@@ -5,52 +5,61 @@ import { HttpClient } from '@angular/common/http';
 import { UDbService } from '../services/u-db.service';
 import { UGmapsService } from '../services/u-gmaps.service';
 import { UGenericsService } from '../services/u-generics.service';
+import { UResponsiveService } from '../services/u-responsive.service';
 import { UfwInterface } from '../services/ufw-interface';
 
 import * as $ from 'jquery';
 declare var $: any;
 
 @Component({
-  templateUrl: './base-form.component.html',
-  selector: 'app-base-form'
+  selector: 'app-base-form',
+	templateUrl: './base-form.component.html'
 })
 
 export class BaseFormComponent {
-  public http: HttpClient = null;
-  public router: Router = null;
-  public gmaps: UGmapsService = null;
-  public ugs: UGenericsService = null;
-  public udb: UDbService = null;
-  public ufw: UfwInterface = null;
+	public http:    HttpClient = null;
+	public router:  Router = null;
+	public gmaps:   UGmapsService = null;
+	public ugs:     UGenericsService = null;
+	public ursp:    UResponsiveService = null;
+	public udb:     UDbService = null;
+	public ufw:     UfwInterface = null;
 
 	public  primary_table_name = '';
 	public  primary_table_columns = [];
 	public  splitDir = localStorage.getItem('direction');
 
-  constructor(injector: Injector) {
 
-    this.http = injector.get(HttpClient);
-    this.router = injector.get(Router);
-    this.gmaps = injector.get(UGmapsService);
-    this.ugs = injector.get(UGenericsService);
-    this.udb = injector.get(UDbService);
-    this.ufw = injector.get(UfwInterface);
-  }
+	//=================================================================================
+	constructor(injector: Injector) {
+		this.http   = injector.get(HttpClient);
+		this.router = injector.get(Router);
+		this.gmaps  = injector.get(UGmapsService);
+		this.ugs    = injector.get(UGenericsService);
+		this.ursp   = injector.get(UResponsiveService);
+		this.udb    = injector.get(UDbService);
+		this.ufw    = injector.get(UfwInterface);
+	}
 
-  public formInit(scData, autoUpdate, setNavBar) {
-    this.udb.setNavigationBar(setNavBar);
 
-    this.udb.prepareDatasets(scData);
-    this.udb.autoUpdate = autoUpdate; // Binding procedure should sync data with server
-    this.udb.bindData(this);
+	//=================================================================================
+	public formInit(scData, autoUpdate, setNavBar) {
+		this.udb.setNavigationBar(setNavBar);
 
-    $('#eid_main_table tr td').click(this.mainTableClicked.bind(this));
+		this.udb.prepareDatasets(scData);
+		this.udb.autoUpdate = autoUpdate; // Binding procedure should sync data with server
+		this.udb.bindData(this);
+
+		$('#eid_main_table tr td').click(this.mainTableClicked.bind(this));
 		this.setMainTableCursor();
-  }
+	}
 
-  setsScreenProperties(){
-    this.ugs.setsScreenProperties();
-  }
+
+	//=================================================================================
+	setDeviceProperties(){
+		this.ursp.setScreenProperties();
+	}
+
 
 	//=================================================================================
 	mainTableClicked(e) {
@@ -61,6 +70,7 @@ export class BaseFormComponent {
 
 		this.setMainTableCursor();
 	}
+
 
 	//=================================================================================
 	public setMainTableCursor() {

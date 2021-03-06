@@ -140,13 +140,13 @@
           "options": {
             "tsConfig": "projects/angular-toolkit/tsconfig.lib.json",
             "project": "projects/angular-toolkit/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/angular-toolkit/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -545,5 +545,5 @@
       }
     }
   },
-  "defaultProject": "service-call"
+  "defaultProject": "angular-base"
 }

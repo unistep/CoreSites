@@ -15,11 +15,11 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 
-import { UDbService, UGmapsService, UGenericsService } from '../../../angular-toolkit/src/public-api';
-import { ULocalization, UfwInterface } from '../../../angular-toolkit/src/public-api';
-import { BaseFormComponent, TimeClockComponent } from '../../../angular-toolkit/src/public-api';
-import { CounterComponent, FetchDataComponent } from '../../../angular-toolkit/src/public-api';
-import { LocalePipe } from '../../../angular-toolkit/src/public-api';
+import { UGenericsService, UResponsiveService } from '../../../angular-toolkit/src/public-api';
+import { UfwInterface, UDbService, UGmapsService } from '../../../angular-toolkit/src/public-api';
+import { ULocalization, LocalePipe, BaseFormComponent } from '../../../angular-toolkit/src/public-api';
+
+import { TimeClockComponent, CounterComponent, FetchDataComponent } from '../../../angular-toolkit/src/public-api';
 
 import { ApiAuthorizationModule } from '../api-authorization/api-authorization.module';
 import { AuthorizeGuard } from '../api-authorization/authorize.guard';
@@ -42,10 +42,10 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    BaseFormComponent,
     CounterComponent,
     FetchDataComponent,
     TimeClockComponent,
-	  BaseFormComponent,
 	  AddressRowComponent,
 	  ButtonRowComponent,
 	  DateRowComponent,
@@ -77,7 +77,9 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    HttpClient, UGenericsService, UDbService, UGmapsService, ULocalization, UfwInterface
+    HttpClient,
+    UDbService, UGmapsService, UGenericsService,
+    UResponsiveService, ULocalization, UfwInterface
   ],
   bootstrap: [AppComponent]
 })

@@ -562,7 +562,7 @@ export class ServiceCallComponent extends BaseFormComponent
 
   //=================================================================================
   ngAfterViewInit(): void {
-        super.setsScreenProperties();
+    super.setDeviceProperties();
 
     $('.cl_vendor').hide();
     $('.cl_customer').hide();

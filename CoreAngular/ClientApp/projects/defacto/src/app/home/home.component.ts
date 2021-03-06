@@ -16,7 +16,7 @@ export class HomeComponent extends BaseFormComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    super.setsScreenProperties();
+    super.setDeviceProperties();
 
     if (this.trs.isAuthValid()) {
       $(document).find('li.serviceCall')[0].style.display = "block";

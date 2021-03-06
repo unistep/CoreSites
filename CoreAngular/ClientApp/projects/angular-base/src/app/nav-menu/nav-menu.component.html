@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">AngularBase</a>
+      <a class="navbar-brand" style="white-space:nowrap; overflow:hidden;" [routerLink]="['/']">CoreAngular</a>
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -11,14 +11,13 @@
               (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-           [ngClass]="{ show: isExpanded }">
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item language">
             <select class="form-control"
-                    [(ngModel)]="this.ufw.ugs.locale.selectedLanguage"
-                     (change)="onChange($event)">
-              <option *ngFor="let supported Langs of this.ufw.ugs.locale.knownLanguages">
+                    [(ngModel)]="this.locale.selectedLanguage"
+                    (change)="onChange()">
+              <option *ngFor="let supportedLangs of this.locale.knownLanguages">
                 {{supportedLangs}}
               </option>
             </select>
@@ -29,10 +28,7 @@
             <a class="nav-link text-dark" [routerLink]="['/']">{{'Home' | translate}}</a>
           </li>
           <li class="nav-item about">
-            <a class="nav-link text-dark"  (click)="onAbout()">{{'About' | translate}}</a>
-          </li>
-          <li class="nav-item timeclock" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/time-clock']">{{'Time_Clock' | translate}}</a>
+            <a class="nav-link text-dark" (click)="onAbout()">{{'About' | translate}}</a>
           </li>
           <li class="nav-item counter" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/counter']">Counter</a>
@@ -71,7 +67,7 @@
               <label class="label-align-natural" style="color:black;">{{'Version' | translate}}: </label>
             </div>
             <div class="col-2 input-group">
-              <label class="label-align-natural" style="color:black;">{{this.ufw.ugs.Version}}</label>
+              <label class="label-align-natural" style="color:black;">{{this.ufw.Version}}</label>
             </div>
           </div>
           <div class="row form-group col-12" style="padding-top: 20px;">

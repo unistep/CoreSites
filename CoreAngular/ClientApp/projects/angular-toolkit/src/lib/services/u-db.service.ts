@@ -365,11 +365,11 @@ export class UDbService {
 	onBackToCallerEvent() {
 		if (!this.onAboutToNavigate()) return;
 
-		var view_key_value = this.ufw.ugs.queryParam('parent_key_value');
-		var parent_view = this.ufw.ugs.queryParam('parent_view');
-		var view_tab = this.ufw.ugs.queryParam('parent_tab');
+		var view_key_value = this.ufw.ugs.queryItem('parent_key_value');
+		var parent_view = this.ufw.ugs.queryItem('parent_view');
+		var view_tab = this.ufw.ugs.queryItem('parent_tab');
 
-		var view_position = this.ufw.ugs.queryParam('parent_position');
+		var view_position = this.ufw.ugs.queryItem('parent_position');
 
 		this.router.navigate([parent_view], {
 			queryParams: {
@@ -532,7 +532,7 @@ export class UDbService {
 	//=================================================================================
 	isPrimaryKey(fieldName) {
 		for (let ipki = 1; ; ipki++) {
-			const primaryNieldName = this.ufw.ugs.fieldByPosition(this.primaryDataset.primary_key_fields, ipki, "|");
+			const primaryNieldName = this.ufw.ugs.getCsvField(this.primaryDataset.primary_key_fields, ipki, "|");
 			if (!primaryNieldName) break;
 
 			if (fieldName === primaryNieldName) return true;
@@ -546,13 +546,13 @@ export class UDbService {
 	formSqlWhereStmt() {
 		let whereStmt = "";
 		for (let fswsi = 1; ; fswsi++) {
-			const primaryNieldName = this.ufw.ugs.fieldByPosition(this.primaryDataset.primary_key_fields, fswsi, "|");
-			if (!primaryNieldName) break;
+			const primaryFieldName = this.ufw.ugs.getCsvField(this.primaryDataset.primary_key_fields, fswsi, "|");
+			if (!primaryFieldName) break;
 
-			const primaryFieldType = this.primaryDataset.dataset_format[0][primaryNieldName];
-			const primaryFieldValue = this.primaryDataset.dataset_content[this.recordPosition][primaryNieldName];
+			const primaryFieldType = this.primaryDataset.dataset_format[0][primaryFieldName];
+			const primaryFieldValue = this.primaryDataset.dataset_content[this.recordPosition][primaryFieldName];
 
-			whereStmt += primaryNieldName + "=" + this.getSqlSyntaxColumnValue(primaryFieldValue, primaryFieldType) + " AND ";
+			whereStmt += primaryFieldName + "=" + this.getSqlSyntaxColumnValue(primaryFieldValue, primaryFieldType) + " AND ";
 		}
 
 		if (whereStmt === "") whereStmt = "0=1";

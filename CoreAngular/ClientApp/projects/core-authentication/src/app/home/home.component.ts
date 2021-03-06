@@ -11,6 +11,6 @@ export class HomeComponent extends BaseFormComponent implements AfterViewInit {
     super (injector);
   }
   ngAfterViewInit(): void {
-    super.setsScreenProperties();
+    super.setDeviceProperties();
   }
 }
