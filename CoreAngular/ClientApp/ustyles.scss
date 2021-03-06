@@ -132,6 +132,11 @@ body {
   background-color: lightgray;
 }
 
+.navbar-brand {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .ng-dropdown-panel {
   padding: 5px;
   border: 1px solid mediumblue;

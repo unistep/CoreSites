@@ -5,9 +5,6 @@ import { ModalResult } from '../models/ModalResult';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { Subject, Observable } from 'rxjs';
 
-import * as $ from 'jquery';
-declare var $: any;
-
 export interface Photo {
   Data: string;
   MouseOver: boolean;

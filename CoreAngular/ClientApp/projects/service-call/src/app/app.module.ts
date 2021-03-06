@@ -8,16 +8,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularSplitModule } from 'angular-split';
 
-//import { DeviceDetectorService } from 'ngx-device-detector';
-import { BDirModule } from 'ngx-bdir';
+//import { BDirModule } from 'ngx-bdir';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { AppMenuComponent } from './app-menu/app-menu.component';
 import { HomeComponent } from './home/home.component';
 
 import { UGenericsService, UResponsiveService } from '../../../angular-toolkit/src/public-api';
 import { UfwInterface, UDbService, UGmapsService } from '../../../angular-toolkit/src/public-api';
-import { ULocalization, LocalePipe, BaseFormComponent } from '../../../angular-toolkit/src/public-api';
+import { ULocalization, LocalePipe } from '../../../angular-toolkit/src/public-api';
+import { BaseNavMenuComponent, BaseFormComponent } from '../../../angular-toolkit/src/public-api';
 
 import { TimeClockComponent, CounterComponent, FetchDataComponent } from '../../../angular-toolkit/src/public-api';
 
@@ -25,6 +25,7 @@ import { ApiAuthorizationModule } from '../api-authorization/api-authorization.m
 import { AuthorizeGuard } from '../api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from '../api-authorization/authorize.interceptor';
 
+import { AboutComponent } from '../../../angular-toolkit/src/public-api';
 import { AddressRowComponent } from '../../../angular-toolkit/src/public-api';
 import { ButtonRowComponent } from '../../../angular-toolkit/src/public-api';
 import { DateRowComponent } from '../../../angular-toolkit/src/public-api';
@@ -40,12 +41,13 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
   declarations: [
     LocalePipe,
     AppComponent,
-    NavMenuComponent,
+    AppMenuComponent,
     HomeComponent,
     BaseFormComponent,
     CounterComponent,
     FetchDataComponent,
     TimeClockComponent,
+    AboutComponent,
 	  AddressRowComponent,
 	  ButtonRowComponent,
 	  DateRowComponent,
@@ -54,7 +56,6 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
 	  SelectRowComponent,
 	  ServiceCallComponent,
 	  ShoppingCartComponent,
-    //DeviceDetectorService,
     ],
   imports: [
 	  NgbModule,
@@ -62,7 +63,6 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    BDirModule,
     ApiAuthorizationModule,
 	  AngularSplitModule.forRoot(),
     RouterModule.forRoot([

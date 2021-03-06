@@ -13,7 +13,7 @@ import * as moment from 'moment';
 	styleUrls: ['./service-call.component.scss']
 })
 
-export class ServiceCallComponent  extends BaseFormComponent implements AfterViewInit, OnDestroy {
+export class ServiceCallComponent extends BaseFormComponent implements AfterViewInit, OnDestroy {
 
 	month: any = [];
 	selectedMonth: any;

@@ -1,12 +1,12 @@
-import { Component, Input } from '@angular/core';
 
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-date-row',
   templateUrl: './date-row.component.html',
   styleUrls: ['./date-row.component.css']
 })
-/** date-row component*/
+
 export class DateRowComponent {
   public   date: string;
 
