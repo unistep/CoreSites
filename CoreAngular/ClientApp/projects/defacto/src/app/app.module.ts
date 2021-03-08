@@ -5,27 +5,28 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WebcamModule } from 'ngx-webcam';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { AppMenuComponent } from './app-menu/app-menu.component';
 import { HomeComponent } from './home/home.component';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { BDirModule } from 'ngx-bdir';
+import { UGenericsService, UResponsiveService } from '../../../angular-toolkit/src/public-api';
+import { UfwInterface, UDbService, UGmapsService } from '../../../angular-toolkit/src/public-api';
+import { ULocalization, LocalePipe } from '../../../angular-toolkit/src/public-api';
+import { BaseNavMenuComponent, BaseFormComponent } from '../../../angular-toolkit/src/public-api';
 
+import { TimeClockComponent } from '../../../angular-toolkit/src/public-api';
 
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
-}
-
-import { UDbService, UGmapsService, UGenericsService } from '../../../angular-toolkit/src/public-api';
-import { ULocalization, UfwInterface } from '../../../angular-toolkit/src/public-api';
-import { BaseFormComponent } from '../../../angular-toolkit/src/public-api';
+import { AboutComponent } from '../../../angular-toolkit/src/public-api';
+import { AddressRowComponent } from '../../../angular-toolkit/src/public-api';
+import { ButtonRowComponent } from '../../../angular-toolkit/src/public-api';
+import { DateRowComponent } from '../../../angular-toolkit/src/public-api';
+import { InputRowComponent } from '../../../angular-toolkit/src/public-api';
+import { PhoneRowComponent } from '../../../angular-toolkit/src/public-api';
+import { SelectRowComponent } from '../../../angular-toolkit/src/public-api';
 
 import { LoginComponent } from '../app/Entrance/login.component';
 import { ServiceCallComponent } from './service-call/service-call.component';
@@ -39,10 +40,20 @@ import { PosPopupComponent } from './pos-popup/pos-popup.component';
 
 @NgModule({
   declarations: [
+    LocalePipe,
     AppComponent,
-    NavMenuComponent,
+    AppMenuComponent,
     HomeComponent,
     BaseFormComponent,
+    BaseNavMenuComponent,
+    AboutComponent,
+    TimeClockComponent,
+    AddressRowComponent,
+    ButtonRowComponent,
+    DateRowComponent,
+    InputRowComponent,
+    PhoneRowComponent,
+    SelectRowComponent,
     LoginComponent,
     ServiceCallComponent,
     CustomerFindComponent,
@@ -54,14 +65,6 @@ import { PosPopupComponent } from './pos-popup/pos-popup.component';
     PosPopupComponent
   ],
   imports: [
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-    }),
-
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -69,7 +72,6 @@ import { PosPopupComponent } from './pos-popup/pos-popup.component';
     NgSelectModule,
     NgbModule,
     WebcamModule,
-    BDirModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'Entrance', component: LoginComponent/*, canActivate: [AuthorizeGuard]*/ },
@@ -79,12 +81,11 @@ import { PosPopupComponent } from './pos-popup/pos-popup.component';
       { path: 'edit-service-call', component: EditServiceCallComponent/*, canActivate: [AuthorizeGuard]*/ },
       { path: 'customer-register', component: CustomerRegisterComponent/*, canActivate: [AuthorizeGuard]*/ }
     ]),
-
-    DeviceDetectorModule.forRoot()
   ],
   providers: [
-    HttpClient, UGenericsService, UDbService, UGmapsService, ULocalization, UfwInterface,
-    NavMenuComponent
+    HttpClient,
+    UDbService, UGmapsService, UGenericsService,
+    UResponsiveService, ULocalization, UfwInterface
   ],
   bootstrap: [AppComponent],
   entryComponents: [PosPopupComponent, TakePhotoComponent]

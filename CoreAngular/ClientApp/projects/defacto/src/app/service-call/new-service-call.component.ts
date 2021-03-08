@@ -48,18 +48,18 @@ export class NewServiceCallComponent extends BaseFormComponent
 
   }
 
-  onVendorChange(event) {
-    event.currentTarget.blur();;
+  onVendorChange() {
+    //event.currentTarget.blur();;
   }
 
   //=================================================================================
   ngOnInit(): void {
-    var eid_to_remove = this.ugs.isMobileLayout() ? "eid_desktop" : "eid_mobile";
+    var eid_to_remove = this.ursp.isMobileLayout() ? "eid_desktop" : "eid_mobile";
     var element = document.getElementById(eid_to_remove);
     if (element) element.parentNode.removeChild(element);
   }
 
-  onChange(event) {
+  onChange() {
     this.itemTypes = this.selectedTicketType.ItemTypeList;
     this.selectedItemType = this.itemTypes[0];
     this.requestReasons = this.selectedTicketType.ReasonList;

@@ -1,5 +1,5 @@
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 
@@ -11,7 +11,8 @@ import { UGenericsService } from '../../../../angular-toolkit/src/public-api';
 
 export class ServerInterface {
 
-  constructor (private http: HttpClient,
+
+  constructor(private http: HttpClient, @Inject('BASE_URL') public baseUrl,
                private ugs: UGenericsService) {
   }
 
@@ -107,12 +108,12 @@ export class ServerInterface {
 
 
   public Post(service: string, params: any = ''): Promise<any> {
-    var url = this.ugs.getEndpointUrl("DeFacto4443") + this.controllerName() + service;
+    var url = this.getEndpointUrl("DeFacto4443") + this.controllerName() + service;
 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     
-    let TO: any = this.ugs.getEndpointTO("DeFacto4443");
+    let TO: any = this.getEndpointTO("DeFacto4443");
     const promise = this.http.post(url, params, { headers }).pipe(timeout(TO)).toPromise();
     return promise.then((result: any) => {
       if (result.ErrorCode === 0) return result;
@@ -141,7 +142,7 @@ export class ServerInterface {
       formData.append(fileToUpload.name, fileToUpload, fileToUpload.name);
     }
 
-    const baseUrl = this.ugs.getEndpointUrl("DeFacto4443") + "/";
+    const baseUrl = this.getEndpointUrl("DeFacto4443") + "/";
 
     const httpOptions: any = {
       responseType: 'text',
@@ -209,5 +210,36 @@ export class ServerInterface {
     localStorage.setItem("UserName", '');
     localStorage.setItem("UserAccountSysId", '');
     localStorage.setItem("SysContext", '');
+  }
+
+  //=================================================================================
+  getEndpointUrl(endpointName) {
+    if (!endpointName) return this.baseUrl;
+    let endpoints = localStorage.getItem('Endpoints');
+    if (!endpoints) return this.baseUrl;
+
+    let endpointsJSON = JSON.parse(endpoints);
+    for (let i = 0; i < endpointsJSON.length; i++) {
+      if (endpointsJSON[i].EndpointName !== endpointName) continue;
+      return endpointsJSON[i].EndpointUrl;
+    }
+
+    return this.baseUrl
+  }
+
+
+  //=================================================================================
+  getEndpointTO(endpointName) {
+    if (!endpointName) return 30 * 1000;
+    let endpoints = localStorage.getItem('Endpoints');
+    if (!endpoints) return this.baseUrl;
+
+    let endpointsJSON = JSON.parse(endpoints);
+    for (let i = 0; i < endpointsJSON.length; i++) {
+      if (endpointsJSON[i].EndpointName !== endpointName) continue;
+      return Number(endpointsJSON[i].Timeout) * 1000;
+    }
+
+    return 30 * 1000;
   }
 }

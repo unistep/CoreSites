@@ -46,5 +46,12 @@ export class BaseNavMenuComponent {
   public onAbout() {
     $('#about-modal').modal('show');
   }
+
+  public onLogout() {
+  }
+
+  public onAboutDone() {
+    $("#about-modal .close").click()
+  }
 }
 

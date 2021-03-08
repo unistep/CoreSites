@@ -44,6 +44,7 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
     AppMenuComponent,
     HomeComponent,
     BaseFormComponent,
+    BaseNavMenuComponent,
     CounterComponent,
     FetchDataComponent,
     TimeClockComponent,
@@ -63,6 +64,7 @@ import { ShoppingCartComponent } from './service-call/shopping-cart.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    //BDirModule,
     ApiAuthorizationModule,
 	  AngularSplitModule.forRoot(),
     RouterModule.forRoot([

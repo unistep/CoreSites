@@ -19,7 +19,7 @@
     <div class="row form-group col-12" style="padding-top:1.5vh;">
       <div class="col-2 input-group" style="white-space: nowrap;">
         <label class="" style="color: white;">{{'Customer' | translate}}:</label>
-        <label id='eid_customer_name' style="padding-left:.5vw;padding-right:.5vw;color: white;">{{this.ugs.queryParam("customerName")}}</label>
+        <label id='eid_customer_name' style="padding-left:.5vw;padding-right:.5vw;color: white;">{{this.ugs.queryItem("customerName")}}</label>
       </div>
       <div class="col-2 input-group">
         <label class="" style="color: white;">{{'Ticket_Type' | translate}}</label>
@@ -48,7 +48,7 @@
                    [clearable]="false"
                    bindLabel="Description"
                    [(ngModel)]="selectedTicketType"
-                   (change)="onChange(item)"
+                   (change)="onChange()"
                    [searchable]="false">
         </ng-select>
       </div>
@@ -78,7 +78,7 @@
                    [items]="vendors"
                    [clearable]="false"
                    bindLabel="Description"
-                   (change)="onVendorChange(item)"
+                   (change)="onVendorChange()"
                    [(ngModel)]="selectedVendor">
         </ng-select>
       </div>
@@ -229,7 +229,7 @@
       <div class="col-6" style="-webkit-padding-start:10vw;">
         <div class="row input-group" style="white-space: nowrap !important;">
           <label style="color: white; white-space: nowrap !important;">
-            {{'Customer' | translate}}:{{this.ugs.queryParam("customerName")}}
+            {{'Customer' | translate}}:{{this.ugs.queryItem("customerName")}}
           </label>
         </div>
         <div class="row input-group" style="white-space: nowrap !important;">
@@ -249,7 +249,7 @@
                    [clearable]="false"
                    bindLabel="Description"
                    [(ngModel)]="selectedTicketType"
-                   (change)="onChange(item)"
+                   (change)="onChange()"
                    [searchable]="false">
         </ng-select>
       </div>

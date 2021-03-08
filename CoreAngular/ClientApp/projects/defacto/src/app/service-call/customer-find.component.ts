@@ -86,7 +86,7 @@ export class CustomerFindComponent extends BaseFormComponent implements OnInit, 
 
   //=================================================================================
   ngOnInit(): void {
-    var eid_to_remove = this.ugs.isMobileLayout() ? "eid_desktop" : "eid_mobile";
+    var eid_to_remove = this.ursp.isMobileLayout() ? "eid_desktop" : "eid_mobile";
     var element = document.getElementById(eid_to_remove);
     if (element) element.parentNode.removeChild(element);
   }

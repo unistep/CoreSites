@@ -31,7 +31,7 @@ export class EditServiceCallComponent extends BaseFormComponent implements OnIni
   initDone: boolean = false;
 
   public MemberPhone: string = "";
-  private isAllowEdit: boolean = true;
+  public isAllowEdit: boolean = true;
 
   constructor(injector: Injector,
     public trs: ServerInterface,
@@ -47,7 +47,7 @@ export class EditServiceCallComponent extends BaseFormComponent implements OnIni
 
   //=================================================================================
   ngOnInit(): void {
-    var eid_to_remove = this.ugs.isMobileLayout() ? "eid_desktop" : "eid_mobile";
+    var eid_to_remove = this.ursp.isMobileLayout() ? "eid_desktop" : "eid_mobile";
     var element = document.getElementById(eid_to_remove);
     if (element) element.parentNode.removeChild(element);
   }
@@ -491,7 +491,7 @@ export class EditServiceCallComponent extends BaseFormComponent implements OnIni
 
   OnPhoto() {
     if (!this.isAllowEdit) return;
-    if (!this.ugs.isMobileLayout()) this.OnPhotoDesktop();
+    if (!this.ursp.isMobileLayout()) this.OnPhotoDesktop();
     else this.OnPhotoMobile();
   }
 

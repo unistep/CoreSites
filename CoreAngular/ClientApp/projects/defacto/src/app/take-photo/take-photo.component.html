@@ -3,7 +3,7 @@
            [rightButton]="{class:'btn df_button_green save_button', text: 'Save' | translate}"
            (rightClick)="closeModal()"
            [leftButton]="{class:'btn df_button_gray', text: 'Exit' | translate}"
-           (leftClick)="close()">
+           (leftClick)="close(false)">
   <div class="camera-blc">
     <webcam [trigger]="triggerObservable"
             (imageCapture)="handleImage($event)"

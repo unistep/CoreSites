@@ -29,7 +29,7 @@
         <div class="input-group">
           <label class="col-3 label-align-opposite" style="color:white;">{{'Cellular' | translate}}</label>
           <input class="col-3 df_input" id="eid_cellular" type="text" style="height:7vh; width:14vw;"
-                 value="{{this.ugs.queryParam('phoneNumber')}}" />
+                 value="{{this.ugs.queryItem('phoneNumber')}}" />
           <label class="col-3 label-align-opposite" style="color:white;">{{'Date_Of_Birth' | translate}}</label>
           <div class="col-3" style="white-space:nowrap !important;">
             <div class="col-12 " style="margin-right:-2vw;margin-left:0; white-space:nowrap !important;">
@@ -94,7 +94,7 @@
           {{'Cellular' | translate}}
         </label>
         <input class="col-8 df_input" id="eid_cellular" type="text" style="height:6vh; width:28vw;"
-               value="{{this.ugs.queryParam('phoneNumber')}}" />
+               value="{{this.ugs.queryItem('phoneNumber')}}" />
       </div>
       <div class="row input-group col-12" style="padding-top:1vh;">
         <label class="col-4 label-align-opposite" style="padding-top:2vh;color:white;">

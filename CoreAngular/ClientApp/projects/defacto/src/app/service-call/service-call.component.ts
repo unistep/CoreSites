@@ -2,7 +2,7 @@
 import { Component, Injector, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { BaseFormComponent } from '../../../../angular-toolkit/src/public-api';
 import { ServerInterface } from '../services/server-interface';
-import { NavMenuComponent } from '../nav-menu/nav-menu.component';
+import { AppMenuComponent } from '../app-menu/app-menu.component';
 
 import * as $ from 'jquery';
 declare var $: any;
@@ -35,7 +35,7 @@ export class ServiceCallComponent extends BaseFormComponent
 
   constructor(injector: Injector,
     public trs: ServerInterface,
-    public navBar: NavMenuComponent) {
+    public navBar: AppMenuComponent) {
     super(injector);
 
     var _primeTickeType = this.ugs.getLocalStorageItem("primeTicketType");
@@ -533,7 +533,7 @@ export class ServiceCallComponent extends BaseFormComponent
   }
 
 
-  async OnAboutDone(confirm) {
+  async onAboutDone(confirm) {
     $("#about-modal .close").click()
   }
 
@@ -554,7 +554,7 @@ export class ServiceCallComponent extends BaseFormComponent
 
   //=================================================================================
 	ngOnInit(): void {
-    var eid_to_remove = this.ugs.isMobileLayout() ? "eid_desktop" : "eid_mobile";
+    var eid_to_remove = this.ursp.isMobileLayout() ? "eid_desktop" : "eid_mobile";
     var element = document.getElementById(eid_to_remove);
     if (element) element.parentNode.removeChild(element);
   }
@@ -635,7 +635,7 @@ export class ServiceCallComponent extends BaseFormComponent
 
     const result: any = await this.trs.CreatePDFReport(query);
     if (result) {
-      if (this.ugs.deviceDetector.isDesktop()) {
+      if (this.ursp.deviceDetector.isDesktop()) {
         window.open(result.PDFURL);
       }
       else {

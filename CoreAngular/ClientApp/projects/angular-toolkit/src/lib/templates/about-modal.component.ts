@@ -11,7 +11,7 @@ declare var $: any;
 export class AboutComponent {
   @Input() version: string;
 
-  public OnAboutDone() {
+  public onAboutDone() {
     $("#about-modal .close").click()
   }
 }

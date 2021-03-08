@@ -84,7 +84,7 @@ export class TakePhotoComponent implements AfterViewInit {
     //this.cmd(CommandId.Ok, this.closeModal.bind(this), () => this.images.length > 0);
   }
 
-  private closeModal() {   
+  public closeModal() {   
     this.close(true, this.images.map(x=>x.Data));
   }
 
