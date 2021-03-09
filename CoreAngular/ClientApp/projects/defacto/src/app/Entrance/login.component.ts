@@ -1,6 +1,6 @@
 
 import { Component, Injector, AfterViewInit } from '@angular/core';
-import { BaseNavMenuComponent } from '../../../../angular-toolkit/src/public-api';
+import { AppMenuComponent } from '../app-menu/app-menu.component';
 import { BaseFormComponent } from '../../../../angular-toolkit/src/public-api';
 import { ServerInterface } from '../services/server-interface';
 
@@ -16,7 +16,7 @@ declare var $: any;
 export class LoginComponent extends BaseFormComponent implements  AfterViewInit {
   constructor(injector: Injector,
     private trs: ServerInterface,
-    public navBar: BaseNavMenuComponent) {
+    public navBar: AppMenuComponent) {
     super(injector);
     navBar.onLogout();
   }

@@ -85,7 +85,7 @@ import { PosPopupComponent } from './pos-popup/pos-popup.component';
   providers: [
     HttpClient,
     UDbService, UGmapsService, UGenericsService,
-    UResponsiveService, ULocalization, UfwInterface
+    UResponsiveService, ULocalization, UfwInterface, AppMenuComponent
   ],
   bootstrap: [AppComponent],
   entryComponents: [PosPopupComponent, TakePhotoComponent]
